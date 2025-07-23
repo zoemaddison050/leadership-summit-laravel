@@ -1,0 +1,52 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: leadership-summit-laravel
+    container_name: leadership-summit-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - leadership-summit-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: leadership-summit-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - leadership-summit-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: leadership-summit-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: leadership_summit
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_PASSWORD: leadership_summit_password
+      MYSQL_USER: leadership_summit
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - leadership-summit-mysql:/var/lib/mysql
+    networks:
+      - leadership-summit-network
+
+networks:
+  leadership-summit-network:
+    driver: bridge
+
+volumes:
+  leadership-summit-mysql:
+    driver: local
