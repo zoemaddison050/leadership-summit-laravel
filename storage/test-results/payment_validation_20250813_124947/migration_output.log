@@ -1,0 +1,42 @@
+
+  Dropping all tables ....................................... 21ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table ................................... 3ms DONE
+
+   INFO  Loading stored database schemas.  
+
+  database/schema/sqlite-schema.sql ......................... 66ms DONE
+
+   INFO  Running migrations.  
+
+  2025_08_05_210737_add_admin_tracking_fields_to_registrations_table  5ms DONE
+  2025_08_06_122206_add_is_default_to_events_table ........... 2ms DONE
+  2025_08_06_122234_create_wallet_settings_table ............. 4ms DONE
+  2025_08_10_200032_add_missing_columns_to_tickets_table ..... 3ms DONE
+  2025_08_11_185009_add_payment_tracking_fields_to_registrations_table  15ms DONE
+  2025_08_11_185155_create_unipayment_settings_table ......... 2ms DONE
+  2025_08_11_185354_create_payment_transactions_table ........ 6ms DONE
+
+
+   INFO  Seeding database.  
+
+  Database\Seeders\RoleSeeder ................................. RUNNING  
+  Database\Seeders\RoleSeeder ............................... 6 ms DONE  
+
+  Database\Seeders\UserSeeder ................................. RUNNING  
+  Database\Seeders\UserSeeder ........................... 3,450 ms DONE  
+
+  Database\Seeders\EventSeeder ................................ RUNNING  
+  Database\Seeders\EventSeeder ............................. 10 ms DONE  
+
+  Database\Seeders\SpeakerSeeder .............................. RUNNING  
+  Database\Seeders\SpeakerSeeder ........................... 21 ms DONE  
+
+  Database\Seeders\PageSeeder ................................. RUNNING  
+  Database\Seeders\PageSeeder ............................... 4 ms DONE  
+
+  Database\Seeders\MediaSeeder ................................ RUNNING  
+  Database\Seeders\MediaSeeder .............................. 0 ms DONE  
+

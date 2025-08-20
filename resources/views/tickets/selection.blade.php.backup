@@ -1,0 +1,443 @@
+@extends('layouts.app')
+
+@section('title', 'Select Tickets - ' . $event->title)
+
+@push('styles')
+<style>
+    .event-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 3rem;
+    }
+
+    .ticket-selection-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .ticket-card {
+        border: 2px solid #e9ecef;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        background: white;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .ticket-card:hover {
+        border-color: var(--primary-color);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .ticket-card.selected {
+        border-color: var(--primary-color);
+        background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.05), rgba(var(--secondary-color-rgb), 0.05));
+    }
+
+    .ticket-price {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    .ticket-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .ticket-description {
+        color: #666;
+        margin-bottom: 1rem;
+    }
+
+    .ticket-availability {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .availability-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+        border: 2px solid #e9ecef;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .quantity-btn {
+        background: #f8f9fa;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .quantity-btn:hover {
+        background: #e9ecef;
+    }
+
+    .quantity-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .quantity-input {
+        border: none;
+        text-align: center;
+        width: 60px;
+        padding: 0.5rem;
+        font-weight: 600;
+    }
+
+    .ticket-total {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .order-summary {
+        background: #f8f9fa;
+        border-radius: 1rem;
+        padding: 2rem;
+        position: sticky;
+        top: 2rem;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .summary-item:last-child {
+        border-bottom: none;
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: var(--primary-color);
+    }
+
+    .continue-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .sold-out-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #dc3545;
+    }
+
+    @media (max-width: 768px) {
+        .event-header {
+            padding: 2rem 0;
+        }
+
+        .ticket-card {
+            padding: 1.5rem;
+        }
+
+        .order-summary {
+            position: static;
+            margin-top: 2rem;
+        }
+    }
+</style>
+@endpush
+
+@section('content')
+<!-- Event Header -->
+<div class="event-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="mb-2">{{ $event->title }}</h1>
+                <p class="mb-3 opacity-75">{{ Str::limit($event->description, 150) }}</p>
+                <div class="d-flex align-items-center gap-3">
+                    <span>
+                        <i class="fas fa-calendar me-1" aria-hidden="true"></i>
+                        {{ $event->start_date->format('l, F j, Y') }}
+                    </span>
+                    <span>
+                        <i class="fas fa-clock me-1" aria-hidden="true"></i>
+                        {{ $event->start_date->format('g:i A') }}
+                    </span>
+                    @if($event->location)
+                    <span>
+                        <i class="fas fa-map-marker-alt me-1" aria-hidden="true"></i>
+                        {{ $event->location }}
+                    </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="ticket-selection-container">
+        @if($tickets->count() > 0)
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="mb-4">Select Your Tickets</h2>
+
+                <form id="ticketForm" action="{{ route('registration.process', $event) }}" method="POST">
+                    @csrf
+
+                    @foreach($tickets as $ticket)
+                    <div class="ticket-card" data-ticket-id="{{ $ticket->id }}" data-price="{{ $ticket->price }}">
+                        @if($ticket->capacity && $ticket->available <= 0)
+                            <div class="sold-out-overlay">
+                            <div>
+                                <i class="fas fa-times-circle me-2" aria-hidden="true"></i>
+                                SOLD OUT
+                            </div>
+                    </div>
+                    @endif
+
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="ticket-name">{{ $ticket->name }}</div>
+
+                            @if($ticket->description)
+                            <div class="ticket-description">{{ $ticket->description }}</div>
+                            @endif
+
+                            <div class="ticket-availability">
+                                @if($ticket->capacity)
+                                @if($ticket->available > 0)
+                                @if($ticket->available <= 10)
+                                    <span class="availability-badge bg-warning text-dark">
+                                    Only {{ $ticket->available }} left
+                                    </span>
+                                    @else
+                                    <span class="availability-badge bg-success text-white">
+                                        {{ $ticket->available }} available
+                                    </span>
+                                    @endif
+                                    @else
+                                    <span class="availability-badge bg-danger text-white">
+                                        Sold Out
+                                    </span>
+                                    @endif
+                                    @else
+                                    <span class="availability-badge bg-info text-white">
+                                        Unlimited
+                                    </span>
+                                    @endif
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-end">
+                            <div class="ticket-price">
+                                @if($ticket->price > 0)
+                                ${{ number_format($ticket->price, 2) }}
+                                @else
+                                Free
+                                @endif
+                            </div>
+
+                            @if(!$ticket->capacity || $ticket->available > 0)
+                            <div class="quantity-selector">
+                                <span class="me-2">Quantity:</span>
+                                <div class="quantity-controls">
+                                    <button type="button" class="quantity-btn" onclick="changeQuantity({{ $ticket->id }}, -1);">
+                                        <i class="fas fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                    <input type="number" class="quantity-input"
+                                        id="quantity_{{ $ticket->id }}"
+                                        name="tickets[{{ $ticket->id }}]"
+                                        value="0" min="0"
+                                        max="{{ $ticket->capacity ? $ticket->available : 10 }}"
+                                        onchange="updateQuantity({{ $ticket->id }});">
+                                    <button type="button" class="quantity-btn" onclick="changeQuantity({{ $ticket->id }}, 1);"
+                                        <i class="fas fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="ticket-total mt-2" id="total_{{ $ticket->id }}" style="display: none;">
+                                Total: $<span id="total_amount_{{ $ticket->id }}">0.00</span>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+            </div>
+            @endforeach
+            </form>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="order-summary">
+                <h3 class="mb-3">Order Summary</h3>
+
+                <div id="summaryItems">
+                    <div class="text-muted text-center py-3">
+                        No tickets selected
+                    </div>
+                </div>
+
+                <div class="summary-item" id="totalRow" style="display: none;">
+                    <span>Total:</span>
+                    <span id="grandTotal">$0.00</span>
+                </div>
+
+                <button type="submit" form="ticketForm" class="btn btn-primary continue-btn" id="continueBtn" disabled>
+                    <i class="fas fa-arrow-right me-2" aria-hidden="true"></i>
+                    Continue to Registration
+                </button>
+
+                <div class="mt-3 text-center">
+                    <small class="text-muted">
+                        <i class="fas fa-lock me-1" aria-hidden="true"></i>
+                        Secure checkout powered by SSL
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    @else
+    <!-- No Tickets Available -->
+    <div class="text-center py-5">
+        <i class="fas fa-ticket-alt fa-3x text-muted mb-3" aria-hidden="true"></i>
+        <h3>No Tickets Available</h3>
+        <p class="text-muted mb-4">Ticket sales for this event are not currently available.</p>
+        <a href="{{ route('events.show', $event) }}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>Back to Event Details
+        </a>
+    </div>
+    @endif
+</div>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let selectedTickets = {};
+
+        window.changeQuantity = function(ticketId, change) {
+            const input = document.getElementById(`quantity_${ticketId}`);
+            const currentValue = parseInt(input.value) || 0;
+            const newValue = Math.max(0, Math.min(currentValue + change, parseInt(input.max)));
+
+            input.value = newValue;
+            updateQuantity(ticketId);
+        };
+
+        window.updateQuantity = function(ticketId) {
+            const input = document.getElementById(`quantity_${ticketId}`);
+            const quantity = parseInt(input.value) || 0;
+            const ticketCard = document.querySelector(`[data-ticket-id="${ticketId}"]`);
+            const price = parseFloat(ticketCard.dataset.price);
+            const totalElement = document.getElementById(`total_${ticketId}`);
+            const totalAmountElement = document.getElementById(`total_amount_${ticketId}`);
+
+            // Update individual ticket total
+            if (quantity > 0) {
+                const total = price * quantity;
+                totalAmountElement.textContent = total.toFixed(2);
+                totalElement.style.display = 'block';
+                ticketCard.classList.add('selected');
+                selectedTickets[ticketId] = {
+                    quantity: quantity,
+                    price: price,
+                    name: ticketCard.querySelector('.ticket-name').textContent
+                };
+            } else {
+                totalElement.style.display = 'none';
+                ticketCard.classList.remove('selected');
+                delete selectedTickets[ticketId];
+            }
+
+            updateOrderSummary();
+        };
+
+        function updateOrderSummary() {
+            const summaryItems = document.getElementById('summaryItems');
+            const totalRow = document.getElementById('totalRow');
+            const grandTotal = document.getElementById('grandTotal');
+            const continueBtn = document.getElementById('continueBtn');
+
+            // Clear existing items
+            summaryItems.innerHTML = '';
+
+            let total = 0;
+            let hasItems = false;
+
+            // Add selected tickets to summary
+            for (const [ticketId, ticket] of Object.entries(selectedTickets)) {
+                if (ticket.quantity > 0) {
+                    hasItems = true;
+                    const itemTotal = ticket.price * ticket.quantity;
+                    total += itemTotal;
+
+                    const summaryItem = document.createElement('div');
+                    summaryItem.className = 'summary-item';
+                    summaryItem.innerHTML = `
+                    <div>
+                        <div>${ticket.name}</div>
+                        <small class="text-muted">Qty: ${ticket.quantity} × $${ticket.price.toFixed(2)}</small>
+                    </div>
+                    <span>$${itemTotal.toFixed(2)}</span>
+                `;
+                    summaryItems.appendChild(summaryItem);
+                }
+            }
+
+            if (!hasItems) {
+                summaryItems.innerHTML = '<div class="text-muted text-center py-3">No tickets selected</div>';
+                totalRow.style.display = 'none';
+                continueBtn.disabled = true;
+            } else {
+                grandTotal.textContent = `$${total.toFixed(2)}`;
+                totalRow.style.display = 'flex';
+                continueBtn.disabled = false;
+            }
+        }
+
+        // Initialize quantity controls
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('change', function() {
+                const ticketId = this.name.match(/\[(\d+)\]/)[1];
+                updateQuantity(parseInt(ticketId));
+            });
+        });
+    });
+</script>
+@endpush

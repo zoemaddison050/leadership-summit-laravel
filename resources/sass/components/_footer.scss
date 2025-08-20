@@ -1,0 +1,219 @@
+/* Footer Styles */
+.site-footer {
+  background-color: $primary-color;
+  color: $light-color;
+  font-size: 0.9rem;
+  margin-top: auto;
+
+  .footer-main {
+    padding: 3rem 0 2rem;
+  }
+
+  .footer-logo {
+    .site-title {
+      font-size: 1.5rem;
+      margin-bottom: 0;
+      font-weight: 700;
+
+      a {
+        color: $light-color;
+        text-decoration: none;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+
+  .footer-description {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+  }
+
+  .footer-cta {
+    .btn-primary {
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+      color: $primary-color;
+      font-weight: 600;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: $light-color;
+        border-color: $light-color;
+        color: $primary-color;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .footer-heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $secondary-color;
+  }
+
+  .footer-menu {
+    li {
+      margin-bottom: 0.5rem;
+
+      a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+
+  .contact-info {
+    ul {
+      li {
+        margin-bottom: 0.75rem;
+
+        i {
+          color: $secondary-color;
+          width: 20px;
+        }
+
+        a {
+          color: rgba(255, 255, 255, 0.8);
+          text-decoration: none;
+
+          &:hover {
+            color: $secondary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: $light-color;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: $secondary-color;
+        color: $primary-color;
+        transform: translateY(-2px);
+      }
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .newsletter {
+    .newsletter-heading {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: $light-color;
+    }
+
+    .newsletter-form {
+      .input-group {
+        .form-control {
+          border: none;
+          border-radius: 25px 0 0 25px;
+          padding: 0.75rem 1rem;
+          background-color: rgba(255, 255, 255, 0.1);
+          color: $light-color;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+          }
+
+          &:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: $secondary-color;
+            box-shadow: none;
+            color: $light-color;
+          }
+        }
+
+        .btn {
+          border-radius: 0 25px 25px 0;
+          background-color: $secondary-color;
+          border-color: $secondary-color;
+          color: $primary-color;
+          padding: 0.75rem 1rem;
+
+          &:hover {
+            background-color: $light-color;
+            border-color: $light-color;
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
+
+    .copyright {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 0;
+    }
+
+    .footer-legal {
+      a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        margin: 0 0.5rem;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+
+      .separator {
+        color: rgba(255, 255, 255, 0.4);
+        margin: 0 0.25rem;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 767.98px) {
+  .site-footer {
+    .footer-main {
+      padding: 2rem 0 1.5rem;
+    }
+
+    .footer-legal {
+      text-align: center !important;
+      margin-top: 1rem;
+    }
+
+    .social-links {
+      justify-content: center;
+    }
+  }
+}

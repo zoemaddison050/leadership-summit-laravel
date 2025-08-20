@@ -1,0 +1,69 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leadership-summit-staging
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./storage:/var/www/storage
+    networks:
+      - leadership-summit-staging
+    environment:
+      - APP_ENV=staging
+      - APP_DEBUG=false
+      - APP_URL=https://staging.leadershipsummit.com
+    depends_on:
+      - db
+      - redis
+
+  nginx:
+    image: nginx:alpine
+    container_name: leadership-summit-staging-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/staging:/etc/nginx/conf.d
+      - ./docker/ssl:/etc/ssl/certs
+    networks:
+      - leadership-summit-staging
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: leadership-summit-staging-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: leadership_summit_staging
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - staging_dbdata:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - leadership-summit-staging
+
+  redis:
+    image: redis:alpine
+    container_name: leadership-summit-staging-redis
+    restart: unless-stopped
+    networks:
+      - leadership-summit-staging
+
+volumes:
+  staging_dbdata:
+    driver: local
+
+networks:
+  leadership-summit-staging:
+    driver: bridge

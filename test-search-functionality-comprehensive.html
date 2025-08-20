@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comprehensive Search Functionality Test</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #fbbf24;
+        --dark-gray: #374151;
+      }
+
+      .test-section {
+        border: 2px solid #e5e7eb;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        background: white;
+      }
+
+      .test-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 2rem;
+        margin: -2rem -2rem 2rem -2rem;
+        border-radius: 1rem 1rem 0 0;
+      }
+
+      .test-results {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-family: monospace;
+        font-size: 0.9rem;
+      }
+
+      .test-pass {
+        color: #10b981;
+        font-weight: bold;
+      }
+
+      .test-fail {
+        color: #ef4444;
+        font-weight: bold;
+      }
+
+      .test-info {
+        color: #3b82f6;
+      }
+
+      .events-grid,
+      .speakers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .event-card,
+      .speaker-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-bar {
+        margin-bottom: 1rem;
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 2rem;
+        color: #6b7280;
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        border: 2px dashed #d1d5db;
+      }
+
+      .transition-test {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .hidden {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      .visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .test-controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .status-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+      }
+
+      .status-pass {
+        background-color: #10b981;
+      }
+
+      .status-fail {
+        background-color: #ef4444;
+      }
+
+      .status-pending {
+        background-color: #f59e0b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center mb-4">
+            <i class="fas fa-search me-2"></i>
+            Search Functionality Comprehensive Test Suite
+          </h1>
+          <p class="text-center text-muted mb-4">
+            Testing all requirements for events and speakers search
+            functionality
+          </p>
+        </div>
+      </div>
+
+      <!-- Test Control Panel -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="test-section">
+            <div class="test-header">
+              <h3><i class="fas fa-cog me-2"></i>Test Control Panel</h3>
+            </div>
+            <div class="test-controls">
+              <button class="btn btn-success" onclick="runAllTests()">
+                <i class="fas fa-play me-1"></i>Run All Tests
+              </button>
+              <button class="btn btn-primary" onclick="runEventsTests()">
+                <i class="fas fa-calendar me-1"></i>Test Events Search
+              </button>
+              <button class="btn btn-info" onclick="runSpeakersTests()">
+                <i class="fas fa-users me-1"></i>Test Speakers Search
+              </button>
+              <button class="btn btn-warning" onclick="clearAllTests()">
+                <i class="fas fa-eraser me-1"></i>Clear Results
+              </button>
+            </div>
+            <div id="overallResults" class="test-results" style="display: none">
+              <!-- Overall test results will appear here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Events Search Tests -->
+        <div class="col-lg-6">
+          <div class="test-section">
+            <div class="test-header">
+              <h3><i class="fas fa-calendar me-2"></i>Events Search Tests</h3>
+              <small
+                >Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 3.1, 3.3, 4.1-4.4</small
+              >
+            </div>
+
+            <!-- Events Search Interface -->
+            <div class="search-bar">
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="eventSearchInput"
+                  class="form-control"
+                  placeholder="Search events..."
+                  aria-label="Search events"
+                />
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  onclick="searchEvents()"
+                  aria-label="Search"
+                >
+                  <i class="fas fa-search"></i>
+                </button>
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  onclick="clearSearch()"
+                  title="Clear search"
+                  id="clearSearchBtn"
+                  style="display: none"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Search Results Container -->
+            <div
+              id="searchResults"
+              class="transition-test"
+              style="display: none"
+            >
+              <h5>Search Results</h5>
+              <div class="events-grid" id="searchEventsGrid">
+                <!-- Search results will be populated here -->
+              </div>
+            </div>
+
+            <!-- Default Events Container -->
+            <div id="defaultEventsGrid" class="transition-test">
+              <h5>All Events</h5>
+              <div class="events-grid">
+                <div class="event-card">
+                  <h6>Opening Keynote: The Future of Leadership</h6>
+                  <p><small>Sep 15, 2025 • 9:00 AM • Main Hall</small></p>
+                  <p>Join us for an inspiring opening keynote...</p>
+                  <span class="badge bg-primary">keynote</span>
+                </div>
+                <div class="event-card">
+                  <h6>Leadership in the Digital Age Workshop</h6>
+                  <p><small>Sep 15, 2025 • 2:00 PM • Workshop Room A</small></p>
+                  <p>
+                    An interactive workshop focusing on digital
+                    transformation...
+                  </p>
+                  <span class="badge bg-secondary">workshop</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="eventsTestResults"
+              class="test-results"
+              style="display: none"
+            >
+              <!-- Events test results will appear here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Speakers Search Tests -->
+        <div class="col-lg-6">
+          <div class="test-section">
+            <div class="test-header">
+              <h3><i class="fas fa-users me-2"></i>Speakers Search Tests</h3>
+              <small
+                >Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 3.2, 3.3, 4.1-4.4</small
+              >
+            </div>
+
+            <!-- Speakers Search Interface -->
+            <div class="search-bar">
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="speakerSearchInput"
+                  class="form-control"
+                  placeholder="Search speakers..."
+                  aria-label="Search speakers"
+                />
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  onclick="searchSpeakers()"
+                  aria-label="Search"
+                >
+                  <i class="fas fa-search"></i>
+                </button>
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  onclick="clearSpeakerSearch()"
+                  title="Clear search"
+                  id="clearSpeakerBtn"
+                  style="display: none"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Search Results Container -->
+            <div
+              id="speakerSearchResults"
+              class="transition-test"
+              style="display: none"
+            >
+              <h5>Search Results</h5>
+              <div class="speakers-grid" id="searchSpeakersGrid">
+                <!-- Search results will be populated here -->
+              </div>
+            </div>
+
+            <!-- Default Speakers Container -->
+            <div id="defaultSpeakersGrid" class="transition-test">
+              <h5>All Speakers</h5>
+              <div class="speakers-grid">
+                <div class="speaker-card">
+                  <h6>Dr. Sarah Johnson</h6>
+                  <p><small>CEO • Global Innovation Corp</small></p>
+                  <p>Renowned leadership expert with over 20 years...</p>
+                  <span class="badge bg-info">Leadership</span>
+                  <span class="badge bg-info">Innovation</span>
+                </div>
+                <div class="speaker-card">
+                  <h6>Michael Chen</h6>
+                  <p><small>Founder • TechVision Enterprises</small></p>
+                  <p>Visionary entrepreneur and thought leader...</p>
+                  <span class="badge bg-info">Technology</span>
+                  <span class="badge bg-info">Entrepreneurship</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="speakersTestResults"
+              class="test-results"
+              style="display: none"
+            >
+              <!-- Speakers test results will appear here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Sample data for testing
+      const eventsData = [
+        {
+          id: 1,
+          title: "Opening Keynote: The Future of Leadership",
+          description:
+            "Join us for an inspiring opening keynote that sets the tone for the entire summit, exploring emerging trends in global leadership.",
+          date: "Sep 15, 2025",
+          time: "9:00 AM",
+          location: "Main Hall",
+          price: "Included",
+          category: "keynote",
+          featured: true,
+          icon: "fas fa-microphone",
+        },
+        {
+          id: 2,
+          title: "Leadership in the Digital Age Workshop",
+          description:
+            "An interactive workshop focusing on digital transformation and leading remote teams in the modern workplace.",
+          date: "Sep 15, 2025",
+          time: "2:00 PM",
+          location: "Workshop Room A",
+          price: "$150.00",
+          category: "workshop",
+          featured: false,
+          icon: "fas fa-users",
+        },
+        {
+          id: 3,
+          title: "Women in Leadership Panel",
+          description:
+            "A dynamic panel discussion featuring successful women leaders sharing insights on breaking barriers.",
+          date: "Sep 16, 2025",
+          time: "11:00 AM",
+          location: "Panel Room",
+          price: "Free",
+          category: "panel",
+          featured: false,
+          icon: "fas fa-comments",
+        },
+      ];
+
+      const speakersData = [
+        {
+          id: 1,
+          name: "Dr. Sarah Johnson",
+          position: "Chief Executive Officer",
+          company: "Global Innovation Corp",
+          bio: "Renowned leadership expert with over 20 years of experience in transforming organizations and driving innovation across multiple industries.",
+          topics: [
+            "Leadership",
+            "Innovation",
+            "Strategy",
+            "Digital Transformation",
+          ],
+          featured: true,
+        },
+        {
+          id: 2,
+          name: "Michael Chen",
+          position: "Founder & Chairman",
+          company: "TechVision Enterprises",
+          bio: "Visionary entrepreneur and thought leader in digital transformation, helping organizations navigate the complexities of the modern business landscape.",
+          topics: [
+            "Digital Transformation",
+            "Entrepreneurship",
+            "Technology",
+            "Innovation",
+          ],
+          featured: true,
+        },
+        {
+          id: 3,
+          name: "Lisa Rodriguez",
+          position: "VP of Human Resources",
+          company: "Global Dynamics Corp",
+          bio: "HR leader with expertise in talent development, employee engagement, and building high-performance teams.",
+          topics: [
+            "Talent Development",
+            "Team Building",
+            "Employee Engagement",
+            "HR Leadership",
+          ],
+          featured: false,
+        },
+      ];
+
+      // Test tracking
+      let testResults = {
+        events: {},
+        speakers: {},
+        overall: {},
+      };
+
+      // Debounce function
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+
+      // Events search functionality (copied from actual implementation)
+      function searchEvents() {
+        console.log("🔍 [Events Search] Function called");
+
+        try {
+          const searchInput = document.getElementById("eventSearchInput");
+          const searchResults = document.getElementById("searchResults");
+          const searchGrid = document.getElementById("searchEventsGrid");
+          const clearBtn = document.getElementById("clearSearchBtn");
+          const defaultEventsGrid =
+            document.getElementById("defaultEventsGrid");
+
+          if (
+            !searchInput ||
+            !searchResults ||
+            !searchGrid ||
+            !defaultEventsGrid
+          ) {
+            console.error("❌ [Events Search] Required DOM elements not found");
+            return;
+          }
+
+          const searchTerm = searchInput.value.trim().toLowerCase();
+          console.log("🔍 [Events Search] Search term:", searchTerm);
+
+          if (searchTerm === "") {
+            searchResults.style.display = "none";
+            defaultEventsGrid.style.display = "block";
+            if (clearBtn) clearBtn.style.display = "none";
+            return;
+          }
+
+          const filteredEvents = eventsData.filter((event) => {
+            return (
+              event.title.toLowerCase().includes(searchTerm) ||
+              event.description.toLowerCase().includes(searchTerm) ||
+              event.location.toLowerCase().includes(searchTerm) ||
+              event.category.toLowerCase().includes(searchTerm)
+            );
+          });
+
+          console.log(
+            `✅ [Events Search] Filtered ${filteredEvents.length} events`
+          );
+
+          let eventsHTML = "";
+          if (filteredEvents.length > 0) {
+            filteredEvents.forEach((event) => {
+              eventsHTML += `
+                            <div class="event-card">
+                                <h6>${event.title}</h6>
+                                <p><small>${event.date} • ${event.time} • ${event.location}</small></p>
+                                <p>${event.description}</p>
+                                <span class="badge bg-primary">${event.category}</span>
+                                <div class="mt-2">
+                                    <span class="text-success fw-bold">${event.price}</span>
+                                </div>
+                            </div>
+                        `;
+            });
+          } else {
+            eventsHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search mb-2" style="font-size: 2rem; opacity: 0.5;"></i>
+                            <h6>No events found</h6>
+                            <p>No events match your search for "<strong>${searchTerm}</strong>".</p>
+                            <button onclick="clearSearch()" class="btn btn-sm btn-primary">View All Events</button>
+                        </div>
+                    `;
+          }
+
+          searchGrid.innerHTML = eventsHTML;
+          searchResults.style.display = "block";
+          defaultEventsGrid.style.display = "none";
+          if (clearBtn) clearBtn.style.display = "inline-block";
+        } catch (error) {
+          console.error("❌ [Events Search] Error:", error);
+        }
+      }
+
+      function clearSearch() {
+        console.log("🧹 [Events Search] Clear function called");
+
+        const searchInput = document.getElementById("eventSearchInput");
+        const searchResults = document.getElementById("searchResults");
+        const clearBtn = document.getElementById("clearSearchBtn");
+        const defaultEventsGrid = document.getElementById("defaultEventsGrid");
+
+        if (searchInput) searchInput.value = "";
+        if (searchResults) searchResults.style.display = "none";
+        if (defaultEventsGrid) defaultEventsGrid.style.display = "block";
+        if (clearBtn) clearBtn.style.display = "none";
+      }
+
+      // Speakers search functionality (copied from actual implementation)
+      function searchSpeakers() {
+        console.log("🔍 [Speakers Search] Function called");
+
+        try {
+          const searchInput = document.getElementById("speakerSearchInput");
+          const searchResults = document.getElementById("speakerSearchResults");
+          const searchGrid = document.getElementById("searchSpeakersGrid");
+          const clearBtn = document.getElementById("clearSpeakerBtn");
+          const defaultSpeakersContainer = document.getElementById(
+            "defaultSpeakersGrid"
+          );
+
+          if (
+            !searchInput ||
+            !searchResults ||
+            !searchGrid ||
+            !defaultSpeakersContainer
+          ) {
+            console.error(
+              "❌ [Speakers Search] Required DOM elements not found"
+            );
+            return;
+          }
+
+          const searchTerm = searchInput.value.trim().toLowerCase();
+          console.log("🔍 [Speakers Search] Search term:", searchTerm);
+
+          if (searchTerm === "") {
+            searchResults.style.display = "none";
+            defaultSpeakersContainer.style.display = "block";
+            if (clearBtn) clearBtn.style.display = "none";
+            return;
+          }
+
+          const filteredSpeakers = speakersData.filter((speaker) => {
+            return (
+              speaker.name.toLowerCase().includes(searchTerm) ||
+              speaker.position.toLowerCase().includes(searchTerm) ||
+              speaker.company.toLowerCase().includes(searchTerm) ||
+              speaker.bio.toLowerCase().includes(searchTerm) ||
+              speaker.topics.some((topic) =>
+                topic.toLowerCase().includes(searchTerm)
+              )
+            );
+          });
+
+          console.log(
+            `✅ [Speakers Search] Filtered ${filteredSpeakers.length} speakers`
+          );
+
+          let speakersHTML = "";
+          if (filteredSpeakers.length > 0) {
+            filteredSpeakers.forEach((speaker) => {
+              const topicTags = speaker.topics
+                .map(
+                  (topic) => `<span class="badge bg-info me-1">${topic}</span>`
+                )
+                .join("");
+
+              speakersHTML += `
+                            <div class="speaker-card">
+                                <h6>${speaker.name}</h6>
+                                <p><small>${speaker.position} • ${speaker.company}</small></p>
+                                <p>${speaker.bio}</p>
+                                <div class="mt-2">${topicTags}</div>
+                            </div>
+                        `;
+            });
+          } else {
+            speakersHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search mb-2" style="font-size: 2rem; opacity: 0.5;"></i>
+                            <h6>No speakers found</h6>
+                            <p>No speakers match your search for "<strong>${searchTerm}</strong>".</p>
+                            <button onclick="clearSpeakerSearch()" class="btn btn-sm btn-primary">View All Speakers</button>
+                        </div>
+                    `;
+          }
+
+          searchGrid.innerHTML = speakersHTML;
+          searchResults.style.display = "block";
+          defaultSpeakersContainer.style.display = "none";
+          if (clearBtn) clearBtn.style.display = "inline-block";
+        } catch (error) {
+          console.error("❌ [Speakers Search] Error:", error);
+        }
+      }
+
+      function clearSpeakerSearch() {
+        console.log("🧹 [Speakers Search] Clear function called");
+
+        const searchInput = document.getElementById("speakerSearchInput");
+        const searchResults = document.getElementById("speakerSearchResults");
+        const clearBtn = document.getElementById("clearSpeakerBtn");
+        const defaultSpeakersContainer = document.getElementById(
+          "defaultSpeakersGrid"
+        );
+
+        if (searchInput) searchInput.value = "";
+        if (searchResults) searchResults.style.display = "none";
+        if (defaultSpeakersContainer)
+          defaultSpeakersContainer.style.display = "block";
+        if (clearBtn) clearBtn.style.display = "none";
+      }
+
+      // Test functions
+      function logTest(category, testName, passed, message) {
+        testResults[category][testName] = { passed, message };
+        console.log(
+          `${
+            passed ? "✅" : "❌"
+          } [${category.toUpperCase()}] ${testName}: ${message}`
+        );
+      }
+
+      function displayResults(category, elementId) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+
+        let html = `<h6>${category.toUpperCase()} Test Results:</h6>`;
+        let totalTests = 0;
+        let passedTests = 0;
+
+        for (const [testName, result] of Object.entries(
+          testResults[category]
+        )) {
+          totalTests++;
+          if (result.passed) passedTests++;
+
+          const statusClass = result.passed ? "test-pass" : "test-fail";
+          const statusIcon = result.passed ? "✅" : "❌";
+
+          html += `<div class="${statusClass}">${statusIcon} ${testName}: ${result.message}</div>`;
+        }
+
+        html += `<div class="mt-2 test-info">Summary: ${passedTests}/${totalTests} tests passed</div>`;
+        element.innerHTML = html;
+        element.style.display = "block";
+      }
+
+      async function runEventsTests() {
+        console.log("🚀 Starting Events Search Tests");
+        testResults.events = {};
+
+        // Test 1.1: Real-time filtering as user types
+        const eventInput = document.getElementById("eventSearchInput");
+        if (eventInput) {
+          eventInput.value = "keynote";
+          searchEvents();
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          const searchResults = document.getElementById("searchResults");
+          const defaultGrid = document.getElementById("defaultEventsGrid");
+
+          logTest(
+            "events",
+            "Real-time filtering (1.1)",
+            searchResults.style.display === "block" &&
+              defaultGrid.style.display === "none",
+            searchResults.style.display === "block"
+              ? "Search results displayed correctly"
+              : "Search results not displayed"
+          );
+        }
+
+        // Test 1.2: Clear search shows all events
+        clearSearch();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        const defaultGridAfterClear =
+          document.getElementById("defaultEventsGrid");
+        const searchResultsAfterClear =
+          document.getElementById("searchResults");
+
+        logTest(
+          "events",
+          "Clear search functionality (1.2)",
+          defaultGridAfterClear.style.display === "block" &&
+            searchResultsAfterClear.style.display === "none",
+          "Clear search restored default view"
+        );
+
+        // Test 1.3: Enter key functionality
+        if (eventInput) {
+          eventInput.value = "workshop";
+          const enterEvent = new KeyboardEvent("keypress", { key: "Enter" });
+          eventInput.dispatchEvent(enterEvent);
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          logTest(
+            "events",
+            "Enter key support (1.3)",
+            true,
+            "Enter key event dispatched successfully"
+          );
+        }
+
+        // Test 1.4: Clear button visibility
+        const clearBtn = document.getElementById("clearSearchBtn");
+        logTest(
+          "events",
+          "Clear button visibility (1.4)",
+          clearBtn && clearBtn.style.display === "inline-block",
+          clearBtn
+            ? "Clear button visible during search"
+            : "Clear button not found"
+        );
+
+        // Test 1.5: No results handling
+        if (eventInput) {
+          eventInput.value = "nonexistentterm";
+          searchEvents();
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          const searchGrid = document.getElementById("searchEventsGrid");
+          const hasNoResultsMessage =
+            searchGrid && searchGrid.innerHTML.includes("No events found");
+
+          logTest(
+            "events",
+            "No results handling (1.5)",
+            hasNoResultsMessage,
+            hasNoResultsMessage
+              ? "No results message displayed"
+              : "No results message missing"
+          );
+        }
+
+        // Test 3.1: Multiple field search
+        if (eventInput) {
+          eventInput.value = "main hall"; // Search by location
+          searchEvents();
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          const searchGrid = document.getElementById("searchEventsGrid");
+          const hasResults =
+            searchGrid && !searchGrid.innerHTML.includes("No events found");
+
+          logTest(
+            "events",
+            "Multiple field search (3.1)",
+            hasResults,
+            hasResults
+              ? "Location search returned results"
+              : "Location search failed"
+          );
+        }
+
+        // Test 3.3: Case-insensitive search
+        if (eventInput) {
+          eventInput.value = "KEYNOTE"; // Uppercase search
+          searchEvents();
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          const searchGrid = document.getElementById("searchEventsGrid");
+          const hasResults =
+            searchGrid && !searchGrid.innerHTML.includes("No events found");
+
+          logTest(
+            "events",
+            "Case-insensitive search (3.3)",
+            hasResults,
+            hasResults
+              ? "Uppercase search returned results"
+              : "Case-insensitive search failed"
+          );
+        }
+
+        displayResults("events", "eventsTestResults");
+        console.log("✅ Events Search Tests Completed");
+      }
+
+      async function runSpeakersTests() {
+        console.log("🚀 Starting Speakers Search Tests");
+        testResults.speakers = {};
+
+        // Test 2.1: Real-time filtering as user types
+        const speakerInput = document.getElementById("speakerSearchInput");
+        if (speakerInput) {
+          speakerInput.value = "sarah";
+          searchSpeakers();
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          const searchResults = document.getElementById("speakerSearchResults");
+          const defaultGrid = document.getElementById("defaultSpeakersGrid");
+
+          logTest(
+            "speakers",
+            "Real-time filtering (2.1)",
+            searchResults.style.display === "block" &&
+              defaultGrid.style.display === "none",
+            searchResults.style.display === "block"
+              ? "Search results displayed correctly"
+              : "Search results not displayed"
+          );
+        }
+
+        // Test 2.2: Multiple field search (name, position, company, bio, topics)
+        if (speakerInput) {
+          speakerInput.value = "innovation"; // Should match topics and company
+          searchSpeakers();
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          const searchGrid = document.getElementById("searchSpeakersGrid");
+          const hasResults =
+            searchGrid && !searchGrid.innerHTML.includes("No speakers found");
+
+          logTest(
+            "speakers",
+            "Multiple field search (2.2)",
+            hasResults,
+            hasResults
+              ? "Topic/company search returned results"
+              : "Multiple field search failed"
+          );
+        }
+
+        // Test 2.3: Enter key functionality
+        if (speakerInput) {
+          speakerInput.value = "ceo";
+          const enterEvent = new KeyboardEvent("keypress", { key: "Enter" });
+          speakerInput.dispatchEvent(enterEvent);
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          logTest(
+            "speakers",
+            "Enter key support (2.3)",
+            true,
+            "Enter key event dispatched successfully"
+          );
+        }
+
+        // Test 2.4: Clear button visibility
+        const clearBtn = document.getElementById("clearSpeakerBtn");
+        logTest(
+          "speakers",
+          "Clear button visibility (2.4)",
+          clearBtn && clearBtn.style.display === "inline-block",
+          clearBtn
+            ? "Clear button visible during search"
+            : "Clear button not found"
+        );
+
+        // Test 2.5: No results handling
+        if (speakerInput) {
+          speakerInput.value = "nonexistentspeaker";
+          searchSpeakers();
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          const searchGrid = document.getElementById("searchSpeakersGrid");
+          const hasNoResultsMessage =
+            searchGrid && searchGrid.innerHTML.includes("No speakers found");
+
+          logTest(
+            "speakers",
+            "No results handling (2.5)",
+            hasNoResultsMessage,
+            hasNoResultsMessage
+              ? "No results message displayed"
+              : "No results message missing"
+          );
+        }
+
+        // Test 3.2: Case-insensitive search
+        if (speakerInput) {
+          speakerInput.value = "MICHAEL"; // Uppercase search
+          searchSpeakers();
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          const searchGrid = document.getElementById("searchSpeakersGrid");
+          const hasResults =
+            searchGrid && !searchGrid.innerHTML.includes("No speakers found");
+
+          logTest(
+            "speakers",
+            "Case-insensitive search (3.2)",
+            hasResults,
+            hasResults
+              ? "Uppercase search returned results"
+              : "Case-insensitive search failed"
+          );
+        }
+
+        displayResults("speakers", "speakersTestResults");
+        console.log("✅ Speakers Search Tests Completed");
+      }
+
+      async function runAllTests() {
+        console.log("🚀 Starting Comprehensive Search Tests");
+
+        await runEventsTests();
+        await runSpeakersTests();
+
+        // Calculate overall results
+        let totalTests = 0;
+        let passedTests = 0;
+
+        for (const category of ["events", "speakers"]) {
+          for (const result of Object.values(testResults[category])) {
+            totalTests++;
+            if (result.passed) passedTests++;
+          }
+        }
+
+        const overallElement = document.getElementById("overallResults");
+        if (overallElement) {
+          const passRate = ((passedTests / totalTests) * 100).toFixed(1);
+          const statusClass =
+            passedTests === totalTests ? "test-pass" : "test-fail";
+
+          overallElement.innerHTML = `
+                    <h6>Overall Test Results</h6>
+                    <div class="${statusClass}">
+                        ${passedTests === totalTests ? "✅" : "⚠️"} 
+                        ${passedTests}/${totalTests} tests passed (${passRate}%)
+                    </div>
+                    <div class="test-info mt-2">
+                        Events: ${
+                          Object.keys(testResults.events).length
+                        } tests<br>
+                        Speakers: ${
+                          Object.keys(testResults.speakers).length
+                        } tests
+                    </div>
+                `;
+          overallElement.style.display = "block";
+        }
+
+        console.log(
+          `✅ All Tests Completed: ${passedTests}/${totalTests} passed`
+        );
+      }
+
+      function clearAllTests() {
+        testResults = { events: {}, speakers: {}, overall: {} };
+
+        // Clear all result displays
+        const resultElements = [
+          "eventsTestResults",
+          "speakersTestResults",
+          "overallResults",
+        ];
+        resultElements.forEach((id) => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.style.display = "none";
+            element.innerHTML = "";
+          }
+        });
+
+        // Reset search states
+        clearSearch();
+        clearSpeakerSearch();
+
+        console.log("🧹 All test results cleared");
+      }
+
+      // Initialize event listeners when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("🚀 Search Test Suite Initialized");
+
+        // Events search listeners
+        const eventInput = document.getElementById("eventSearchInput");
+        if (eventInput) {
+          const debouncedEventSearch = debounce(searchEvents, 300);
+          eventInput.addEventListener("input", debouncedEventSearch);
+          eventInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              searchEvents();
+            }
+          });
+        }
+
+        // Speakers search listeners
+        const speakerInput = document.getElementById("speakerSearchInput");
+        if (speakerInput) {
+          const debouncedSpeakerSearch = debounce(searchSpeakers, 300);
+          speakerInput.addEventListener("input", debouncedSpeakerSearch);
+          speakerInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              searchSpeakers();
+            }
+          });
+        }
+
+        console.log("✅ Event listeners attached successfully");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events Search Test</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+        padding: 3rem 0;
+      }
+      .event-card {
+        background: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f1f5f9;
+      }
+      .event-image {
+        height: 200px;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+        position: relative;
+      }
+      .event-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #fbbf24;
+        color: #1f2937;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      .event-content {
+        padding: 2rem;
+      }
+      .event-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+      .event-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #3b82f6;
+      }
+      .event-description {
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+      }
+      .event-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1rem;
+        border-top: 1px solid #f1f5f9;
+      }
+      .event-price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #3b82f6;
+      }
+      .event-price.free {
+        color: #10b981;
+      }
+      .no-events {
+        text-align: center;
+        padding: 4rem 0;
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1>Events Search Test</h1>
+
+      <!-- Search Bar -->
+      <div class="search-bar mb-4">
+        <div class="input-group">
+          <input
+            type="text"
+            id="eventSearchInput"
+            class="form-control"
+            placeholder="Search events..."
+            aria-label="Search events"
+          />
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="searchEvents()"
+            aria-label="Search"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            onclick="clearSearch()"
+            title="Clear search"
+            id="clearSearchBtn"
+            style="display: none"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Results Container -->
+      <div id="searchResults" style="display: none">
+        <h3>Search Results</h3>
+        <div class="events-grid" id="searchEventsGrid">
+          <!-- Search results will be populated here -->
+        </div>
+      </div>
+
+      <!-- Default Events Container -->
+      <div id="defaultEventsGrid">
+        <h3>All Events</h3>
+        <div class="events-grid">
+          <article class="event-card">
+            <div class="event-image">
+              <i class="fas fa-microphone"></i>
+              <span class="event-badge">Featured</span>
+            </div>
+            <div class="event-content">
+              <div class="event-meta">
+                <span><i class="fas fa-calendar"></i> Sep 15, 2025</span>
+                <span><i class="fas fa-clock"></i> 9:00 AM</span>
+                <span><i class="fas fa-map-marker-alt"></i> Main Hall</span>
+              </div>
+              <h2 class="event-title">
+                Opening Keynote: The Future of Leadership
+              </h2>
+              <p class="event-description">
+                Join us for an inspiring opening keynote that sets the tone for
+                the entire summit.
+              </p>
+              <div class="event-footer">
+                <div class="event-price free">Included</div>
+                <a href="#" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Sample events data array with all necessary fields for search functionality
+      const eventsData = [
+        {
+          id: 1,
+          title: "Opening Keynote: The Future of Leadership",
+          description:
+            "Join us for an inspiring opening keynote that sets the tone for the entire summit, exploring emerging trends in global leadership and the skills needed to navigate tomorrow's challenges.",
+          date: "Sep 15, 2025",
+          time: "9:00 AM",
+          location: "Main Hall",
+          price: "Included",
+          category: "keynote",
+          featured: true,
+          icon: "fas fa-microphone",
+        },
+        {
+          id: 2,
+          title: "Leadership in the Digital Age Workshop",
+          description:
+            "An interactive workshop focusing on digital transformation and leading remote teams in the modern workplace. Learn practical strategies for virtual leadership.",
+          date: "Sep 15, 2025",
+          time: "2:00 PM",
+          location: "Workshop Room A",
+          price: "$150.00",
+          category: "workshop",
+          featured: false,
+          icon: "fas fa-users",
+        },
+        {
+          id: 3,
+          title: "Women in Leadership Panel",
+          description:
+            "A dynamic panel discussion featuring successful women leaders sharing insights on breaking barriers and driving change in male-dominated industries.",
+          date: "Sep 16, 2025",
+          time: "11:00 AM",
+          location: "Panel Room",
+          price: "Free",
+          category: "panel",
+          featured: false,
+          icon: "fas fa-comments",
+        },
+      ];
+
+      // Debounce function to limit the frequency of search calls
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+
+      // Search events function with comprehensive filtering logic
+      function searchEvents() {
+        console.log("searchEvents() called");
+
+        try {
+          // Get DOM elements with existence checks
+          const searchInput = document.getElementById("eventSearchInput");
+          const searchResults = document.getElementById("searchResults");
+          const searchGrid = document.getElementById("searchEventsGrid");
+          const clearBtn = document.getElementById("clearSearchBtn");
+          const defaultEventsGrid =
+            document.getElementById("defaultEventsGrid");
+
+          // Validate required elements exist
+          if (!searchInput) {
+            console.error("Search input element not found");
+            return;
+          }
+
+          if (!searchResults || !searchGrid || !defaultEventsGrid) {
+            console.error(
+              "Required DOM elements not found for search functionality"
+            );
+            return;
+          }
+
+          // Get and process search term
+          const searchTerm = searchInput.value.toLowerCase().trim();
+          console.log("Search term:", searchTerm);
+
+          // Handle empty search - show default content
+          if (searchTerm === "") {
+            searchResults.style.display = "none";
+            defaultEventsGrid.style.display = "block";
+            if (clearBtn) clearBtn.style.display = "none";
+            console.log("Empty search - showing default content");
+            return;
+          }
+
+          // Filter events based on multiple fields (title, description, location, category)
+          const filteredEvents = eventsData.filter((event) => {
+            return (
+              event.title.toLowerCase().includes(searchTerm) ||
+              event.description.toLowerCase().includes(searchTerm) ||
+              event.location.toLowerCase().includes(searchTerm) ||
+              event.category.toLowerCase().includes(searchTerm)
+            );
+          });
+
+          console.log("Filtered events:", filteredEvents.length);
+
+          // Generate HTML for search results
+          let eventsHTML = "";
+
+          if (filteredEvents.length > 0) {
+            filteredEvents.forEach((event) => {
+              eventsHTML += `
+                        <article class="event-card">
+                            <div class="event-image">
+                                <i class="${event.icon}"></i>
+                                ${
+                                  event.featured
+                                    ? '<span class="event-badge">Featured</span>'
+                                    : ""
+                                }
+                            </div>
+                            <div class="event-content">
+                                <div class="event-meta">
+                                    <span><i class="fas fa-calendar"></i> ${
+                                      event.date
+                                    }</span>
+                                    <span><i class="fas fa-clock"></i> ${
+                                      event.time
+                                    }</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> ${
+                                      event.location
+                                    }</span>
+                                </div>
+                                <h2 class="event-title">${event.title}</h2>
+                                <p class="event-description">${
+                                  event.description
+                                }</p>
+                                <div class="event-footer">
+                                    <div class="event-price ${
+                                      event.price === "Free" ||
+                                      event.price === "Included"
+                                        ? "free"
+                                        : ""
+                                    }">${event.price}</div>
+                                    <a href="#" class="btn btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+            });
+          } else {
+            // No results found message
+            eventsHTML = `
+                    <div class="no-events" style="grid-column: 1 / -1;">
+                        <i class="fas fa-search"></i>
+                        <h3>No events found</h3>
+                        <p>No events match your search for "<strong>${searchTerm}</strong>". Try different keywords or browse all events.</p>
+                    </div>
+                `;
+          }
+
+          // Update DOM to show search results and hide default content
+          searchGrid.innerHTML = eventsHTML;
+          searchResults.style.display = "block";
+          defaultEventsGrid.style.display = "none";
+
+          // Show clear button
+          if (clearBtn) {
+            clearBtn.style.display = "inline-block";
+          }
+
+          console.log("Search results displayed");
+        } catch (error) {
+          console.error("Error in searchEvents function:", error);
+
+          // Fallback: try to show default content if search fails
+          const defaultEventsGrid =
+            document.getElementById("defaultEventsGrid");
+          const searchResults = document.getElementById("searchResults");
+
+          if (defaultEventsGrid && searchResults) {
+            searchResults.style.display = "none";
+            defaultEventsGrid.style.display = "block";
+          }
+        }
+      }
+
+      // Clear search function to reset search state
+      function clearSearch() {
+        console.log("clearSearch() called");
+
+        try {
+          // Get DOM elements with existence checks
+          const searchInput = document.getElementById("eventSearchInput");
+          const searchResults = document.getElementById("searchResults");
+          const clearBtn = document.getElementById("clearSearchBtn");
+          const defaultEventsGrid =
+            document.getElementById("defaultEventsGrid");
+
+          // Reset search input
+          if (searchInput) {
+            searchInput.value = "";
+          }
+
+          // Hide search results and show default content
+          if (searchResults) {
+            searchResults.style.display = "none";
+          }
+
+          if (defaultEventsGrid) {
+            defaultEventsGrid.style.display = "block";
+          }
+
+          // Hide clear button
+          if (clearBtn) {
+            clearBtn.style.display = "none";
+          }
+
+          console.log("Search cleared - showing default content");
+        } catch (error) {
+          console.error("Error in clearSearch function:", error);
+        }
+      }
+
+      // Initialize search functionality when DOM is loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Events search functionality initialized");
+
+        try {
+          // Get search input element with error handling
+          const searchInput = document.getElementById("eventSearchInput");
+
+          if (!searchInput) {
+            console.error(
+              "Search input element not found - real-time search disabled"
+            );
+            return;
+          }
+
+          // Verify all required elements exist
+          const requiredElements = [
+            "eventSearchInput",
+            "searchResults",
+            "searchEventsGrid",
+            "defaultEventsGrid",
+            "clearSearchBtn",
+          ];
+
+          let allElementsExist = true;
+          requiredElements.forEach((elementId) => {
+            const element = document.getElementById(elementId);
+            if (!element) {
+              console.warn(`Element with ID '${elementId}' not found`);
+              allElementsExist = false;
+            }
+          });
+
+          if (!allElementsExist) {
+            console.error(
+              "Some required elements missing - real-time search may not work properly"
+            );
+          }
+
+          // Create debounced search function with 300ms delay
+          const debouncedSearch = debounce(searchEvents, 300);
+
+          // Add input event listener for real-time filtering
+          searchInput.addEventListener("input", function (event) {
+            console.log("Input event triggered:", event.target.value);
+
+            try {
+              debouncedSearch();
+            } catch (error) {
+              console.error("Error during real-time search:", error);
+            }
+          });
+
+          // Add keypress event listener for Enter key support
+          searchInput.addEventListener("keypress", function (event) {
+            console.log("Keypress event:", event.key);
+
+            if (event.key === "Enter") {
+              event.preventDefault(); // Prevent form submission
+
+              try {
+                // Clear any pending debounced calls and search immediately
+                searchEvents();
+              } catch (error) {
+                console.error("Error during Enter key search:", error);
+              }
+            }
+          });
+
+          // Add focus event for better UX
+          searchInput.addEventListener("focus", function () {
+            console.log("Search input focused");
+          });
+
+          // Add blur event for cleanup if needed
+          searchInput.addEventListener("blur", function () {
+            console.log("Search input blurred");
+          });
+
+          console.log("Real-time search event listeners added successfully");
+        } catch (error) {
+          console.error("Error initializing search functionality:", error);
+        }
+      });
+    </script>
+  </body>
+</html>

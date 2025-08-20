@@ -1,0 +1,161 @@
+/* Button Styles */
+.btn {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(10, 36, 99, 0.25);
+  }
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+  color: $light-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    color: $primary-color;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  }
+
+  &:disabled {
+    background-color: $dark-gray;
+    border-color: $dark-gray;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.btn-secondary {
+  background-color: $secondary-color;
+  border-color: $secondary-color;
+  color: $primary-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: $light-color;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(10, 36, 99, 0.3);
+  }
+}
+
+.btn-outline-primary {
+  color: $primary-color;
+  border-color: $primary-color;
+  background-color: transparent;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: $light-color;
+    transform: translateY(-2px);
+  }
+}
+
+.btn-outline-secondary {
+  color: $secondary-color;
+  border-color: $secondary-color;
+  background-color: transparent;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    color: $primary-color;
+    transform: translateY(-2px);
+  }
+}
+
+// Size variations
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+// Special button styles
+.registration-btn {
+  background: linear-gradient(
+    135deg,
+    $primary-color 0%,
+    darken($primary-color, 10%) 100%
+  );
+  border: none;
+  color: $light-color;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(10, 36, 99, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      $secondary-color 0%,
+      lighten($secondary-color, 10%) 100%
+    );
+    transition: left 0.3s ease;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: $primary-color;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+
+    &::before {
+      left: 0;
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+// Button groups
+.btn-group {
+  .btn {
+    border-radius: 0;
+
+    &:first-child {
+      border-top-left-radius: 50px;
+      border-bottom-left-radius: 50px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+  }
+}

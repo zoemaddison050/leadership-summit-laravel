@@ -60,9 +60,16 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'payment.rate_limit' => \App\Http\Middleware\PaymentRateLimit::class,
+        'payment.security' => \App\Http\Middleware\PaymentSecurity::class,
+        'payment.session_timeout' => \App\Http\Middleware\PaymentSessionTimeout::class,
         'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
+        'registration.errors' => \App\Http\Middleware\HandleRegistrationErrors::class,
+        'role' => \App\Http\Middleware\CheckRole::class,
+        'permission' => \App\Http\Middleware\CheckPermission::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'webhook.auth' => \App\Http\Middleware\WebhookAuthentication::class,
     ];
 }

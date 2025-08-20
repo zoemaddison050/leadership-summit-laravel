@@ -1,0 +1,38 @@
+PHPUnit 10.5.48 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.11
+Configuration: /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/phpunit.xml
+
+
+   PASS  Tests\Feature\PaymentIntegrationTestSuite
+  ✓ database schema is properly configured                               0.21s  
+  ✓ all required routes are registered                                   0.03s  
+  ✓ all required middleware is configured                                0.03s  
+  ✓ all required models exist and have proper relationships              0.04s  
+  ✓ all required services are configured                                 0.03s  
+  ✓ all required controllers exist                                       0.04s  
+  ✓ all required views exist                                             0.04s  
+  ✓ configuration files are properly set                                 0.03s  
+  ✓ artisan commands are registered                                      0.04s  
+  ✓ environment variables are documented                                 0.03s  
+  ✓ payment validation rules are comprehensive                           0.03s  
+
+  Tests:    11 passed (102 assertions)
+  Duration: 0.64s
+
+Time: 00:00.565, Memory: 40.50 MB
+
+Payment Integration Test Suite (Tests\Feature\PaymentIntegrationTestSuite)
+ ✔ Database schema is properly configured
+ ✔ All required routes are registered
+ ✔ All required middleware is configured
+ ✔ All required models exist and have proper relationships
+ ✔ All required services are configured
+ ✔ All required controllers exist
+ ✔ All required views exist
+ ✔ Configuration files are properly set
+ ✔ Artisan commands are registered
+ ✔ Environment variables are documented
+ ✔ Payment validation rules are comprehensive
+
+OK (11 tests, 102 assertions)
