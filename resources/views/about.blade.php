@@ -3,10 +3,6 @@
 @section('title', 'About - International Global Leadership Academy Summit 2025')
 @section('meta_description', 'Learn about the International Global Leadership Academy Summit 2025. Our mission, vision, and commitment to developing world-class leaders.')
 
-@section('breadcrumbs')
-<li class="breadcrumb-item active" aria-current="page">About</li>
-@endsection
-
 @push('styles')
 <style>
     .about-hero {

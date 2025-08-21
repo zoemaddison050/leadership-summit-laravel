@@ -1,6 +1,5 @@
 @php
 $navItems = [
-['url' => '/', 'label' => 'Home', 'icon' => 'fas fa-home', 'pattern' => '/'],
 ['url' => '/about', 'label' => 'About', 'icon' => 'fas fa-info-circle', 'pattern' => 'about*'],
 ['url' => '/speakers', 'label' => 'Speakers', 'icon' => 'fas fa-users', 'pattern' => 'speakers*'],
 ['url' => '/events', 'label' => 'Events', 'icon' => 'fas fa-calendar-alt', 'pattern' => 'events*'],
@@ -9,7 +8,7 @@ $navItems = [
 ];
 @endphp
 
-<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav-spaced">
     @foreach($navItems as $item)
     <li class="nav-item">
         <a class="nav-link {{ request()->is($item['pattern']) ? 'active' : '' }}"

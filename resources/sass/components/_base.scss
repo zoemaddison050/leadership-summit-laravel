@@ -86,77 +86,6 @@ a {
   }
 }
 
-// Skip Links
-.skip-links {
-  position: absolute;
-  top: -100px;
-  left: 0;
-  z-index: 10000;
-
-  .skip-link {
-    position: absolute;
-    left: -10000px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    background-color: $primary-color;
-    color: $light-color;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-radius: 0 0 4px 0;
-    font-weight: 600;
-
-    &:focus {
-      position: static;
-      width: auto;
-      height: auto;
-      left: 6px;
-      top: 7px;
-      z-index: 10001;
-    }
-  }
-}
-
-// Breadcrumb Navigation
-.breadcrumb-nav {
-  background-color: $light-gray;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-
-  .breadcrumb {
-    margin-bottom: 0;
-    background-color: transparent;
-    padding: 0;
-
-    .breadcrumb-item {
-      font-size: 0.875rem;
-
-      a {
-        color: $dark-gray;
-        text-decoration: none;
-
-        &:hover {
-          color: $primary-color;
-        }
-
-        i {
-          font-size: 0.75rem;
-        }
-      }
-
-      &.active {
-        color: $primary-color;
-        font-weight: 600;
-      }
-
-      &::before {
-        color: $dark-gray;
-      }
-    }
-  }
-}
-
 // Back to Top Button
 .back-to-top {
   position: fixed;
@@ -214,16 +143,6 @@ a {
     width: 45px;
     height: 45px;
   }
-
-  .breadcrumb-nav {
-    padding: 0.5rem 0;
-
-    .breadcrumb {
-      .breadcrumb-item {
-        font-size: 0.8rem;
-      }
-    }
-  }
 }
 
 // Keyboard navigation focus indicators
@@ -274,7 +193,6 @@ img.lazy {
   .site-header,
   .site-footer,
   .back-to-top,
-  .breadcrumb-nav,
   .btn,
   .alert {
     display: none !important;

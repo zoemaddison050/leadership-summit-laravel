@@ -68,7 +68,7 @@
 
   .navbar-nav {
     .nav-link {
-      padding: 0.75rem 1rem;
+      padding: 0.75rem 1.5rem;
       color: $primary-color;
       font-weight: 600;
       font-family: $headings-font-family;
@@ -87,8 +87,8 @@
         content: "";
         position: absolute;
         bottom: 0;
-        left: 1rem;
-        right: 1rem;
+        left: 1.5rem;
+        right: 1.5rem;
         height: 2px;
         background-color: $secondary-color;
       }
@@ -97,6 +97,21 @@
         font-size: 0.9rem;
         width: 20px;
         text-align: center;
+      }
+    }
+
+    // Extra spacing for nav items
+    &.nav-spaced {
+      .nav-item {
+        margin: 0 0.5rem;
+        
+        &:first-child {
+          margin-left: 0;
+        }
+        
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
 

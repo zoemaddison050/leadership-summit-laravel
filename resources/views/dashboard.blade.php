@@ -3,10 +3,6 @@
 @section('title', 'Dashboard - Leadership Summit')
 @section('meta_description', 'Your personal dashboard for the Leadership Summit. Track your registrations, discover events, and manage your profile.')
 
-@section('breadcrumbs')
-<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-@endsection
-
 @push('styles')
 <style>
     :root {
