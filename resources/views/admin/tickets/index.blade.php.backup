@@ -1,0 +1,367 @@
+@extends('layouts.admin')
+
+@section('title', 'Manage Tickets')
+
+@section('breadcrumbs')
+<li class="breadcrumb-item"><a href="{{ route('admin.events.index') }}">Events</a></li>
+<li class="breadcrumb-item"><a href="{{ route('admin.events.show', $event) }}">{{ $event->title }}</a></li>
+<li class="breadcrumb-item active" aria-current="page">Tickets</li>
+@endsection
+
+@push('styles')
+<style>
+    .ticket-card {
+        border: 1px solid #e9ecef;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        background: white;
+        transition: all 0.2s ease;
+    }
+
+    .ticket-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .ticket-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    .ticket-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 0.5rem;
+        background: #f8f9fa;
+        border-radius: 0.25rem;
+    }
+
+    .stat-number {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    .availability-badge {
+        font-size: 0.9rem;
+        padding: 0.25rem 0.75rem;
+    }
+
+    .ticket-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .availability-input {
+        width: 80px;
+        display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+        .ticket-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .ticket-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+@endpush
+
+@section('content')
+<div class="page-header">
+    <h1 class="page-title">Ticket Management</h1>
+    <div class="page-subtitle">
+        <strong>{{ $event->title }}</strong> - {{ $event->start_date->format('M d, Y') }}
+    </div>
+    <div class="page-actions">
+        <a href="{{ route('admin.tickets.create', $event) }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2" aria-hidden="true"></i>Add Ticket Type
+        </a>
+        <a href="{{ route('admin.events.show', $event) }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>Back to Event
+        </a>
+    </div>
+</div>
+
+@if($tickets->count() > 0)
+<!-- Tickets Overview -->
+<div class="admin-card mb-4">
+    <div class="admin-card-header">
+        <h3 class="admin-card-title">Tickets Overview</h3>
+    </div>
+    <div class="admin-card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number">{{ $tickets->count() }}</div>
+                    <div class="text-muted small">Ticket Types</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number">{{ $tickets->sum('registrations_count') }}</div>
+                    <div class="text-muted small">Total Sold</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number">${{ number_format($tickets->sum(function($ticket) { return $ticket->price * $ticket->registrations_count; }), 2) }}</div>
+                    <div class="text-muted small">Revenue</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number">{{ $tickets->whereNotNull('capacity')->sum('capacity') ?: 'Unlimited' }}</div>
+                    <div class="text-muted small">Total Capacity</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ticket Types -->
+<div class="row">
+    @foreach($tickets as $ticket)
+    <div class="col-lg-6 col-xl-4">
+        <div class="ticket-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <h5 class="mb-1">{{ $ticket->name }}</h5>
+                    @if($ticket->description)
+                    <p class="text-muted small mb-2">{{ $ticket->description }}</p>
+                    @endif
+                </div>
+                <div class="ticket-price">${{ number_format($ticket->price, 2) }}</div>
+            </div>
+
+            <!-- Availability Status -->
+            <div class="mb-3">
+                @if($ticket->capacity)
+                @php
+                $sold = $ticket->registrations_count;
+                $available = $ticket->available;
+                $percentage = ($sold / $ticket->capacity) * 100;
+                @endphp
+
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small">Availability</span>
+                    @if($available > 0)
+                    <span class="badge bg-success availability-badge">{{ $available }} Available</span>
+                    @else
+                    <span class="badge bg-danger availability-badge">Sold Out</span>
+                    @endif
+                </div>
+
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-primary" role="progressbar"
+                        style="width: {{ $percentage }}%;"
+                        aria-valuenow="{{ $percentage }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100">
+                    </div>
+                </div>
+
+                <div class="small text-muted mt-1">
+                    {{ $sold }} sold of {{ $ticket->capacity }} total
+                </div>
+                @else
+                <span class="badge bg-info availability-badge">Unlimited</span>
+                @endif
+            </div>
+
+            <!-- Ticket Statistics -->
+            <div class="ticket-stats">
+                <div class="stat-item">
+                    <div class="stat-number">{{ $ticket->registrations_count }}</div>
+                    <div class="text-muted small">Sold</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">${{ number_format($ticket->price * $ticket->registrations_count, 2) }}</div>
+                    <div class="text-muted small">Revenue</div>
+                </div>
+                @if($ticket->capacity)
+                <div class="stat-item">
+                    <div class="stat-number">{{ $ticket->capacity }}</div>
+                    <div class="text-muted small">Capacity</div>
+                </div>
+                @endif
+            </div>
+
+            <!-- Quick Availability Update -->
+            @if($ticket->capacity)
+            <div class="mt-3">
+                <form class="availability-form" data-ticket-id="{{ $ticket->id }}">
+                    @csrf
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Available:</span>
+                        <input type="number" class="form-control availability-input"
+                            name="available" value="{{ $ticket->available }}"
+                            min="0" max="{{ $ticket->capacity }}">
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Update</button>
+                    </div>
+                </form>
+            </div>
+            @endif
+
+            <!-- Actions -->
+            <div class="ticket-actions mt-3">
+                <a href="{{ route('admin.tickets.show', [$event, $ticket]) }}"
+                    class="btn btn-sm btn-outline-info">
+                    <i class="fas fa-eye" aria-hidden="true"></i> View
+                </a>
+                <a href="{{ route('admin.tickets.edit', [$event, $ticket]) }}"
+                    class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit" aria-hidden="true"></i> Edit
+                </a>
+                <button class="btn btn-sm btn-outline-danger"
+                    onclick="deleteTicket({{ $ticket->id }}, '{{ addslashes($ticket->name) }}')">
+                    <i class="fas fa-trash" aria-hidden="true"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+@else
+<!-- No Tickets State -->
+<div class="admin-card">
+    <div class="admin-card-body text-center py-5">
+        <i class="fas fa-ticket-alt fa-3x text-muted mb-3" aria-hidden="true"></i>
+        <h4>No Ticket Types Created</h4>
+        <p class="text-muted mb-4">Create ticket types to allow registrations for this event.</p>
+        <a href="{{ route('admin.tickets.create', $event) }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2" aria-hidden="true"></i>Create First Ticket Type
+        </a>
+    </div>
+</div>
+@endif
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the ticket type "<span id="ticketName"></span>"?</p>
+                <p class="text-danger small">This action cannot be undone. Ticket types with existing registrations cannot be deleted.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete Ticket Type</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Availability update functionality
+        document.querySelectorAll('.availability-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const ticketId = this.dataset.ticketId;
+                const available = this.querySelector('input[name="available"]').value;
+                const submitBtn = this.querySelector('button[type="submit"]');
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+                fetch(`/admin/events/{{ $event->id }}/tickets/${ticketId}/availability`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({
+                            available: parseInt(available)
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Show success message
+                            showAlert('success', data.message);
+                        } else {
+                            showAlert('error', data.error || 'Failed to update availability');
+                        }
+                    })
+                    .catch(error => {
+                        showAlert('error', 'An error occurred while updating availability');
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = 'Update';
+                    });
+            });
+        });
+
+        // Delete ticket functionality
+        let ticketToDelete = null;
+
+        window.deleteTicket = function(ticketId, ticketName) {
+            ticketToDelete = ticketId;
+            document.getElementById('ticketName').textContent = ticketName;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        };
+
+        document.getElementById('confirmDelete')?.addEventListener('click', function() {
+            if (ticketToDelete) {
+                // Create form and submit
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/events/{{ $event->id }}/tickets/${ticketToDelete}`;
+
+                const methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+
+                const tokenField = document.createElement('input');
+                tokenField.type = 'hidden';
+                tokenField.name = '_token';
+                tokenField.value = document.querySelector('meta[name="csrf-token"]').content;
+
+                form.appendChild(methodField);
+                form.appendChild(tokenField);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+
+        // Alert helper function
+        function showAlert(type, message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+
+            const container = document.querySelector('.page-header');
+            container.parentNode.insertBefore(alertDiv, container.nextSibling);
+
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+    });
+</script>
+@endpush

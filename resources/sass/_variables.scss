@@ -1,0 +1,36 @@
+// Colors
+$primary-color: #0a2463;
+$secondary-color: #ffd700;
+$text-color: #333333;
+$light-color: #ffffff;
+$light-gray: #f5f5f5;
+$dark-gray: #666666;
+
+// Body
+$body-bg: $light-color;
+$body-color: $text-color;
+
+// Typography
+$font-family-sans-serif: "Open Sans", sans-serif;
+$font-family-serif: "Montserrat", sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+
+// Headings
+$headings-font-family: $font-family-serif;
+$headings-font-weight: 700;
+
+// Bootstrap Variables Override
+$primary: $primary-color;
+$secondary: $secondary-color;
+$light: $light-color;
+$dark: $text-color;
+
+// Navbar
+$navbar-light-color: $primary-color;
+$navbar-light-hover-color: $secondary-color;
+$navbar-light-active-color: $secondary-color;
+
+// Buttons
+$btn-border-radius: 50px;
+$btn-font-weight: 600;

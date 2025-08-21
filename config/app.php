@@ -46,6 +46,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Payment Service URL
+    |--------------------------------------------------------------------------
+    |
+    | URL for the Node.js payment microservice
+    |
+    */
+
+    'payment_service_url' => env('PAYMENT_SERVICE_URL', 'http://localhost:3001'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |
@@ -168,6 +179,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\UniPaymentServiceProvider::class,
     ])->toArray(),
 
     /*

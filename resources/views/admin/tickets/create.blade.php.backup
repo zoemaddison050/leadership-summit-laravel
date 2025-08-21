@@ -1,0 +1,310 @@
+@extends('layouts.admin')
+
+@section('title', 'Create Ticket Type')
+
+@section('breadcrumbs')
+<li class="breadcrumb-item"><a href="{{ route('admin.events.index') }}">Events</a></li>
+<li class="breadcrumb-item"><a href="{{ route('admin.events.show', $event) }}">{{ $event->title }}</a></li>
+<li class="breadcrumb-item"><a href="{{ route('admin.tickets.index', $event) }}">Tickets</a></li>
+<li class="breadcrumb-item active" aria-current="page">Create</li>
+@endsection
+
+@push('styles')
+<style>
+    .form-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+    }
+
+    .form-section h3 {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .price-input {
+        position: relative;
+    }
+
+    .price-input .form-control {
+        padding-left: 2rem;
+    }
+
+    .price-input::before {
+        content: '$';
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        z-index: 10;
+    }
+
+    .capacity-toggle {
+        margin-bottom: 1rem;
+    }
+
+    .ticket-preview {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .preview-price {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .preview-name {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
+@endpush
+
+@section('content')
+<div class="page-header">
+    <h1 class="page-title">Create Ticket Type</h1>
+    <div class="page-subtitle">
+        <strong>{{ $event->title }}</strong> - {{ $event->start_date->format('M d, Y') }}
+    </div>
+    <div class="page-actions">
+        <a href="{{ route('admin.tickets.index', $event) }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>Back to Tickets
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <form action="{{ route('admin.tickets.store', $event) }}" method="POST">
+            @csrf
+
+            <!-- Basic Information -->
+            <div class="form-section">
+                <h3>Ticket Information</h3>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Ticket Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                        id="name" name="name" value="{{ old('name') }}" required
+                        placeholder="e.g., General Admission, VIP Pass, Early Bird">
+                    @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control @error('description') is-invalid @enderror"
+                        id="description" name="description" rows="3"
+                        placeholder="Optional description of what's included with this ticket">{{ old('description') }}</textarea>
+                    @error('description')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="form-section">
+                <h3>Pricing</h3>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price <span class="text-danger">*</span></label>
+                    <div class="price-input">
+                        <input type="number" class="form-control @error('price') is-invalid @enderror"
+                            id="price" name="price" value="{{ old('price') }}"
+                            min="0" step="0.01" required
+                            placeholder="0.00">
+                    </div>
+                    @error('price')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <div class="form-text">Enter 0 for free tickets</div>
+                </div>
+            </div>
+
+            <!-- Capacity Management -->
+            <div class="form-section">
+                <h3>Capacity Management</h3>
+
+                <div class="capacity-toggle">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="hasCapacity" name="has_capacity"
+                            {{ old('has_capacity') ? 'checked' : '' }}>
+                        <label class="form-check-label" for="hasCapacity">
+                            Set capacity limit for this ticket type
+                        </label>
+                    </div>
+                </div>
+
+                <div id="capacitySection" style="display: {{ old('has_capacity') ? 'block' : 'none' }};">
+                    <div class="mb-3">
+                        <label for="capacity" class="form-label">Maximum Capacity</label>
+                        <input type="number" class="form-control @error('capacity') is-invalid @enderror"
+                            id="capacity" name="capacity" value="{{ old('capacity') }}"
+                            min="1" placeholder="e.g., 100">
+                        @error('capacity')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class="form-text">Maximum number of tickets that can be sold</div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+                    <strong>Capacity Options:</strong>
+                    <ul class="mb-0 mt-2">
+                        <li><strong>No Capacity Limit:</strong> Unlimited tickets can be sold</li>
+                        <li><strong>With Capacity Limit:</strong> Sales will stop when the limit is reached</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-section">
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('admin.tickets.index', $event) }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2" aria-hidden="true"></i>Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus me-2" aria-hidden="true"></i>Create Ticket Type
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <!-- Live Preview -->
+        <div class="form-section">
+            <h3>Preview</h3>
+            <div class="ticket-preview">
+                <div class="preview-name" id="previewName">Ticket Name</div>
+                <div class="preview-price" id="previewPrice">$0.00</div>
+                <div class="mt-2" id="previewDescription" style="display: none;">
+                    <small class="opacity-75" id="previewDescriptionText"></small>
+                </div>
+                <div class="mt-3" id="previewCapacity" style="display: none;">
+                    <small class="opacity-75">
+                        <i class="fas fa-users me-1" aria-hidden="true"></i>
+                        Limited to <span id="previewCapacityText">0</span> tickets
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ticket Type Examples -->
+        <div class="form-section">
+            <h3>Common Ticket Types</h3>
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action"
+                    onclick="fillExample('General Admission', 'Standard event access', 25.00)">
+                    <div class="fw-semibold">General Admission</div>
+                    <small class="text-muted">Standard event access - $25.00</small>
+                </button>
+                <button type="button" class="list-group-item list-group-item-action"
+                    onclick="fillExample('Early Bird', 'Discounted early registration', 20.00)">
+                    <div class="fw-semibold">Early Bird</div>
+                    <small class="text-muted">Discounted early registration - $20.00</small>
+                </button>
+                <button type="button" class="list-group-item list-group-item-action"
+                    onclick="fillExample('VIP Pass', 'Premium access with exclusive benefits', 75.00)">
+                    <div class="fw-semibold">VIP Pass</div>
+                    <small class="text-muted">Premium access - $75.00</small>
+                </button>
+                <button type="button" class="list-group-item list-group-item-action"
+                    onclick="fillExample('Student Discount', 'Discounted rate for students', 15.00)">
+                    <div class="fw-semibold">Student Discount</div>
+                    <small class="text-muted">Discounted rate - $15.00</small>
+                </button>
+                <button type="button" class="list-group-item list-group-item-action"
+                    onclick="fillExample('Free Admission', 'Complimentary access', 0.00)">
+                    <div class="fw-semibold">Free Admission</div>
+                    <small class="text-muted">Complimentary access - Free</small>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form elements
+        const nameInput = document.getElementById('name');
+        const descriptionInput = document.getElementById('description');
+        const priceInput = document.getElementById('price');
+        const hasCapacityCheckbox = document.getElementById('hasCapacity');
+        const capacityInput = document.getElementById('capacity');
+        const capacitySection = document.getElementById('capacitySection');
+
+        // Preview elements
+        const previewName = document.getElementById('previewName');
+        const previewPrice = document.getElementById('previewPrice');
+        const previewDescription = document.getElementById('previewDescription');
+        const previewDescriptionText = document.getElementById('previewDescriptionText');
+        const previewCapacity = document.getElementById('previewCapacity');
+        const previewCapacityText = document.getElementById('previewCapacityText');
+
+        // Update preview in real-time
+        function updatePreview() {
+            // Update name
+            previewName.textContent = nameInput.value || 'Ticket Name';
+
+            // Update price
+            const price = parseFloat(priceInput.value) || 0;
+            previewPrice.textContent = price === 0 ? 'Free' : `$${price.toFixed(2)}`;
+
+            // Update description
+            if (descriptionInput.value.trim()) {
+                previewDescriptionText.textContent = descriptionInput.value;
+                previewDescription.style.display = 'block';
+            } else {
+                previewDescription.style.display = 'none';
+            }
+
+            // Update capacity
+            if (hasCapacityCheckbox.checked && capacityInput.value) {
+                previewCapacityText.textContent = capacityInput.value;
+                previewCapacity.style.display = 'block';
+            } else {
+                previewCapacity.style.display = 'none';
+            }
+        }
+
+        // Event listeners for real-time preview
+        nameInput.addEventListener('input', updatePreview);
+        descriptionInput.addEventListener('input', updatePreview);
+        priceInput.addEventListener('input', updatePreview);
+        capacityInput.addEventListener('input', updatePreview);
+
+        // Capacity toggle
+        hasCapacityCheckbox.addEventListener('change', function() {
+            capacitySection.style.display = this.checked ? 'block' : 'none';
+            if (!this.checked) {
+                capacityInput.value = '';
+            }
+            updatePreview();
+        });
+
+        // Fill example function
+        window.fillExample = function(name, description, price) {
+            nameInput.value = name;
+            descriptionInput.value = description;
+            priceInput.value = price.toFixed(2);
+            updatePreview();
+        };
+
+        // Initial preview update
+        updatePreview();
+    });
+</script>
+@endpush

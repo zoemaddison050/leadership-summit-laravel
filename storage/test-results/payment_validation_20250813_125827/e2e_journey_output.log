@@ -1,0 +1,30 @@
+PHPUnit 10.5.48 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.11
+Configuration: /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/phpunit.xml
+
+
+   PASS  Tests\Feature\PaymentJourneyValidationTest
+  ✓ user can complete registration and payment flow                      0.23s  
+  ✓ payment failure is handled correctly                                 0.03s  
+  ✓ admin can view payment data                                          0.52s  
+  ✓ payment security validations work                                    0.03s  
+  ✓ concurrent registrations are handled safely                          0.04s  
+  ✓ data integrity is maintained throughout journey                      0.04s  
+  ✓ error recovery mechanisms work                                       0.03s  
+
+  Tests:    7 passed (38 assertions)
+  Duration: 0.98s
+
+Time: 00:00.937, Memory: 44.50 MB
+
+Payment Journey Validation (Tests\Feature\PaymentJourneyValidation)
+ ✔ User can complete registration and payment flow
+ ✔ Payment failure is handled correctly
+ ✔ Admin can view payment data
+ ✔ Payment security validations work
+ ✔ Concurrent registrations are handled safely
+ ✔ Data integrity is maintained throughout journey
+ ✔ Error recovery mechanisms work
+
+OK (7 tests, 38 assertions)

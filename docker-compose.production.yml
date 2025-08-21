@@ -1,0 +1,155 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP_ENV=production
+    container_name: leadership-summit-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./storage:/var/www/storage
+      - app_cache:/var/www/bootstrap/cache
+    networks:
+      - leadership-summit
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://leadershipsummit.com
+    depends_on:
+      - db
+      - redis
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "php",
+          "artisan",
+          "tinker",
+          "--execute=DB::connection()->getPdo(); echo 'OK';",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  nginx:
+    image: nginx:alpine
+    container_name: leadership-summit-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/production:/etc/nginx/conf.d
+      - ./docker/ssl:/etc/ssl/certs
+      - nginx_cache:/var/cache/nginx
+    networks:
+      - leadership-summit
+    depends_on:
+      - app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  db:
+    image: mysql:8.0
+    container_name: leadership-summit-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: leadership_summit
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - production_dbdata:/var/lib/mysql
+      - ./docker/mysql/production.cnf:/etc/mysql/conf.d/production.cnf
+    ports:
+      - "3306:3306"
+    networks:
+      - leadership-summit
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${DB_PASSWORD}",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:alpine
+    container_name: leadership-summit-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    networks:
+      - leadership-summit
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Queue worker for background jobs
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leadership-summit-queue
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - leadership-summit
+    depends_on:
+      - db
+      - redis
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+
+  # Scheduler for cron jobs
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leadership-summit-scheduler
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - leadership-summit
+    depends_on:
+      - db
+      - redis
+    command: sh -c "while true; do php artisan schedule:run; sleep 60; done"
+
+volumes:
+  production_dbdata:
+    driver: local
+  redis_data:
+    driver: local
+  app_cache:
+    driver: local
+  nginx_cache:
+    driver: local
+
+networks:
+  leadership-summit:
+    driver: bridge

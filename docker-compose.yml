@@ -10,15 +10,19 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
+      - ./storage:/var/www/html/storage
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
     networks:
       - leadership-summit-network
+    depends_on:
+      - mysql
 
   nginx:
     image: nginx:alpine
     container_name: leadership-summit-nginx
     restart: unless-stopped
     ports:
-      - 8000:80
+      - 8080:80
     volumes:
       - ./:/var/www/html
       - ./docker/nginx/conf.d:/etc/nginx/conf.d

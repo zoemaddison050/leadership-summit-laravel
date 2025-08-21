@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -15,7 +15,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     libzip-dev \
     libonig-dev \
-    libicu-dev
+    libicu-dev \
+    nodejs \
+    npm
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -34,8 +36,11 @@ WORKDIR /var/www/html
 # Copy existing application directory
 COPY . .
 
-# Install dependencies
-RUN composer install --no-interaction --no-dev --optimize-autoloader
+# Fix git ownership issue
+RUN git config --global --add safe.directory /var/www/html
+
+# Install dependencies (include dev dependencies for local development)
+RUN composer install --no-interaction --optimize-autoloader
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache

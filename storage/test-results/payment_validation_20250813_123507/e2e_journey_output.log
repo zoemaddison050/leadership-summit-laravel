@@ -1,0 +1,263 @@
+PHPUnit 10.5.48 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.11
+Configuration: /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/phpunit.xml
+
+
+   FAIL  Tests\Feature\EndToEndPaymentJourneyTest
+  ⨯ complete card payment user journey works correctly
+  ⨯ payment method switching preserves registration data
+  ⨯ payment failure recovery flow works
+  ⨯ session timeout handling works correctly
+  ⨯ duplicate registration prevention works with card payments
+  ⨯ payment amount validation works
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\EndToEndPaymentJourneyTest > comple…  QueryException   
+  SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6Ik9qV1llc3BpWVRqUmRIdGVMWlBTVnc9PSIsInZhbHVlIjoibjYweG5TM3o1bnczNW5MMmlTOFk0Zz09IiwibWFjIjoiYzU5MTNmMzc4NzhjYmVmNmU2NjBjMzc5YTJlZWNmYTc2ZTY0YjY5OWJiYjgyNTc4ZDgzZWI0YmJhM2Q5NDY0MCIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      [2m+19 vendor frames [22m
+  20  tests/Feature/EndToEndPaymentJourneyTest.php:43
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\EndToEndPaymentJourneyTest > paymen…  QueryException   
+  SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6IlRkRXdHakxhMzA1Z2V6UjhBWGs2Z0E9PSIsInZhbHVlIjoicm5tc2FqbThUSTNCdW8wM1pBNloyZz09IiwibWFjIjoiYjg1ZjJlZDYxMDU3NGI3Yzg3ZGIxODQyNjY5MDU1MGViNTRlNzM5YzZmOWU0YjJkYzZmZmJjYmIwOTYzZWExYSIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      [2m+19 vendor frames [22m
+  20  tests/Feature/EndToEndPaymentJourneyTest.php:43
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\EndToEndPaymentJourneyTest > paymen…  QueryException   
+  SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6Ijd0OHQxUUJCR3c2R25oSXpaYm9TMUE9PSIsInZhbHVlIjoiQksxSHpZWDVKcVYzeUY2N3ZJQXFDUT09IiwibWFjIjoiNThkNDEzMjljNDViODVjNTczMzk2MjdlZDljMjE2ODQ2Zjc2OWJjOTAxODEyMzExMDhjYTAzZGFhNmNlN2NiOSIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      [2m+19 vendor frames [22m
+  20  tests/Feature/EndToEndPaymentJourneyTest.php:43
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\EndToEndPaymentJourneyTest > sessio…  QueryException   
+  SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6IkRubS81aFRaNUZhTlFkbjZIOGs1TWc9PSIsInZhbHVlIjoiTVh3L21DZUg5KytIUS9CVXJHSk9yUT09IiwibWFjIjoiNTNmODZmYjI1MGI4YjZhMzg4ZmVjODk4YjExYzc4MTA1OTBlYmU5MjY5NzViOGUzMWEyNjlkZGViNGMzNzdjZCIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      [2m+19 vendor frames [22m
+  20  tests/Feature/EndToEndPaymentJourneyTest.php:43
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\EndToEndPaymentJourneyTest > duplic…  QueryException   
+  SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6Imw2K1FNMEJUd3B6M0g3ZmViZU5mUUE9PSIsInZhbHVlIjoiK3ZHRlB1VVpwaHAvR2lobi9DVFFLZz09IiwibWFjIjoiM2Y0ZjJjY2JmNjhjMzE5ZTVhNjVkM2I2MTA5NDA2ZGQ2Mzg5OGVkZDVhYmQ0OGVmMDBkYWE3YTEyODg5NGZjZSIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      [2m+19 vendor frames [22m
+  20  tests/Feature/EndToEndPaymentJourneyTest.php:43
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\EndToEndPaymentJourneyTest > paymen…  QueryException   
+  SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6IlBybnBKT0FmMlJUa1NWTFhLbWk5U0E9PSIsInZhbHVlIjoiWGFaTFVWWFBqWlczdEhvWmp0ZFRGZz09IiwibWFjIjoiYWZmNDY0ODRjN2JjZjliMmYzYmJkNjgyMzBlYmUwOTI1ZTI1OTFiYTAyZDI2YjVhODhkYjQ2NmRkYzY1MGUzZCIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      [2m+19 vendor frames [22m
+  20  tests/Feature/EndToEndPaymentJourneyTest.php:43
+
+
+  Tests:    6 failed (0 assertions)
+  Duration: 0.44s
+
+Time: 00:00.443, Memory: 42.50 MB
+
+End To End Payment Journey (Tests\Feature\EndToEndPaymentJourney)
+ ✘ Complete card payment user journey works correctly
+   │
+   │ Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6Ik9qV1llc3BpWVRqUmRIdGVMWlBTVnc9PSIsInZhbHVlIjoibjYweG5TM3o1bnczNW5MMmlTOFk0Zz09IiwibWFjIjoiYzU5MTNmMzc4NzhjYmVmNmU2NjBjMzc5YTJlZWNmYTc2ZTY0YjY5OWJiYjgyNTc4ZDgzZWI0YmJhM2Q5NDY0MCIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1025
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/helpers.php:320
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1024
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:23
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2335
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2347
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:43
+   │
+ ✘ Payment method switching preserves registration data
+   │
+   │ Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6IlRkRXdHakxhMzA1Z2V6UjhBWGs2Z0E9PSIsInZhbHVlIjoicm5tc2FqbThUSTNCdW8wM1pBNloyZz09IiwibWFjIjoiYjg1ZjJlZDYxMDU3NGI3Yzg3ZGIxODQyNjY5MDU1MGViNTRlNzM5YzZmOWU0YjJkYzZmZmJjYmIwOTYzZWExYSIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1025
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/helpers.php:320
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1024
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:23
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2335
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2347
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:43
+   │
+ ✘ Payment failure recovery flow works
+   │
+   │ Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6Ijd0OHQxUUJCR3c2R25oSXpaYm9TMUE9PSIsInZhbHVlIjoiQksxSHpZWDVKcVYzeUY2N3ZJQXFDUT09IiwibWFjIjoiNThkNDEzMjljNDViODVjNTczMzk2MjdlZDljMjE2ODQ2Zjc2OWJjOTAxODEyMzExMDhjYTAzZGFhNmNlN2NiOSIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1025
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/helpers.php:320
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1024
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:23
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2335
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2347
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:43
+   │
+ ✘ Session timeout handling works correctly
+   │
+   │ Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6IkRubS81aFRaNUZhTlFkbjZIOGs1TWc9PSIsInZhbHVlIjoiTVh3L21DZUg5KytIUS9CVXJHSk9yUT09IiwibWFjIjoiNTNmODZmYjI1MGI4YjZhMzg4ZmVjODk4YjExYzc4MTA1OTBlYmU5MjY5NzViOGUzMWEyNjlkZGViNGMzNzdjZCIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1025
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/helpers.php:320
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1024
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:23
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2335
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2347
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:43
+   │
+ ✘ Duplicate registration prevention works with card payments
+   │
+   │ Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6Imw2K1FNMEJUd3B6M0g3ZmViZU5mUUE9PSIsInZhbHVlIjoiK3ZHRlB1VVpwaHAvR2lobi9DVFFLZz09IiwibWFjIjoiM2Y0ZjJjY2JmNjhjMzE5ZTVhNjVkM2I2MTA5NDA2ZGQ2Mzg5OGVkZDVhYmQ0OGVmMDBkYWE3YTEyODg5NGZjZSIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1025
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/helpers.php:320
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1024
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:23
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2335
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2347
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:43
+   │
+ ✘ Payment amount validation works
+   │
+   │ Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 no such table: uni_payment_settings (Connection: sqlite, SQL: insert into "uni_payment_settings" ("app_id", "api_key", "environment", "webhook_secret", "is_enabled", "supported_currencies", "processing_fee_percentage", "minimum_amount", "maximum_amount", "updated_at", "created_at") values (test_app_id, eyJpdiI6IlBybnBKT0FmMlJUa1NWTFhLbWk5U0E9PSIsInZhbHVlIjoiWGFaTFVWWFBqWlczdEhvWmp0ZFRGZz09IiwibWFjIjoiYWZmNDY0ODRjN2JjZjliMmYzYmJkNjgyMzBlYmUwOTI1ZTI1OTFiYTAyZDI2YjVhODhkYjQ2NmRkYzY1MGUzZCIsInRhZyI6IiJ9, sandbox, test_webhook_secret, 1, ["USD"], 2.9, 1, 10000, 2025-08-13 11:35:13, 2025-08-13 11:35:13))
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1025
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/helpers.php:320
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1024
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:23
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2335
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:2347
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:43
+   │
+
+ERRORS!
+Tests: 6, Assertions: 0, Errors: 6.

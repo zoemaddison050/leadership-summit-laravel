@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Feature\EndToEndPaymentJourneyTest" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php" tests="6" assertions="3" errors="6" failures="0" skipped="0" time="0.451784">
+    <testcase name="complete_card_payment_user_journey_works_correctly" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php" line="57" class="Tests\Feature\EndToEndPaymentJourneyTest" classname="Tests.Feature.EndToEndPaymentJourneyTest" assertions="3" time="0.279009">
+      <error type="Illuminate\Routing\Exceptions\UrlGenerationException">Tests\Feature\EndToEndPaymentJourneyTest::complete_card_payment_user_journey_works_correctly
+Illuminate\Routing\Exceptions\UrlGenerationException: Missing required parameter for [Route: registrations.store] [URI: events/{event}/register-auth] [Missing parameter: event].
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/Exceptions/UrlGenerationException.php:35
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/RouteUrlGenerator.php:90
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:500
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:469
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php:811
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:79</error>
+    </testcase>
+    <testcase name="payment_method_switching_preserves_registration_data" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php" line="133" class="Tests\Feature\EndToEndPaymentJourneyTest" classname="Tests.Feature.EndToEndPaymentJourneyTest" assertions="0" time="0.034838">
+      <error type="Illuminate\Routing\Exceptions\UrlGenerationException">Tests\Feature\EndToEndPaymentJourneyTest::payment_method_switching_preserves_registration_data
+Illuminate\Routing\Exceptions\UrlGenerationException: Missing required parameter for [Route: registrations.store] [URI: events/{event}/register-auth] [Missing parameter: event].
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/Exceptions/UrlGenerationException.php:35
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/RouteUrlGenerator.php:90
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:500
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:469
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php:811
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:147</error>
+    </testcase>
+    <testcase name="payment_failure_recovery_flow_works" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php" line="184" class="Tests\Feature\EndToEndPaymentJourneyTest" classname="Tests.Feature.EndToEndPaymentJourneyTest" assertions="0" time="0.033142">
+      <error type="Illuminate\Routing\Exceptions\UrlGenerationException">Tests\Feature\EndToEndPaymentJourneyTest::payment_failure_recovery_flow_works
+Illuminate\Routing\Exceptions\UrlGenerationException: Missing required parameter for [Route: registrations.store] [URI: events/{event}/register-auth] [Missing parameter: event].
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/Exceptions/UrlGenerationException.php:35
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/RouteUrlGenerator.php:90
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:500
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:469
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php:811
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:196</error>
+    </testcase>
+    <testcase name="session_timeout_handling_works_correctly" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php" line="231" class="Tests\Feature\EndToEndPaymentJourneyTest" classname="Tests.Feature.EndToEndPaymentJourneyTest" assertions="0" time="0.034419">
+      <error type="Illuminate\Routing\Exceptions\UrlGenerationException">Tests\Feature\EndToEndPaymentJourneyTest::session_timeout_handling_works_correctly
+Illuminate\Routing\Exceptions\UrlGenerationException: Missing required parameter for [Route: registrations.store] [URI: events/{event}/register-auth] [Missing parameter: event].
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/Exceptions/UrlGenerationException.php:35
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/RouteUrlGenerator.php:90
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:500
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:469
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php:811
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:242</error>
+    </testcase>
+    <testcase name="duplicate_registration_prevention_works_with_card_payments" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php" line="257" class="Tests\Feature\EndToEndPaymentJourneyTest" classname="Tests.Feature.EndToEndPaymentJourneyTest" assertions="0" time="0.034131">
+      <error type="Illuminate\Routing\Exceptions\UrlGenerationException">Tests\Feature\EndToEndPaymentJourneyTest::duplicate_registration_prevention_works_with_card_payments
+Illuminate\Routing\Exceptions\UrlGenerationException: Missing required parameter for [Route: registrations.store] [URI: events/{event}/register-auth] [Missing parameter: event].
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/Exceptions/UrlGenerationException.php:35
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/RouteUrlGenerator.php:90
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:500
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:469
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php:811
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:269</error>
+    </testcase>
+    <testcase name="payment_amount_validation_works" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php" line="299" class="Tests\Feature\EndToEndPaymentJourneyTest" classname="Tests.Feature.EndToEndPaymentJourneyTest" assertions="0" time="0.036247">
+      <error type="Illuminate\Routing\Exceptions\UrlGenerationException">Tests\Feature\EndToEndPaymentJourneyTest::payment_amount_validation_works
+Illuminate\Routing\Exceptions\UrlGenerationException: Missing required parameter for [Route: registrations.store] [URI: events/{event}/register-auth] [Missing parameter: event].
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/Exceptions/UrlGenerationException.php:35
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/RouteUrlGenerator.php:90
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:500
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:469
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php:811
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/EndToEndPaymentJourneyTest.php:315</error>
+    </testcase>
+  </testsuite>
+</testsuites>

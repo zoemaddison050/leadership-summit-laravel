@@ -1,0 +1,545 @@
+@extends('layouts.admin')
+
+@section('title', 'Manage Events')
+
+@section('breadcrumbs')
+<li class="breadcrumb-item active" aria-current="page">Events</li>
+@endsection
+
+@push('styles')
+<style>
+    .event-status-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .event-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .event-thumbnail {
+        width: 60px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 0.25rem;
+    }
+
+    .event-placeholder {
+        width: 60px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border-radius: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.8rem;
+    }
+
+    .table-actions {
+        white-space: nowrap;
+    }
+
+    .filters-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+    }
+
+    .search-filters {
+        display: flex;
+        gap: 1rem;
+        align-items: end;
+        flex-wrap: wrap;
+    }
+
+    .filter-group {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    @media (max-width: 768px) {
+        .search-filters {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .filter-group {
+            min-width: auto;
+        }
+
+        .event-actions {
+            flex-direction: column;
+        }
+
+        .table-responsive {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+@endpush
+
+@section('content')
+<div class="page-header">
+    <h1 class="page-title">Events Management</h1>
+    <div class="page-actions">
+        <a href="{{ url('/admin/events/create') }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2" aria-hidden="true"></i>Add New Event
+        </a>
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                <i class="fas fa-download me-2" aria-hidden="true"></i>Export
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url('/admin/events/export?format=csv') }}">
+                        <i class="fas fa-file-csv me-2" aria-hidden="true"></i>CSV
+                    </a></li>
+                <li><a class="dropdown-item" href="{{ url('/admin/events/export?format=excel') }}">
+                        <i class="fas fa-file-excel me-2" aria-hidden="true"></i>Excel
+                    </a></li>
+                <li><a class="dropdown-item" href="{{ url('/admin/events/export?format=pdf') }}">
+                        <i class="fas fa-file-pdf me-2" aria-hidden="true"></i>PDF
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Filters Section -->
+<div class="filters-section">
+    <form method="GET" action="{{ url('/admin/events') }}">
+        <div class="search-filters">
+            <div class="filter-group">
+                <label for="search" class="form-label">Search Events</label>
+                <input type="text" id="search" name="search" class="form-control"
+                    placeholder="Search by title, description..."
+                    value="{{ request('search') }}">
+            </div>
+
+            <div class="filter-group">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" name="status" class="form-select">
+                    <option value="">All Statuses</option>
+                    <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                    <option value="published" {{ request('status') == 'published' ? 'selected' : '' }}>Published</option>
+                    <option value="featured" {{ request('status') == 'featured' ? 'selected' : '' }}>Featured</option>
+                    <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="date_from" class="form-label">Date From</label>
+                <input type="date" id="date_from" name="date_from" class="form-control"
+                    value="{{ request('date_from') }}">
+            </div>
+
+            <div class="filter-group">
+                <label for="date_to" class="form-label">Date To</label>
+                <input type="date" id="date_to" name="date_to" class="form-control"
+                    value="{{ request('date_to') }}">
+            </div>
+
+            <div class="filter-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search me-2" aria-hidden="true"></i>Filter
+                </button>
+                <a href="{{ url('/admin/events') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-times me-2" aria-hidden="true"></i>Clear
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Events Table -->
+<div class="admin-card">
+    <div class="admin-card-header">
+        <h3 class="admin-card-title">
+            All Events
+            @if(isset($events))
+            <span class="badge bg-secondary ms-2">{{ $events->total() ?? $events->count() }}</span>
+            @endif
+        </h3>
+        <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-danger" id="bulkDeleteBtn" style="display: none;">
+                <i class="fas fa-trash me-1" aria-hidden="true"></i>Delete Selected
+            </button>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Bulk Actions
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="bulkAction('publish')">
+                            <i class="fas fa-eye me-2" aria-hidden="true"></i>Publish
+                        </a></li>
+                    <li><a class="dropdown-item" href="#" onclick="bulkAction('draft')">
+                            <i class="fas fa-eye-slash me-2" aria-hidden="true"></i>Set as Draft
+                        </a></li>
+                    <li><a class="dropdown-item" href="#" onclick="bulkAction('feature')">
+                            <i class="fas fa-star me-2" aria-hidden="true"></i>Feature
+                        </a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="bulkAction('delete')">
+                            <i class="fas fa-trash me-2" aria-hidden="true"></i>Delete
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="admin-card-body p-0">
+        @if(isset($events) && $events->count() > 0)
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th width="40">
+                            <input type="checkbox" id="selectAll" class="form-check-input">
+                        </th>
+                        <th width="80">Image</th>
+                        <th>Event Details</th>
+                        <th width="120">Date</th>
+                        <th width="100">Status</th>
+                        <th width="100">Registrations</th>
+                        <th width="150" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($events as $event)
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="form-check-input event-checkbox" value="{{ $event->id }}">
+                        </td>
+                        <td>
+                            @if($event->featured_image)
+                            <img src="{{ asset('storage/' . $event->featured_image) }}"
+                                alt="{{ $event->title }}" class="event-thumbnail">
+                            @else
+                            <div class="event-placeholder">
+                                <i class="fas fa-calendar" aria-hidden="true"></i>
+                            </div>
+                            @endif
+                        </td>
+                        <td>
+                            <div>
+                                <h6 class="mb-1">
+                                    <a href="{{ url('/admin/events/' . $event->id) }}" class="text-decoration-none">
+                                        {{ $event->title }}
+                                    </a>
+                                </h6>
+                                <p class="text-muted mb-1 small">{{ Str::limit($event->description, 80) }}</p>
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-1" aria-hidden="true"></i>
+                                    {{ $event->location ?? 'Location TBD' }}
+                                </small>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="small">
+                                <div class="fw-semibold">{{ $event->start_date->format('M d, Y') }}</div>
+                                <div class="text-muted">{{ $event->start_date->format('g:i A') }}</div>
+                                @if($event->end_date && $event->end_date != $event->start_date)
+                                <div class="text-muted">to {{ $event->end_date->format('M d') }}</div>
+                                @endif
+                            </div>
+                        </td>
+                        <td>
+                            @php
+                            $statusColors = [
+                            'draft' => 'secondary',
+                            'published' => 'success',
+                            'featured' => 'primary',
+                            'cancelled' => 'danger'
+                            ];
+                            $statusColor = $statusColors[$event->status] ?? 'secondary';
+                            @endphp
+                            <span class="badge bg-{{ $statusColor }} event-status-badge">
+                                {{ ucfirst($event->status) }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <div class="fw-semibold">{{ $event->registrations_count ?? 0 }}</div>
+                                <small class="text-muted">registered</small>
+                            </div>
+                        </td>
+                        <td class="table-actions text-end">
+                            <div class="event-actions">
+                                <a href="{{ url('/events/' . $event->slug) }}"
+                                    class="btn btn-sm btn-outline-info" target="_blank" title="View Event">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="{{ url('/admin/events/' . $event->id . '/edit') }}"
+                                    class="btn btn-sm btn-outline-primary" title="Edit Event">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    onclick="deleteEvent({{ $event->id }}, '{{ addslashes($event->title) }}')"
+                                    title="Delete Event">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        @if(method_exists($events, 'links'))
+        <div class="d-flex justify-content-center p-3">
+            {{ $events->links() }}
+        </div>
+        @endif
+        @else
+        <!-- Placeholder data when no events exist -->
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th width="40">
+                            <input type="checkbox" id="selectAll" class="form-check-input">
+                        </th>
+                        <th width="80">Image</th>
+                        <th>Event Details</th>
+                        <th width="120">Date</th>
+                        <th width="100">Status</th>
+                        <th width="100">Registrations</th>
+                        <th width="150" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" class="form-check-input"></td>
+                        <td>
+                            <div class="event-placeholder">
+                                <i class="fas fa-calendar" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <h6 class="mb-1">Leadership Excellence Summit</h6>
+                                <p class="text-muted mb-1 small">Our flagship three-day event featuring keynote speeches and workshops</p>
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-1" aria-hidden="true"></i>
+                                    Cypress International Conference Center
+                                </small>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="small">
+                                <div class="fw-semibold">Sep 15, 2025</div>
+                                <div class="text-muted">9:00 AM</div>
+                                <div class="text-muted">to Sep 17</div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-primary event-status-badge">Featured</span>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <div class="fw-semibold">247</div>
+                                <small class="text-muted">registered</small>
+                            </div>
+                        </td>
+                        <td class="table-actions text-end">
+                            <div class="event-actions">
+                                <a href="#" class="btn btn-sm btn-outline-info" title="View Event">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-primary" title="Edit Event">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete Event">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="form-check-input"></td>
+                        <td>
+                            <div class="event-placeholder">
+                                <i class="fas fa-users" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <h6 class="mb-1">Executive Networking Gala</h6>
+                                <p class="text-muted mb-1 small">Exclusive evening event for senior executives and industry leaders</p>
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-1" aria-hidden="true"></i>
+                                    Grand Ballroom
+                                </small>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="small">
+                                <div class="fw-semibold">Sep 18, 2025</div>
+                                <div class="text-muted">7:00 PM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-success event-status-badge">Published</span>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <div class="fw-semibold">89</div>
+                                <small class="text-muted">registered</small>
+                            </div>
+                        </td>
+                        <td class="table-actions text-end">
+                            <div class="event-actions">
+                                <a href="#" class="btn btn-sm btn-outline-info" title="View Event">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-primary" title="Edit Event">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete Event">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @endif
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the event "<span id="eventTitle"></span>"?</p>
+                <p class="text-danger small">This action cannot be undone and will also delete all associated registrations and tickets.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete Event</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all functionality
+        const selectAll = document.getElementById('selectAll');
+        const eventCheckboxes = document.querySelectorAll('.event-checkbox');
+        const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+
+        selectAll?.addEventListener('change', function() {
+            eventCheckboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+            toggleBulkActions();
+        });
+
+        eventCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', toggleBulkActions);
+        });
+
+        function toggleBulkActions() {
+            const checkedBoxes = document.querySelectorAll('.event-checkbox:checked');
+            if (checkedBoxes.length > 0) {
+                bulkDeleteBtn.style.display = 'block';
+            } else {
+                bulkDeleteBtn.style.display = 'none';
+            }
+        }
+
+        // Delete event functionality
+        let eventToDelete = null;
+
+        window.deleteEvent = function(eventId, eventTitle) {
+            eventToDelete = eventId;
+            document.getElementById('eventTitle').textContent = eventTitle;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        };
+
+        document.getElementById('confirmDelete')?.addEventListener('click', function() {
+            if (eventToDelete) {
+                // Create form and submit
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/events/${eventToDelete}`;
+
+                const methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+
+                const tokenField = document.createElement('input');
+                tokenField.type = 'hidden';
+                tokenField.name = '_token';
+                tokenField.value = document.querySelector('meta[name="csrf-token"]').content;
+
+                form.appendChild(methodField);
+                form.appendChild(tokenField);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+
+        // Bulk actions
+        window.bulkAction = function(action) {
+            const checkedBoxes = document.querySelectorAll('.event-checkbox:checked');
+            if (checkedBoxes.length === 0) {
+                alert('Please select at least one event.');
+                return;
+            }
+
+            const eventIds = Array.from(checkedBoxes).map(cb => cb.value);
+
+            if (action === 'delete') {
+                if (confirm(`Are you sure you want to delete ${eventIds.length} event(s)?`)) {
+                    submitBulkAction('delete', eventIds);
+                }
+            } else {
+                submitBulkAction(action, eventIds);
+            }
+        };
+
+        function submitBulkAction(action, eventIds) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/admin/events/bulk-action';
+
+            const tokenField = document.createElement('input');
+            tokenField.type = 'hidden';
+            tokenField.name = '_token';
+            tokenField.value = document.querySelector('meta[name="csrf-token"]').content;
+
+            const actionField = document.createElement('input');
+            actionField.type = 'hidden';
+            actionField.name = 'action';
+            actionField.value = action;
+
+            const idsField = document.createElement('input');
+            idsField.type = 'hidden';
+            idsField.name = 'event_ids';
+            idsField.value = JSON.stringify(eventIds);
+
+            form.appendChild(tokenField);
+            form.appendChild(actionField);
+            form.appendChild(idsField);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+</script>
+@endpush

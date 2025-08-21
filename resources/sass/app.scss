@@ -1,0 +1,15 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "bootstrap/scss/bootstrap";
+
+// Custom Components
+@import "components/base";
+@import "components/header";
+@import "components/footer";
+@import "components/buttons";
+@import "components/accessibility";

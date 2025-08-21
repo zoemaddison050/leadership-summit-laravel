@@ -1,0 +1,3543 @@
+PHPUnit 10.5.48 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.11
+Configuration: /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/phpunit.xml
+
+
+   FAIL  Tests\Feature\AdminPaymentValidationTest
+  ⨯ admin can configure unipayment settings                              1.48s  
+  ⨯ admin can view payment transactions                                  1.37s  
+  ⨯ admin can view registration payment details                          0.91s  
+  ⨯ admin registrations index shows payment information                  1.85s  
+  ⨯ admin can test unipayment connection                                 1.30s  
+  ⨯ admin settings validation works                                      1.41s  
+  ⨯ non admin cannot access payment admin features                       2.22s  
+  ⨯ admin can export payment data                                        1.40s  
+  ⨯ admin dashboard shows payment statistics                             2.58s  
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest > admin can configure un…   
+  Expected response status code [201, 301, 302, 303, 307, 308] but received 405.
+Failed asserting that false is true.
+
+  at tests/Feature/AdminPaymentValidationTest.php:73
+     69▕             'maximum_amount' => 5000.00
+     70▕         ];
+     71▕ 
+     72▕         $response = $this->post(route('admin.unipayment.update'), $settingsData);
+  ➜  73▕         $response->assertRedirect();
+     74▕         $response->assertSessionHas('success');
+     75▕ 
+     76▕         // Verify settings were saved
+     77▕         $settings = UniPaymentSetting::first();
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest > admin can view payment…   
+  Failed asserting that '<!doctype html>\n
+<html lang="en">\n
+\n
+<head>\n
+    <meta charset="utf-8">\n
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">\n
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">\n
+    <link rel="profile" href="https://gmpg.org/xfn/11">\n
+\n
+    <!-- CSRF Token -->\n
+    <meta name="csrf-token" content="254fSE7j893mVZfTGYjSkm7JIveow22rqxfRnl1l">\n
+\n
+    <!-- SEO Meta Tags -->\n
+    <title>UniPayment Transactions - Leadership Summit</title>\n
+    <meta name="description" content="Admin dashboard for Leadership Summit">\n
+    <meta name="robots" content="noindex, nofollow">\n
+\n
+    <!-- Favicon -->\n
+    <link rel="icon" type="image/svg+xml" href="http://localhost:8000/images/favicon.svg">\n
+    <link rel="icon" type="image/png" href="http://localhost:8000/images/favicon.png">\n
+\n
+    <!-- Preconnect to external domains -->\n
+    <link rel="preconnect" href="https://fonts.googleapis.com">\n
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">\n
+\n
+    <!-- Fonts -->\n
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">\n
+\n
+    <!-- Font Awesome -->\n
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">\n
+\n
+    <!-- Theme Color -->\n
+    <meta name="theme-color" content="#0a2463">\n
+\n
+    <!-- Scripts -->\n
+    <link rel="preload" as="style" href="http://localhost:8000/build/assets/app-f14c5841.css" /><link rel="modulepreload" href="http://localhost:8000/build/assets/app-81a400a8.js" /><link rel="stylesheet" href="http://localhost:8000/build/assets/app-f14c5841.css" data-navigate-track="reload" /><script type="module" src="http://localhost:8000/build/assets/app-81a400a8.js" data-navigate-track="reload"></script>\n
+    \n
+    <style>\n
+        /* Admin-specific styles */\n
+        .admin-layout {\n
+            display: flex;\n
+            min-height: 100vh;\n
+        }\n
+\n
+        .admin-sidebar {\n
+            width: 280px;\n
+            background: var(--primary-color);\n
+            color: white;\n
+            position: fixed;\n
+            height: 100vh;\n
+            overflow-y: auto;\n
+            z-index: 1000;\n
+            transition: transform 0.3s ease;\n
+        }\n
+\n
+        .admin-sidebar.collapsed {\n
+            transform: translateX(-100%);\n
+        }\n
+\n
+        .admin-main {\n
+            flex: 1;\n
+            margin-left: 280px;\n
+            background: #f8fafc;\n
+            min-height: 100vh;\n
+            transition: margin-left 0.3s ease;\n
+        }\n
+\n
+        .admin-main.expanded {\n
+            margin-left: 0;\n
+        }\n
+\n
+        .admin-header {\n
+            background: white;\n
+            padding: 1rem 2rem;\n
+            border-bottom: 1px solid #e5e7eb;\n
+            display: flex;\n
+            justify-content: between;\n
+            align-items: center;\n
+            position: sticky;\n
+            top: 0;\n
+            z-index: 100;\n
+        }\n
+\n
+        .admin-content {\n
+            padding: 2rem;\n
+        }\n
+\n
+        .sidebar-header {\n
+            padding: 1.5rem;\n
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n
+        }\n
+\n
+        .sidebar-brand {\n
+            font-size: 1.25rem;\n
+            font-weight: 700;\n
+            color: white;\n
+            text-decoration: none;\n
+            display: flex;\n
+            align-items: center;\n
+            gap: 0.75rem;\n
+        }\n
+\n
+        .sidebar-brand:hover {\n
+            color: var(--secondary-color);\n
+            text-decoration: none;\n
+        }\n
+\n
+        .sidebar-nav {\n
+            padding: 1rem 0;\n
+        }\n
+\n
+        .nav-section {\n
+            margin-bottom: 2rem;\n
+        }\n
+\n
+        .nav-section-title {\n
+            padding: 0.5rem 1.5rem;\n
+            font-size: 0.8rem;\n
+            font-weight: 600;\n
+            text-transform: uppercase;\n
+            letter-spacing: 0.5px;\n
+            color: rgba(255, 255, 255, 0.6);\n
+            margin-bottom: 0.5rem;\n
+        }\n
+\n
+        .nav-item {\n
+            margin-bottom: 0.25rem;\n
+        }\n
+\n
+        .nav-link {\n
+            display: flex;\n
+            align-items: center;\n
+            padding: 0.75rem 1.5rem;\n
+            color: rgba(255, 255, 255, 0.8);\n
+            text-decoration: none;\n
+            transition: all 0.3s ease;\n
+            position: relative;\n
+        }\n
+\n
+        .nav-link:hover,\n
+        .nav-link.active {\n
+            color: white;\n
+            background: rgba(255, 255, 255, 0.1);\n
+            text-decoration: none;\n
+        }\n
+\n
+        .nav-link.active::before {\n
+            content: '';\n
+            position: absolute;\n
+            left: 0;\n
+            top: 0;\n
+            bottom: 0;\n
+            width: 4px;\n
+            background: var(--secondary-color);\n
+        }\n
+\n
+        .nav-link i {\n
+            width: 20px;\n
+            margin-right: 0.75rem;\n
+            font-size: 1rem;\n
+        }\n
+\n
+        .nav-badge {\n
+            background: var(--secondary-color);\n
+            color: var(--primary-color);\n
+            font-size: 0.75rem;\n
+            padding: 0.25rem 0.5rem;\n
+            border-radius: 50px;\n
+            margin-left: auto;\n
+            font-weight: 600;\n
+        }\n
+\n
+        .mobile-toggle {\n
+            display: none;\n
+            background: none;\n
+            border: none;\n
+            color: var(--primary-color);\n
+            font-size: 1.5rem;\n
+            cursor: pointer;\n
+        }\n
+\n
+        .admin-breadcrumb {\n
+            background: transparent;\n
+            padding: 0;\n
+            margin-bottom: 1rem;\n
+        }\n
+\n
+        .admin-breadcrumb .breadcrumb {\n
+            background: transparent;\n
+            padding: 0;\n
+            margin: 0;\n
+        }\n
+\n
+        .admin-breadcrumb .breadcrumb-item {\n
+            font-size: 0.9rem;\n
+        }\n
+\n
+        .admin-breadcrumb .breadcrumb-item+.breadcrumb-item::before {\n
+            content: ">";\n
+            color: #6b7280;\n
+        }\n
+\n
+        .page-header {\n
+            display: flex;\n
+            justify-content: space-between;\n
+            align-items: center;\n
+            margin-bottom: 2rem;\n
+        }\n
+\n
+        .page-title {\n
+            font-size: 2rem;\n
+            font-weight: 700;\n
+            color: var(--primary-color);\n
+            margin: 0;\n
+        }\n
+\n
+        .page-actions {\n
+            display: flex;\n
+            gap: 1rem;\n
+        }\n
+\n
+        .stats-grid {\n
+            display: grid;\n
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n
+            gap: 1.5rem;\n
+            margin-bottom: 2rem;\n
+        }\n
+\n
+        .stat-card {\n
+            background: white;\n
+            padding: 1.5rem;\n
+            border-radius: 0.5rem;\n
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n
+            border-left: 4px solid var(--primary-color);\n
+        }\n
+\n
+        .stat-card.success {\n
+            border-left-color: #10b981;\n
+        }\n
+\n
+        .stat-card.warning {\n
+            border-left-color: #f59e0b;\n
+        }\n
+\n
+        .stat-card.danger {\n
+            border-left-color: #ef4444;\n
+        }\n
+\n
+        .stat-card.info {\n
+            border-left-color: #3b82f6;\n
+        }\n
+\n
+        .stat-header {\n
+            display: flex;\n
+            justify-content: space-between;\n
+            align-items: center;\n
+            margin-bottom: 0.5rem;\n
+        }\n
+\n
+        .stat-title {\n
+            font-size: 0.9rem;\n
+            color: #6b7280;\n
+            font-weight: 500;\n
+        }\n
+\n
+        .stat-icon {\n
+            width: 40px;\n
+            height: 40px;\n
+            border-radius: 50%;\n
+            display: flex;\n
+            align-items: center;\n
+            justify-content: center;\n
+            font-size: 1.2rem;\n
+            color: white;\n
+        }\n
+\n
+        .stat-icon.success {\n
+            background: #10b981;\n
+        }\n
+\n
+        .stat-icon.warning {\n
+            background: #f59e0b;\n
+        }\n
+\n
+        .stat-icon.danger {\n
+            background: #ef4444;\n
+        }\n
+\n
+        .stat-icon.info {\n
+            background: #3b82f6;\n
+        }\n
+\n
+        .stat-value {\n
+            font-size: 2rem;\n
+            font-weight: 700;\n
+            color: var(--primary-color);\n
+            margin-bottom: 0.25rem;\n
+        }\n
+\n
+        .stat-change {\n
+            font-size: 0.8rem;\n
+            display: flex;\n
+            align-items: center;\n
+            gap: 0.25rem;\n
+        }\n
+\n
+        .stat-change.positive {\n
+            color: #10b981;\n
+        }\n
+\n
+        .stat-change.negative {\n
+            color: #ef4444;\n
+        }\n
+\n
+        .stat-change.neutral {\n
+            color: #6b7280;\n
+        }\n
+\n
+        .admin-card {\n
+            background: white;\n
+            border-radius: 0.5rem;\n
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n
+            overflow: hidden;\n
+        }\n
+\n
+        .admin-card-header {\n
+            padding: 1.5rem;\n
+            border-bottom: 1px solid #e5e7eb;\n
+            display: flex;\n
+            justify-content: space-between;\n
+            align-items: center;\n
+        }\n
+\n
+        .admin-card-title {\n
+            font-size: 1.25rem;\n
+            font-weight: 600;\n
+            color: var(--primary-color);\n
+            margin: 0;\n
+        }\n
+\n
+        .admin-card-body {\n
+            padding: 1.5rem;\n
+        }\n
+\n
+        @media (max-width: 768px) {\n
+            .admin-sidebar {\n
+                transform: translateX(-100%);\n
+            }\n
+\n
+            .admin-sidebar.show {\n
+                transform: translateX(0);\n
+            }\n
+\n
+            .admin-main {\n
+                margin-left: 0;\n
+            }\n
+\n
+            .mobile-toggle {\n
+                display: block;\n
+            }\n
+\n
+            .page-header {\n
+                flex-direction: column;\n
+                align-items: flex-start;\n
+                gap: 1rem;\n
+            }\n
+\n
+            .stats-grid {\n
+                grid-template-columns: 1fr;\n
+            }\n
+        }\n
+    </style>\n
+</head>\n
+\n
+<body class="admin-body">\n
+    <div class="admin-layout">\n
+        <!-- Admin Sidebar -->\n
+        <aside class="admin-sidebar" id="adminSidebar">\n
+            <div class="sidebar-header">\n
+                <a href="http://localhost:8000/admin" class="sidebar-brand">\n
+                    <i class="fas fa-cog" aria-hidden="true"></i>\n
+                    Admin Panel\n
+                </a>\n
+            </div>\n
+\n
+            <nav class="sidebar-nav">\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Main</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin" class="nav-link ">\n
+                            <i class="fas fa-tachometer-alt" aria-hidden="true"></i>\n
+                            Dashboard\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Events</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/events" class="nav-link ">\n
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>\n
+                            All Events\n
+                                                    </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/events/create" class="nav-link ">\n
+                            <i class="fas fa-plus" aria-hidden="true"></i>\n
+                            Add Event\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/tickets" class="nav-link ">\n
+                            <i class="fas fa-ticket-alt" aria-hidden="true"></i>\n
+                            Tickets\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Speakers</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/speakers" class="nav-link ">\n
+                            <i class="fas fa-users" aria-hidden="true"></i>\n
+                            All Speakers\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/speakers/create" class="nav-link ">\n
+                            <i class="fas fa-user-plus" aria-hidden="true"></i>\n
+                            Add Speaker\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/sessions" class="nav-link ">\n
+                            <i class="fas fa-presentation" aria-hidden="true"></i>\n
+                            Sessions\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Users</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/users" class="nav-link ">\n
+                            <i class="fas fa-users-cog" aria-hidden="true"></i>\n
+                            All Users\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/registrations" class="nav-link ">\n
+                            <i class="fas fa-clipboard-list" aria-hidden="true"></i>\n
+                            Registrations\n
+                                                    </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/payments/pending" class="nav-link ">\n
+                            <i class="fas fa-credit-card" aria-hidden="true"></i>\n
+                            Payment Review\n
+                                                    </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/roles" class="nav-link ">\n
+                            <i class="fas fa-user-shield" aria-hidden="true"></i>\n
+                            Roles & Permissions\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Content</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/pages" class="nav-link ">\n
+                            <i class="fas fa-file-alt" aria-hidden="true"></i>\n
+                            Pages\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/media" class="nav-link ">\n
+                            <i class="fas fa-images" aria-hidden="true"></i>\n
+                            Media Library\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">System</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/settings" class="nav-link ">\n
+                            <i class="fas fa-cogs" aria-hidden="true"></i>\n
+                            Settings\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/unipayment" class="nav-link active">\n
+                            <i class="fas fa-credit-card" aria-hidden="true"></i>\n
+                            Card Payments\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/wallet-settings" class="nav-link ">\n
+                            <i class="fas fa-wallet" aria-hidden="true"></i>\n
+                            Crypto Wallets\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/reports" class="nav-link ">\n
+                            <i class="fas fa-chart-bar" aria-hidden="true"></i>\n
+                            Reports\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Account</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000" class="nav-link" target="_blank">\n
+                            <i class="fas fa-external-link-alt" aria-hidden="true"></i>\n
+                            View Site\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/logout" class="nav-link"\n
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">\n
+                            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>\n
+                            Logout\n
+                        </a>\n
+                        <form id="logout-form" action="http://localhost:8000/logout" method="POST" class="d-none">\n
+                            <input type="hidden" name="_token" value="254fSE7j893mVZfTGYjSkm7JIveow22rqxfRnl1l" autocomplete="off">                        </form>\n
+                    </div>\n
+                </div>\n
+            </nav>\n
+        </aside>\n
+\n
+        <!-- Admin Main Content -->\n
+        <main class="admin-main" id="adminMain">\n
+            <!-- Admin Header -->\n
+            <header class="admin-header">\n
+                <div class="d-flex align-items-center">\n
+                    <button class="mobile-toggle me-3" id="sidebarToggle" aria-label="Toggle sidebar">\n
+                        <i class="fas fa-bars" aria-hidden="true"></i>\n
+                    </button>\n
+\n
+                                        <nav class="admin-breadcrumb">\n
+                        <ol class="breadcrumb">\n
+                            <li class="breadcrumb-item">\n
+                                <a href="http://localhost:8000/admin">Dashboard</a>\n
+                            </li>\n
+                                                    </ol>\n
+                    </nav>\n
+                                    </div>\n
+\n
+                <div class="d-flex align-items-center gap-3">\n
+                    <div class="dropdown">\n
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">\n
+                            <i class="fas fa-user me-2" aria-hidden="true"></i>\n
+                            Dr. Leland Ondricka PhD\n
+                        </button>\n
+                        <ul class="dropdown-menu dropdown-menu-end">\n
+                            <li>\n
+                                <h6 class="dropdown-header">Dr. Leland Ondricka PhD</h6>\n
+                            </li>\n
+                            <li><a class="dropdown-item" href="http://localhost:8000/profile">\n
+                                    <i class="fas fa-user-edit me-2" aria-hidden="true"></i>Profile\n
+                                </a></li>\n
+                            <li><a class="dropdown-item" href="http://localhost:8000/admin/settings">\n
+                                    <i class="fas fa-cogs me-2" aria-hidden="true"></i>Settings\n
+                                </a></li>\n
+                            <li>\n
+                                <hr class="dropdown-divider">\n
+                            </li>\n
+                            <li><a class="dropdown-item" href="http://localhost:8000/logout"\n
+                                    onclick="event.preventDefault(); document.getElementById('logout-form-header').submit();">\n
+                                    <i class="fas fa-sign-out-alt me-2" aria-hidden="true"></i>Logout\n
+                                </a></li>\n
+                        </ul>\n
+                    </div>\n
+                </div>\n
+            </header>\n
+\n
+            <!-- Admin Content -->\n
+            <div class="admin-content">\n
+                <!-- Flash Messages -->\n
+                \n
+                \n
+                \n
+                <div class="container-fluid">\n
+    <div class="row">\n
+        <div class="col-12">\n
+            <div class="card">\n
+                <div class="card-header d-flex justify-content-between align-items-center">\n
+                    <h3 class="card-title">\n
+                        <i class="fas fa-list mr-2"></i>\n
+                        UniPayment Transactions\n
+                    </h3>\n
+                    <div class="card-tools">\n
+                        <a href="http://localhost:8000/admin/unipayment" class="btn btn-sm btn-secondary">\n
+                            <i class="fas fa-cog mr-1"></i>\n
+                            Settings\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="card-body">\n
+                    <div class="alert alert-info">\n
+                        <i class="fas fa-info-circle mr-2"></i>\n
+                        <strong>Coming Soon</strong><br>\n
+                        Transaction history and management features will be available in a future update.\n
+                        For now, you can view payment transactions in the\n
+                        <a href="http://localhost:8000/admin/registrations" class="alert-link">Registrations</a> section.\n
+                    </div>\n
+\n
+                    <div class="text-center py-5">\n
+                        <i class="fas fa-credit-card fa-3x text-muted mb-3"></i>\n
+                        <h5 class="text-muted">Transaction Management</h5>\n
+                        <p class="text-muted">\n
+                            This section will display UniPayment transaction history,<br>\n
+                            refund management, and detailed payment analytics.\n
+                        </p>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="card-footer">\n
+                    <a href="http://localhost:8000/admin" class="btn btn-secondary">\n
+                        <i class="fas fa-arrow-left mr-2"></i>\n
+                        Back to Dashboard\n
+                    </a>\n
+                </div>\n
+            </div>\n
+        </div>\n
+    </div>\n
+</div>\n
+            </div>\n
+        </main>\n
+    </div>\n
+\n
+    \n
+    <script>\n
+        document.addEventListener('DOMContentLoaded', function() {\n
+            const sidebarToggle = document.getElementById('sidebarToggle');\n
+            const sidebar = document.getElementById('adminSidebar');\n
+            const main = document.getElementById('adminMain');\n
+\n
+            if (sidebarToggle) {\n
+                sidebarToggle.addEventListener('click', function() {\n
+                    sidebar.classList.toggle('show');\n
+                    sidebar.classList.toggle('collapsed');\n
+                    main.classList.toggle('expanded');\n
+                });\n
+            }\n
+\n
+            // Close sidebar when clicking outside on mobile\n
+            document.addEventListener('click', function(e) {\n
+                if (window.innerWidth <= 768 &&\n
+                    !sidebar.contains(e.target) &&\n
+                    !sidebarToggle.contains(e.target) &&\n
+                    sidebar.classList.contains('show')) {\n
+                    sidebar.classList.remove('show');\n
+                }\n
+            });\n
+\n
+            // Auto-dismiss alerts\n
+            const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');\n
+            alerts.forEach(function(alert) {\n
+                setTimeout(function() {\n
+                    const bsAlert = new bootstrap.Alert(alert);\n
+                    bsAlert.close();\n
+                }, 5000);\n
+            });\n
+        });\n
+    </script>\n
+\n
+    <form id="logout-form-header" action="http://localhost:8000/logout" method="POST" class="d-none">\n
+        <input type="hidden" name="_token" value="254fSE7j893mVZfTGYjSkm7JIveow22rqxfRnl1l" autocomplete="off">    </form>\n
+</body>\n
+\n
+</html>' [ASCII](length: 24023) contains "card_txn_123" [ASCII](length: 12).
+
+  at tests/Feature/AdminPaymentValidationTest.php:123
+    119▕         // Access transactions page
+    120▕         $response = $this->get(route('admin.unipayment.transactions'));
+    121▕         $response->assertStatus(200);
+    122▕         $response->assertSee('Payment Transactions');
+  ➜ 123▕         $response->assertSee('card_txn_123');
+    124▕         $response->assertSee('$150.00');
+    125▕         $response->assertSee('completed');
+    126▕ 
+    127▕         // Test filtering by payment method
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest > admin…   QueryException   
+  SQLSTATE[HY000]: General error: 1 table registrations has no column named first_name (Connection: sqlite, SQL: insert into "registrations" ("event_id", "ticket_id", "user_id", "status", "payment_status", "registration_status", "attendee_name", "attendee_email", "attendee_phone", "emergency_contact", "emergency_contact_name", "emergency_contact_phone", "total_amount", "terms_accepted_at", "created_at", "updated_at", "first_name", "last_name", "email", "payment_method", "payment_provider", "transaction_id", "payment_amount", "payment_currency", "payment_fee", "payment_completed_at") values (1, 1, ?, confirmed, paid, confirmed, Chadrick Murray, solon.zboncak@example.com, 1-361-789-2709, Mrs. Elvera Grady V, Hilbert Baumbach, +1.458.296.3455, 488.96, 2025-08-13 12:03:01, 2025-08-13 12:03:01, 2025-08-13 12:03:01, John, Admin, john.admin@test.com, card, unipayment, admin_test_txn, 150, USD, 4.35, 2025-08-13 12:03:01))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      [2m+18 vendor frames [22m
+  19  tests/Feature/AdminPaymentValidationTest.php:144
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest > admin…   QueryException   
+  SQLSTATE[HY000]: General error: 1 table registrations has no column named first_name (Connection: sqlite, SQL: insert into "registrations" ("event_id", "ticket_id", "user_id", "status", "payment_status", "registration_status", "attendee_name", "attendee_email", "attendee_phone", "emergency_contact", "emergency_contact_name", "emergency_contact_phone", "total_amount", "terms_accepted_at", "created_at", "updated_at", "first_name", "last_name", "email", "payment_method") values (1, 1, ?, confirmed, paid, pending, Lucile Prosacco, magnolia42@example.net, 830.568.8912, Prof. Justus Hintz DDS, Shanel Smith, +1-339-449-1955, 269.91, 2025-08-13 12:03:03, 2025-08-13 12:03:03, 2025-08-13 12:03:03, Card, User, card@test.com, card))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      [2m+18 vendor frames [22m
+  19  tests/Feature/AdminPaymentValidationTest.php:177
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest > admin can test unipaym…   
+  Expected response status code [200] but received 400.
+Failed asserting that 400 is identical to 200.
+
+  at tests/Feature/AdminPaymentValidationTest.php:235
+    231▕         ]);
+    232▕ 
+    233▕         // Test connection endpoint
+    234▕         $response = $this->post(route('admin.unipayment.test-connection'));
+  ➜ 235▕         $response->assertStatus(200);
+    236▕ 
+    237▕         $responseData = $response->json();
+    238▕         $this->assertArrayHasKey('success', $responseData);
+    239▕         $this->assertArrayHasKey('message', $responseData);
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest > admin settings validat…   
+  Session is missing expected key [errors].
+Failed asserting that false is true.
+
+  at tests/Feature/AdminPaymentValidationTest.php:257
+    253▕             'maximum_amount' => 0 // Zero maximum
+    254▕         ];
+    255▕ 
+    256▕         $response = $this->post(route('admin.unipayment.update'), $invalidData);
+  ➜ 257▕         $response->assertSessionHasErrors([
+    258▕             'app_id',
+    259▕             'api_key',
+    260▕             'processing_fee_percentage',
+    261▕             'minimum_amount',
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest > non admin cannot acces…   
+  Expected response status code [403] but received 405.
+Failed asserting that 405 is identical to 403.
+
+  at tests/Feature/AdminPaymentValidationTest.php:298
+    294▕         $response->assertStatus(403);
+    295▕ 
+    296▕         // Try to update settings
+    297▕         $response = $this->post(route('admin.unipayment.update'), []);
+  ➜ 298▕         $response->assertStatus(403);
+    299▕     }
+    300▕ 
+    301▕     /** @test */
+    302▕     public function admin_can_export_payment_data()
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest…   RouteNotFoundException   
+  Route [admin.registrations.export] not defined.
+
+  at vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:477
+    473▕             ! is_null($url = call_user_func($this->missingNamedRouteResolver, $name, $parameters, $absolute))) {
+    474▕             return $url;
+    475▕         }
+    476▕ 
+  ➜ 477▕         throw new RouteNotFoundException("Route [{$name}] not defined.");
+    478▕     }
+    479▕ 
+    480▕     /**
+    481▕      * Get the URL for a given route instance.
+
+      [2m+2 vendor frames [22m
+  3   tests/Feature/AdminPaymentValidationTest.php:315
+
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\AdminPaymentValidationTest > admin dashboard shows…    
+  Failed asserting that '<!doctype html>\n
+<html lang="en">\n
+\n
+<head>\n
+    <meta charset="utf-8">\n
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">\n
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">\n
+    <link rel="profile" href="https://gmpg.org/xfn/11">\n
+\n
+    <!-- CSRF Token -->\n
+    <meta name="csrf-token" content="7lSVtxp0VYHJXWLvSk5vjE8MlV1kqFw5p8FE2uwB">\n
+\n
+    <!-- SEO Meta Tags -->\n
+    <title>Admin Dashboard - Leadership Summit</title>\n
+    <meta name="description" content="Admin dashboard for Leadership Summit">\n
+    <meta name="robots" content="noindex, nofollow">\n
+\n
+    <!-- Favicon -->\n
+    <link rel="icon" type="image/svg+xml" href="http://localhost:8000/images/favicon.svg">\n
+    <link rel="icon" type="image/png" href="http://localhost:8000/images/favicon.png">\n
+\n
+    <!-- Preconnect to external domains -->\n
+    <link rel="preconnect" href="https://fonts.googleapis.com">\n
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">\n
+\n
+    <!-- Fonts -->\n
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">\n
+\n
+    <!-- Font Awesome -->\n
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">\n
+\n
+    <!-- Theme Color -->\n
+    <meta name="theme-color" content="#0a2463">\n
+\n
+    <!-- Scripts -->\n
+    <link rel="preload" as="style" href="http://localhost:8000/build/assets/app-f14c5841.css" /><link rel="modulepreload" href="http://localhost:8000/build/assets/app-81a400a8.js" /><link rel="stylesheet" href="http://localhost:8000/build/assets/app-f14c5841.css" data-navigate-track="reload" /><script type="module" src="http://localhost:8000/build/assets/app-81a400a8.js" data-navigate-track="reload"></script>\n
+    <style>\n
+    .avatar-sm {\n
+        width: 32px;\n
+        height: 32px;\n
+    }\n
+\n
+    .progress {\n
+        background-color: #e9ecef;\n
+    }\n
+</style>\n
+\n
+    <style>\n
+        /* Admin-specific styles */\n
+        .admin-layout {\n
+            display: flex;\n
+            min-height: 100vh;\n
+        }\n
+\n
+        .admin-sidebar {\n
+            width: 280px;\n
+            background: var(--primary-color);\n
+            color: white;\n
+            position: fixed;\n
+            height: 100vh;\n
+            overflow-y: auto;\n
+            z-index: 1000;\n
+            transition: transform 0.3s ease;\n
+        }\n
+\n
+        .admin-sidebar.collapsed {\n
+            transform: translateX(-100%);\n
+        }\n
+\n
+        .admin-main {\n
+            flex: 1;\n
+            margin-left: 280px;\n
+            background: #f8fafc;\n
+            min-height: 100vh;\n
+            transition: margin-left 0.3s ease;\n
+        }\n
+\n
+        .admin-main.expanded {\n
+            margin-left: 0;\n
+        }\n
+\n
+        .admin-header {\n
+            background: white;\n
+            padding: 1rem 2rem;\n
+            border-bottom: 1px solid #e5e7eb;\n
+            display: flex;\n
+            justify-content: between;\n
+            align-items: center;\n
+            position: sticky;\n
+            top: 0;\n
+            z-index: 100;\n
+        }\n
+\n
+        .admin-content {\n
+            padding: 2rem;\n
+        }\n
+\n
+        .sidebar-header {\n
+            padding: 1.5rem;\n
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n
+        }\n
+\n
+        .sidebar-brand {\n
+            font-size: 1.25rem;\n
+            font-weight: 700;\n
+            color: white;\n
+            text-decoration: none;\n
+            display: flex;\n
+            align-items: center;\n
+            gap: 0.75rem;\n
+        }\n
+\n
+        .sidebar-brand:hover {\n
+            color: var(--secondary-color);\n
+            text-decoration: none;\n
+        }\n
+\n
+        .sidebar-nav {\n
+            padding: 1rem 0;\n
+        }\n
+\n
+        .nav-section {\n
+            margin-bottom: 2rem;\n
+        }\n
+\n
+        .nav-section-title {\n
+            padding: 0.5rem 1.5rem;\n
+            font-size: 0.8rem;\n
+            font-weight: 600;\n
+            text-transform: uppercase;\n
+            letter-spacing: 0.5px;\n
+            color: rgba(255, 255, 255, 0.6);\n
+            margin-bottom: 0.5rem;\n
+        }\n
+\n
+        .nav-item {\n
+            margin-bottom: 0.25rem;\n
+        }\n
+\n
+        .nav-link {\n
+            display: flex;\n
+            align-items: center;\n
+            padding: 0.75rem 1.5rem;\n
+            color: rgba(255, 255, 255, 0.8);\n
+            text-decoration: none;\n
+            transition: all 0.3s ease;\n
+            position: relative;\n
+        }\n
+\n
+        .nav-link:hover,\n
+        .nav-link.active {\n
+            color: white;\n
+            background: rgba(255, 255, 255, 0.1);\n
+            text-decoration: none;\n
+        }\n
+\n
+        .nav-link.active::before {\n
+            content: '';\n
+            position: absolute;\n
+            left: 0;\n
+            top: 0;\n
+            bottom: 0;\n
+            width: 4px;\n
+            background: var(--secondary-color);\n
+        }\n
+\n
+        .nav-link i {\n
+            width: 20px;\n
+            margin-right: 0.75rem;\n
+            font-size: 1rem;\n
+        }\n
+\n
+        .nav-badge {\n
+            background: var(--secondary-color);\n
+            color: var(--primary-color);\n
+            font-size: 0.75rem;\n
+            padding: 0.25rem 0.5rem;\n
+            border-radius: 50px;\n
+            margin-left: auto;\n
+            font-weight: 600;\n
+        }\n
+\n
+        .mobile-toggle {\n
+            display: none;\n
+            background: none;\n
+            border: none;\n
+            color: var(--primary-color);\n
+            font-size: 1.5rem;\n
+            cursor: pointer;\n
+        }\n
+\n
+        .admin-breadcrumb {\n
+            background: transparent;\n
+            padding: 0;\n
+            margin-bottom: 1rem;\n
+        }\n
+\n
+        .admin-breadcrumb .breadcrumb {\n
+            background: transparent;\n
+            padding: 0;\n
+            margin: 0;\n
+        }\n
+\n
+        .admin-breadcrumb .breadcrumb-item {\n
+            font-size: 0.9rem;\n
+        }\n
+\n
+        .admin-breadcrumb .breadcrumb-item+.breadcrumb-item::before {\n
+            content: ">";\n
+            color: #6b7280;\n
+        }\n
+\n
+        .page-header {\n
+            display: flex;\n
+            justify-content: space-between;\n
+            align-items: center;\n
+            margin-bottom: 2rem;\n
+        }\n
+\n
+        .page-title {\n
+            font-size: 2rem;\n
+            font-weight: 700;\n
+            color: var(--primary-color);\n
+            margin: 0;\n
+        }\n
+\n
+        .page-actions {\n
+            display: flex;\n
+            gap: 1rem;\n
+        }\n
+\n
+        .stats-grid {\n
+            display: grid;\n
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n
+            gap: 1.5rem;\n
+            margin-bottom: 2rem;\n
+        }\n
+\n
+        .stat-card {\n
+            background: white;\n
+            padding: 1.5rem;\n
+            border-radius: 0.5rem;\n
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n
+            border-left: 4px solid var(--primary-color);\n
+        }\n
+\n
+        .stat-card.success {\n
+            border-left-color: #10b981;\n
+        }\n
+\n
+        .stat-card.warning {\n
+            border-left-color: #f59e0b;\n
+        }\n
+\n
+        .stat-card.danger {\n
+            border-left-color: #ef4444;\n
+        }\n
+\n
+        .stat-card.info {\n
+            border-left-color: #3b82f6;\n
+        }\n
+\n
+        .stat-header {\n
+            display: flex;\n
+            justify-content: space-between;\n
+            align-items: center;\n
+            margin-bottom: 0.5rem;\n
+        }\n
+\n
+        .stat-title {\n
+            font-size: 0.9rem;\n
+            color: #6b7280;\n
+            font-weight: 500;\n
+        }\n
+\n
+        .stat-icon {\n
+            width: 40px;\n
+            height: 40px;\n
+            border-radius: 50%;\n
+            display: flex;\n
+            align-items: center;\n
+            justify-content: center;\n
+            font-size: 1.2rem;\n
+            color: white;\n
+        }\n
+\n
+        .stat-icon.success {\n
+            background: #10b981;\n
+        }\n
+\n
+        .stat-icon.warning {\n
+            background: #f59e0b;\n
+        }\n
+\n
+        .stat-icon.danger {\n
+            background: #ef4444;\n
+        }\n
+\n
+        .stat-icon.info {\n
+            background: #3b82f6;\n
+        }\n
+\n
+        .stat-value {\n
+            font-size: 2rem;\n
+            font-weight: 700;\n
+            color: var(--primary-color);\n
+            margin-bottom: 0.25rem;\n
+        }\n
+\n
+        .stat-change {\n
+            font-size: 0.8rem;\n
+            display: flex;\n
+            align-items: center;\n
+            gap: 0.25rem;\n
+        }\n
+\n
+        .stat-change.positive {\n
+            color: #10b981;\n
+        }\n
+\n
+        .stat-change.negative {\n
+            color: #ef4444;\n
+        }\n
+\n
+        .stat-change.neutral {\n
+            color: #6b7280;\n
+        }\n
+\n
+        .admin-card {\n
+            background: white;\n
+            border-radius: 0.5rem;\n
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n
+            overflow: hidden;\n
+        }\n
+\n
+        .admin-card-header {\n
+            padding: 1.5rem;\n
+            border-bottom: 1px solid #e5e7eb;\n
+            display: flex;\n
+            justify-content: space-between;\n
+            align-items: center;\n
+        }\n
+\n
+        .admin-card-title {\n
+            font-size: 1.25rem;\n
+            font-weight: 600;\n
+            color: var(--primary-color);\n
+            margin: 0;\n
+        }\n
+\n
+        .admin-card-body {\n
+            padding: 1.5rem;\n
+        }\n
+\n
+        @media (max-width: 768px) {\n
+            .admin-sidebar {\n
+                transform: translateX(-100%);\n
+            }\n
+\n
+            .admin-sidebar.show {\n
+                transform: translateX(0);\n
+            }\n
+\n
+            .admin-main {\n
+                margin-left: 0;\n
+            }\n
+\n
+            .mobile-toggle {\n
+                display: block;\n
+            }\n
+\n
+            .page-header {\n
+                flex-direction: column;\n
+                align-items: flex-start;\n
+                gap: 1rem;\n
+            }\n
+\n
+            .stats-grid {\n
+                grid-template-columns: 1fr;\n
+            }\n
+        }\n
+    </style>\n
+</head>\n
+\n
+<body class="admin-body">\n
+    <div class="admin-layout">\n
+        <!-- Admin Sidebar -->\n
+        <aside class="admin-sidebar" id="adminSidebar">\n
+            <div class="sidebar-header">\n
+                <a href="http://localhost:8000/admin" class="sidebar-brand">\n
+                    <i class="fas fa-cog" aria-hidden="true"></i>\n
+                    Admin Panel\n
+                </a>\n
+            </div>\n
+\n
+            <nav class="sidebar-nav">\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Main</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin" class="nav-link active">\n
+                            <i class="fas fa-tachometer-alt" aria-hidden="true"></i>\n
+                            Dashboard\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Events</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/events" class="nav-link ">\n
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>\n
+                            All Events\n
+                                                    </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/events/create" class="nav-link ">\n
+                            <i class="fas fa-plus" aria-hidden="true"></i>\n
+                            Add Event\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/tickets" class="nav-link ">\n
+                            <i class="fas fa-ticket-alt" aria-hidden="true"></i>\n
+                            Tickets\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Speakers</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/speakers" class="nav-link ">\n
+                            <i class="fas fa-users" aria-hidden="true"></i>\n
+                            All Speakers\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/speakers/create" class="nav-link ">\n
+                            <i class="fas fa-user-plus" aria-hidden="true"></i>\n
+                            Add Speaker\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/sessions" class="nav-link ">\n
+                            <i class="fas fa-presentation" aria-hidden="true"></i>\n
+                            Sessions\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Users</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/users" class="nav-link ">\n
+                            <i class="fas fa-users-cog" aria-hidden="true"></i>\n
+                            All Users\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/registrations" class="nav-link ">\n
+                            <i class="fas fa-clipboard-list" aria-hidden="true"></i>\n
+                            Registrations\n
+                                                    </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/payments/pending" class="nav-link ">\n
+                            <i class="fas fa-credit-card" aria-hidden="true"></i>\n
+                            Payment Review\n
+                                                    </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/roles" class="nav-link ">\n
+                            <i class="fas fa-user-shield" aria-hidden="true"></i>\n
+                            Roles & Permissions\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Content</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/pages" class="nav-link ">\n
+                            <i class="fas fa-file-alt" aria-hidden="true"></i>\n
+                            Pages\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/media" class="nav-link ">\n
+                            <i class="fas fa-images" aria-hidden="true"></i>\n
+                            Media Library\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">System</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/settings" class="nav-link ">\n
+                            <i class="fas fa-cogs" aria-hidden="true"></i>\n
+                            Settings\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/unipayment" class="nav-link ">\n
+                            <i class="fas fa-credit-card" aria-hidden="true"></i>\n
+                            Card Payments\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/wallet-settings" class="nav-link ">\n
+                            <i class="fas fa-wallet" aria-hidden="true"></i>\n
+                            Crypto Wallets\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/admin/reports" class="nav-link ">\n
+                            <i class="fas fa-chart-bar" aria-hidden="true"></i>\n
+                            Reports\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="nav-section">\n
+                    <div class="nav-section-title">Account</div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000" class="nav-link" target="_blank">\n
+                            <i class="fas fa-external-link-alt" aria-hidden="true"></i>\n
+                            View Site\n
+                        </a>\n
+                    </div>\n
+                    <div class="nav-item">\n
+                        <a href="http://localhost:8000/logout" class="nav-link"\n
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">\n
+                            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>\n
+                            Logout\n
+                        </a>\n
+                        <form id="logout-form" action="http://localhost:8000/logout" method="POST" class="d-none">\n
+                            <input type="hidden" name="_token" value="7lSVtxp0VYHJXWLvSk5vjE8MlV1kqFw5p8FE2uwB" autocomplete="off">                        </form>\n
+                    </div>\n
+                </div>\n
+            </nav>\n
+        </aside>\n
+\n
+        <!-- Admin Main Content -->\n
+        <main class="admin-main" id="adminMain">\n
+            <!-- Admin Header -->\n
+            <header class="admin-header">\n
+                <div class="d-flex align-items-center">\n
+                    <button class="mobile-toggle me-3" id="sidebarToggle" aria-label="Toggle sidebar">\n
+                        <i class="fas fa-bars" aria-hidden="true"></i>\n
+                    </button>\n
+\n
+                                    </div>\n
+\n
+                <div class="d-flex align-items-center gap-3">\n
+                    <div class="dropdown">\n
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">\n
+                            <i class="fas fa-user me-2" aria-hidden="true"></i>\n
+                            Lamar Erdman\n
+                        </button>\n
+                        <ul class="dropdown-menu dropdown-menu-end">\n
+                            <li>\n
+                                <h6 class="dropdown-header">Lamar Erdman</h6>\n
+                            </li>\n
+                            <li><a class="dropdown-item" href="http://localhost:8000/profile">\n
+                                    <i class="fas fa-user-edit me-2" aria-hidden="true"></i>Profile\n
+                                </a></li>\n
+                            <li><a class="dropdown-item" href="http://localhost:8000/admin/settings">\n
+                                    <i class="fas fa-cogs me-2" aria-hidden="true"></i>Settings\n
+                                </a></li>\n
+                            <li>\n
+                                <hr class="dropdown-divider">\n
+                            </li>\n
+                            <li><a class="dropdown-item" href="http://localhost:8000/logout"\n
+                                    onclick="event.preventDefault(); document.getElementById('logout-form-header').submit();">\n
+                                    <i class="fas fa-sign-out-alt me-2" aria-hidden="true"></i>Logout\n
+                                </a></li>\n
+                        </ul>\n
+                    </div>\n
+                </div>\n
+            </header>\n
+\n
+            <!-- Admin Content -->\n
+            <div class="admin-content">\n
+                <!-- Flash Messages -->\n
+                \n
+                \n
+                \n
+                <div class="page-header">\n
+    <h1 class="page-title">Dashboard</h1>\n
+    <div class="page-actions">\n
+        <a href="http://localhost:8000/admin/events/create" class="btn btn-primary">\n
+            <i class="fas fa-plus me-2" aria-hidden="true"></i>Add Event\n
+        </a>\n
+        <a href="http://localhost:8000/admin/speakers/create" class="btn btn-outline-primary">\n
+            <i class="fas fa-user-plus me-2" aria-hidden="true"></i>Add Speaker\n
+        </a>\n
+    </div>\n
+</div>\n
+\n
+<!-- Welcome Message -->\n
+<div class="admin-card mb-4">\n
+    <div class="admin-card-body">\n
+        <h4 class="mb-2">Welcome back, Lamar Erdman!</h4>\n
+        <p class="text-muted mb-0">Here's what's happening with your leadership summit today.</p>\n
+    </div>\n
+</div>\n
+\n
+<!-- Statistics Cards -->\n
+<div class="stats-grid">\n
+    <div class="stat-card">\n
+        <div class="stat-header">\n
+            <span class="stat-title">Total Events</span>\n
+            <div class="stat-icon info">\n
+                <i class="fas fa-calendar-alt" aria-hidden="true"></i>\n
+            </div>\n
+        </div>\n
+        <div class="stat-value">1</div>\n
+        <div class="stat-change positive">\n
+            <i class="fas fa-arrow-up" aria-hidden="true"></i>\n
+            <span>+1 this month</span>\n
+        </div>\n
+    </div>\n
+\n
+    <div class="stat-card success">\n
+        <div class="stat-header">\n
+            <span class="stat-title">Total Registrations</span>\n
+            <div class="stat-icon success">\n
+                <i class="fas fa-users" aria-hidden="true"></i>\n
+            </div>\n
+        </div>\n
+        <div class="stat-value">5</div>\n
+        <div class="stat-change positive">\n
+            <i class="fas fa-arrow-up" aria-hidden="true"></i>\n
+            <span>+5 this week</span>\n
+        </div>\n
+    </div>\n
+\n
+    <div class="stat-card warning">\n
+        <div class="stat-header">\n
+            <span class="stat-title">Active Speakers</span>\n
+            <div class="stat-icon warning">\n
+                <i class="fas fa-microphone" aria-hidden="true"></i>\n
+            </div>\n
+        </div>\n
+        <div class="stat-value">0</div>\n
+        <div class="stat-change neutral">\n
+            <i class="fas fa-microphone" aria-hidden="true"></i>\n
+            <span>Active speakers</span>\n
+        </div>\n
+    </div>\n
+\n
+    <div class="stat-card danger">\n
+        <div class="stat-header">\n
+            <span class="stat-title">Revenue</span>\n
+            <div class="stat-icon danger">\n
+                <i class="fas fa-dollar-sign" aria-hidden="true"></i>\n
+            </div>\n
+        </div>\n
+        <div class="stat-value">$0</div>\n
+        <div class="stat-change neutral">\n
+            <i class="fas fa-minus" aria-hidden="true"></i>\n
+            <span>0% vs last month</span>\n
+        </div>\n
+    </div>\n
+</div>\n
+\n
+<!-- Quick Actions and Recent Activity -->\n
+<div class="row">\n
+    <div class="col-lg-8">\n
+        <!-- Recent Registrations -->\n
+        <div class="admin-card mb-4">\n
+            <div class="admin-card-header">\n
+                <h3 class="admin-card-title">Recent Registrations</h3>\n
+                <a href="http://localhost:8000/admin/registrations" class="btn btn-sm btn-outline-primary">View All</a>\n
+            </div>\n
+            <div class="admin-card-body">\n
+                                <div class="table-responsive">\n
+                    <table class="table table-hover">\n
+                        <thead>\n
+                            <tr>\n
+                                <th>Name</th>\n
+                                <th>Event</th>\n
+                                <th>Date</th>\n
+                                <th>Status</th>\n
+                            </tr>\n
+                        </thead>\n
+                        <tbody>\n
+                                                        <tr>\n
+                                <td>\n
+                                    <div class="d-flex align-items-center">\n
+                                        <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+                                            <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+                                        </div>\n
+                                        <div>\n
+                                            <div class="fw-semibold">Mr. Haskell Skiles IV</div>\n
+                                            <small class="text-muted">vlindgren@example.com</small>\n
+                                        </div>\n
+                                    </div>\n
+                                </td>\n
+                                <td>Admin Test Event</td>\n
+                                <td>Aug 13, 2025</td>\n
+                                <td>\n
+                                    <span class="badge bg-success">\n
+                                        Confirmed\n
+                                    </span>\n
+                                </td>\n
+                            </tr>\n
+                                                        <tr>\n
+                                <td>\n
+                                    <div class="d-flex align-items-center">\n
+                                        <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+                                            <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+                                        </div>\n
+                                        <div>\n
+                                            <div class="fw-semibold">Mr. Lavern Strosin III</div>\n
+                                            <small class="text-muted">hoppe.blaze@example.com</small>\n
+                                        </div>\n
+                                    </div>\n
+                                </td>\n
+                                <td>Admin Test Event</td>\n
+                                <td>Aug 13, 2025</td>\n
+                                <td>\n
+                                    <span class="badge bg-secondary">\n
+                                        Cancelled\n
+                                    </span>\n
+                                </td>\n
+                            </tr>\n
+                                                        <tr>\n
+                                <td>\n
+                                    <div class="d-flex align-items-center">\n
+                                        <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+                                            <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+                                        </div>\n
+                                        <div>\n
+                                            <div class="fw-semibold">Sigmund Leffler</div>\n
+                                            <small class="text-muted">gibson.flossie@example.org</small>\n
+                                        </div>\n
+                                    </div>\n
+                                </td>\n
+                                <td>Admin Test Event</td>\n
+                                <td>Aug 13, 2025</td>\n
+                                <td>\n
+                                    <span class="badge bg-secondary">\n
+                                        Cancelled\n
+                                    </span>\n
+                                </td>\n
+                            </tr>\n
+                                                        <tr>\n
+                                <td>\n
+                                    <div class="d-flex align-items-center">\n
+                                        <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+                                            <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+                                        </div>\n
+                                        <div>\n
+                                            <div class="fw-semibold">Beatrice Zieme</div>\n
+                                            <small class="text-muted">tstracke@example.net</small>\n
+                                        </div>\n
+                                    </div>\n
+                                </td>\n
+                                <td>Admin Test Event</td>\n
+                                <td>Aug 13, 2025</td>\n
+                                <td>\n
+                                    <span class="badge bg-secondary">\n
+                                        Cancelled\n
+                                    </span>\n
+                                </td>\n
+                            </tr>\n
+                                                        <tr>\n
+                                <td>\n
+                                    <div class="d-flex align-items-center">\n
+                                        <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+                                            <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+                                        </div>\n
+                                        <div>\n
+                                            <div class="fw-semibold">Delphine Pfannerstill</div>\n
+                                            <small class="text-muted">adams.torrance@example.org</small>\n
+                                        </div>\n
+                                    </div>\n
+                                </td>\n
+                                <td>Admin Test Event</td>\n
+                                <td>Aug 13, 2025</td>\n
+                                <td>\n
+                                    <span class="badge bg-success">\n
+                                        Confirmed\n
+                                    </span>\n
+                                </td>\n
+                            </tr>\n
+                                                    </tbody>\n
+                    </table>\n
+                </div>\n
+                            </div>\n
+        </div>\n
+\n
+        <!-- Upcoming Events -->\n
+        <div class="admin-card">\n
+            <div class="admin-card-header">\n
+                <h3 class="admin-card-title">Upcoming Events</h3>\n
+                <a href="http://localhost:8000/admin/events" class="btn btn-sm btn-outline-primary">Manage Events</a>\n
+            </div>\n
+            <div class="admin-card-body">\n
+                                                <div class="d-flex align-items-center p-3 border rounded mb-3">\n
+                    <div class="flex-shrink-0">\n
+                        <div class="bg-primary text-white rounded p-2 text-center" style="min-width: 60px;">\n
+                            <div class="fw-bold">23</div>\n
+                            <small>Oct</small>\n
+                        </div>\n
+                    </div>\n
+                    <div class="flex-grow-1 ms-3">\n
+                        <h6 class="mb-1">Admin Test Event</h6>\n
+                        <p class="text-muted mb-1">October 23, 2025 10:42 PM</p>\n
+                        <small class="text-muted">\n
+                            <i class="fas fa-users me-1" aria-hidden="true"></i>\n
+                            5 registered\n
+                        </small>\n
+                    </div>\n
+                    <div class="flex-shrink-0">\n
+                        <a href="http://localhost:8000/admin/events/1" class="btn btn-sm btn-outline-primary">\n
+                            Manage\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+                                            </div>\n
+        </div>\n
+    </div>\n
+\n
+    <div class="col-lg-4">\n
+        <!-- Quick Actions -->\n
+        <div class="admin-card mb-4">\n
+            <div class="admin-card-header">\n
+                <h3 class="admin-card-title">Quick Actions</h3>\n
+            </div>\n
+            <div class="admin-card-body">\n
+                <div class="d-grid gap-2">\n
+                    <a href="http://localhost:8000/admin/events/create" class="btn btn-primary">\n
+                        <i class="fas fa-plus me-2" aria-hidden="true"></i>Create New Event\n
+                    </a>\n
+                    <a href="http://localhost:8000/admin/events" class="btn btn-outline-primary">\n
+                        <i class="fas fa-calendar me-2" aria-hidden="true"></i>Manage Events\n
+                    </a>\n
+                    <a href="http://localhost:8000/admin/speakers" class="btn btn-outline-primary">\n
+                        <i class="fas fa-users me-2" aria-hidden="true"></i>Manage Speakers\n
+                    </a>\n
+                    <a href="http://localhost:8000/admin/wallet-settings" class="btn btn-outline-success">\n
+                        <i class="fas fa-wallet me-2" aria-hidden="true"></i>Crypto Wallets\n
+                    </a>\n
+                    <a href="http://localhost:8000/admin/payments/pending" class="btn btn-outline-warning">\n
+                        <i class="fas fa-credit-card me-2" aria-hidden="true"></i>Review Payments\n
+                    </a>\n
+                    <hr>\n
+                    <a href="http://localhost:8000/admin/registrations" class="btn btn-outline-info">\n
+                        <i class="fas fa-clipboard-list me-2" aria-hidden="true"></i>Registrations\n
+                    </a>\n
+                    <a href="http://localhost:8000/admin/tickets" class="btn btn-outline-info">\n
+                        <i class="fas fa-ticket-alt me-2" aria-hidden="true"></i>Tickets\n
+                    </a>\n
+                    <a href="http://localhost:8000/admin/users" class="btn btn-outline-secondary">\n
+                        <i class="fas fa-user-cog me-2" aria-hidden="true"></i>Users\n
+                    </a>\n
+                    <a href="http://localhost:8000/admin/roles" class="btn btn-outline-secondary">\n
+                        <i class="fas fa-user-shield me-2" aria-hidden="true"></i>Roles\n
+                    </a>\n
+                    <a href="http://localhost:8000/admin/reports" class="btn btn-outline-dark">\n
+                        <i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Reports\n
+                    </a>\n
+                </div>\n
+            </div>\n
+        </div>\n
+\n
+        <!-- System Status -->\n
+        <div class="admin-card">\n
+            <div class="admin-card-header">\n
+                <h3 class="admin-card-title">System Status</h3>\n
+            </div>\n
+            <div class="admin-card-body">\n
+                <div class="mb-3">\n
+                    <div class="d-flex justify-content-between align-items-center mb-1">\n
+                        <span class="text-muted">Server Status</span>\n
+                        <span class="badge bg-success">Online</span>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="mb-3">\n
+                    <div class="d-flex justify-content-between align-items-center mb-1">\n
+                        <span class="text-muted">Database</span>\n
+                        <span class="badge bg-success">Connected</span>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="mb-3">\n
+                    <div class="d-flex justify-content-between align-items-center mb-1">\n
+                        <span class="text-muted">Email Service</span>\n
+                        <span class="badge bg-success">Active</span>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="mb-3">\n
+                    <div class="d-flex justify-content-between align-items-center mb-1">\n
+                        <span class="text-muted">Storage</span>\n
+                        <span class="text-success">78% used</span>\n
+                    </div>\n
+                    <div class="progress" style="height: 6px;">\n
+                        <div class="progress-bar bg-success" style="width: 78%"></div>\n
+                    </div>\n
+                </div>\n
+\n
+                <div class="text-center mt-3">\n
+                    <a href="http://localhost:8000/admin/settings" class="btn btn-sm btn-outline-primary">\n
+                        System Settings\n
+                    </a>\n
+                </div>\n
+            </div>\n
+        </div>\n
+    </div>\n
+</div>\n
+            </div>\n
+        </main>\n
+    </div>\n
+\n
+    \n
+    <script>\n
+        document.addEventListener('DOMContentLoaded', function() {\n
+            const sidebarToggle = document.getElementById('sidebarToggle');\n
+            const sidebar = document.getElementById('adminSidebar');\n
+            const main = document.getElementById('adminMain');\n
+\n
+            if (sidebarToggle) {\n
+                sidebarToggle.addEventListener('click', function() {\n
+                    sidebar.classList.toggle('show');\n
+                    sidebar.classList.toggle('collapsed');\n
+                    main.classList.toggle('expanded');\n
+                });\n
+            }\n
+\n
+            // Close sidebar when clicking outside on mobile\n
+            document.addEventListener('click', function(e) {\n
+                if (window.innerWidth <= 768 &&\n
+                    !sidebar.contains(e.target) &&\n
+                    !sidebarToggle.contains(e.target) &&\n
+                    sidebar.classList.contains('show')) {\n
+                    sidebar.classList.remove('show');\n
+                }\n
+            });\n
+\n
+            // Auto-dismiss alerts\n
+            const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');\n
+            alerts.forEach(function(alert) {\n
+                setTimeout(function() {\n
+                    const bsAlert = new bootstrap.Alert(alert);\n
+                    bsAlert.close();\n
+                }, 5000);\n
+            });\n
+        });\n
+    </script>\n
+\n
+    <form id="logout-form-header" action="http://localhost:8000/logout" method="POST" class="d-none">\n
+        <input type="hidden" name="_token" value="7lSVtxp0VYHJXWLvSk5vjE8MlV1kqFw5p8FE2uwB" autocomplete="off">    </form>\n
+</body>\n
+\n
+</html>' [ASCII](length: 37683) contains "Payment Statistics" [ASCII](length: 18).
+
+  at tests/Feature/AdminPaymentValidationTest.php:348
+    344▕ 
+    345▕         // Access admin dashboard
+    346▕         $response = $this->get(route('admin.dashboard'));
+    347▕         $response->assertStatus(200);
+  ➜ 348▕         $response->assertSee('Payment Statistics');
+    349▕         $response->assertSee('Card Payments: 3');
+    350▕         $response->assertSee('Crypto Payments: 2');
+    351▕         $response->assertSee('Total Revenue: $450.00');
+    352▕     }
+
+
+  Tests:    9 failed (14 assertions)
+  Duration: 14.58s
+
+Time: 00:15.539, Memory: 50.50 MB
+
+Admin Payment Validation (Tests\Feature\AdminPaymentValidation)
+ ✘ Admin can configure unipayment settings
+   │
+   │ Expected response status code [201, 301, 302, 303, 307, 308] but received 405.
+   │ Failed asserting that false is true.
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:173
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:73
+   │
+ ✘ Admin can view payment transactions
+   │
+   │ Failed asserting that '<!doctype html>\n
+   │ <html lang="en">\n
+   │ \n
+   │ <head>\n
+   │     <meta charset="utf-8">\n
+   │     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">\n
+   │     <meta http-equiv="X-UA-Compatible" content="IE=edge">\n
+   │     <link rel="profile" href="https://gmpg.org/xfn/11">\n
+   │ \n
+   │     <!-- CSRF Token -->\n
+   │     <meta name="csrf-token" content="254fSE7j893mVZfTGYjSkm7JIveow22rqxfRnl1l">\n
+   │ \n
+   │     <!-- SEO Meta Tags -->\n
+   │     <title>UniPayment Transactions - Leadership Summit</title>\n
+   │     <meta name="description" content="Admin dashboard for Leadership Summit">\n
+   │     <meta name="robots" content="noindex, nofollow">\n
+   │ \n
+   │     <!-- Favicon -->\n
+   │     <link rel="icon" type="image/svg+xml" href="http://localhost:8000/images/favicon.svg">\n
+   │     <link rel="icon" type="image/png" href="http://localhost:8000/images/favicon.png">\n
+   │ \n
+   │     <!-- Preconnect to external domains -->\n
+   │     <link rel="preconnect" href="https://fonts.googleapis.com">\n
+   │     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n
+   │     <link rel="preconnect" href="https://cdnjs.cloudflare.com">\n
+   │ \n
+   │     <!-- Fonts -->\n
+   │     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">\n
+   │ \n
+   │     <!-- Font Awesome -->\n
+   │     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">\n
+   │ \n
+   │     <!-- Theme Color -->\n
+   │     <meta name="theme-color" content="#0a2463">\n
+   │ \n
+   │     <!-- Scripts -->\n
+   │     <link rel="preload" as="style" href="http://localhost:8000/build/assets/app-f14c5841.css" /><link rel="modulepreload" href="http://localhost:8000/build/assets/app-81a400a8.js" /><link rel="stylesheet" href="http://localhost:8000/build/assets/app-f14c5841.css" data-navigate-track="reload" /><script type="module" src="http://localhost:8000/build/assets/app-81a400a8.js" data-navigate-track="reload"></script>\n
+   │     \n
+   │     <style>\n
+   │         /* Admin-specific styles */\n
+   │         .admin-layout {\n
+   │             display: flex;\n
+   │             min-height: 100vh;\n
+   │         }\n
+   │ \n
+   │         .admin-sidebar {\n
+   │             width: 280px;\n
+   │             background: var(--primary-color);\n
+   │             color: white;\n
+   │             position: fixed;\n
+   │             height: 100vh;\n
+   │             overflow-y: auto;\n
+   │             z-index: 1000;\n
+   │             transition: transform 0.3s ease;\n
+   │         }\n
+   │ \n
+   │         .admin-sidebar.collapsed {\n
+   │             transform: translateX(-100%);\n
+   │         }\n
+   │ \n
+   │         .admin-main {\n
+   │             flex: 1;\n
+   │             margin-left: 280px;\n
+   │             background: #f8fafc;\n
+   │             min-height: 100vh;\n
+   │             transition: margin-left 0.3s ease;\n
+   │         }\n
+   │ \n
+   │         .admin-main.expanded {\n
+   │             margin-left: 0;\n
+   │         }\n
+   │ \n
+   │         .admin-header {\n
+   │             background: white;\n
+   │             padding: 1rem 2rem;\n
+   │             border-bottom: 1px solid #e5e7eb;\n
+   │             display: flex;\n
+   │             justify-content: between;\n
+   │             align-items: center;\n
+   │             position: sticky;\n
+   │             top: 0;\n
+   │             z-index: 100;\n
+   │         }\n
+   │ \n
+   │         .admin-content {\n
+   │             padding: 2rem;\n
+   │         }\n
+   │ \n
+   │         .sidebar-header {\n
+   │             padding: 1.5rem;\n
+   │             border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n
+   │         }\n
+   │ \n
+   │         .sidebar-brand {\n
+   │             font-size: 1.25rem;\n
+   │             font-weight: 700;\n
+   │             color: white;\n
+   │             text-decoration: none;\n
+   │             display: flex;\n
+   │             align-items: center;\n
+   │             gap: 0.75rem;\n
+   │         }\n
+   │ \n
+   │         .sidebar-brand:hover {\n
+   │             color: var(--secondary-color);\n
+   │             text-decoration: none;\n
+   │         }\n
+   │ \n
+   │         .sidebar-nav {\n
+   │             padding: 1rem 0;\n
+   │         }\n
+   │ \n
+   │         .nav-section {\n
+   │             margin-bottom: 2rem;\n
+   │         }\n
+   │ \n
+   │         .nav-section-title {\n
+   │             padding: 0.5rem 1.5rem;\n
+   │             font-size: 0.8rem;\n
+   │             font-weight: 600;\n
+   │             text-transform: uppercase;\n
+   │             letter-spacing: 0.5px;\n
+   │             color: rgba(255, 255, 255, 0.6);\n
+   │             margin-bottom: 0.5rem;\n
+   │         }\n
+   │ \n
+   │         .nav-item {\n
+   │             margin-bottom: 0.25rem;\n
+   │         }\n
+   │ \n
+   │         .nav-link {\n
+   │             display: flex;\n
+   │             align-items: center;\n
+   │             padding: 0.75rem 1.5rem;\n
+   │             color: rgba(255, 255, 255, 0.8);\n
+   │             text-decoration: none;\n
+   │             transition: all 0.3s ease;\n
+   │             position: relative;\n
+   │         }\n
+   │ \n
+   │         .nav-link:hover,\n
+   │         .nav-link.active {\n
+   │             color: white;\n
+   │             background: rgba(255, 255, 255, 0.1);\n
+   │             text-decoration: none;\n
+   │         }\n
+   │ \n
+   │         .nav-link.active::before {\n
+   │             content: '';\n
+   │             position: absolute;\n
+   │             left: 0;\n
+   │             top: 0;\n
+   │             bottom: 0;\n
+   │             width: 4px;\n
+   │             background: var(--secondary-color);\n
+   │         }\n
+   │ \n
+   │         .nav-link i {\n
+   │             width: 20px;\n
+   │             margin-right: 0.75rem;\n
+   │             font-size: 1rem;\n
+   │         }\n
+   │ \n
+   │         .nav-badge {\n
+   │             background: var(--secondary-color);\n
+   │             color: var(--primary-color);\n
+   │             font-size: 0.75rem;\n
+   │             padding: 0.25rem 0.5rem;\n
+   │             border-radius: 50px;\n
+   │             margin-left: auto;\n
+   │             font-weight: 600;\n
+   │         }\n
+   │ \n
+   │         .mobile-toggle {\n
+   │             display: none;\n
+   │             background: none;\n
+   │             border: none;\n
+   │             color: var(--primary-color);\n
+   │             font-size: 1.5rem;\n
+   │             cursor: pointer;\n
+   │         }\n
+   │ \n
+   │         .admin-breadcrumb {\n
+   │             background: transparent;\n
+   │             padding: 0;\n
+   │             margin-bottom: 1rem;\n
+   │         }\n
+   │ \n
+   │         .admin-breadcrumb .breadcrumb {\n
+   │             background: transparent;\n
+   │             padding: 0;\n
+   │             margin: 0;\n
+   │         }\n
+   │ \n
+   │         .admin-breadcrumb .breadcrumb-item {\n
+   │             font-size: 0.9rem;\n
+   │         }\n
+   │ \n
+   │         .admin-breadcrumb .breadcrumb-item+.breadcrumb-item::before {\n
+   │             content: ">";\n
+   │             color: #6b7280;\n
+   │         }\n
+   │ \n
+   │         .page-header {\n
+   │             display: flex;\n
+   │             justify-content: space-between;\n
+   │             align-items: center;\n
+   │             margin-bottom: 2rem;\n
+   │         }\n
+   │ \n
+   │         .page-title {\n
+   │             font-size: 2rem;\n
+   │             font-weight: 700;\n
+   │             color: var(--primary-color);\n
+   │             margin: 0;\n
+   │         }\n
+   │ \n
+   │         .page-actions {\n
+   │             display: flex;\n
+   │             gap: 1rem;\n
+   │         }\n
+   │ \n
+   │         .stats-grid {\n
+   │             display: grid;\n
+   │             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n
+   │             gap: 1.5rem;\n
+   │             margin-bottom: 2rem;\n
+   │         }\n
+   │ \n
+   │         .stat-card {\n
+   │             background: white;\n
+   │             padding: 1.5rem;\n
+   │             border-radius: 0.5rem;\n
+   │             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n
+   │             border-left: 4px solid var(--primary-color);\n
+   │         }\n
+   │ \n
+   │         .stat-card.success {\n
+   │             border-left-color: #10b981;\n
+   │         }\n
+   │ \n
+   │         .stat-card.warning {\n
+   │             border-left-color: #f59e0b;\n
+   │         }\n
+   │ \n
+   │         .stat-card.danger {\n
+   │             border-left-color: #ef4444;\n
+   │         }\n
+   │ \n
+   │         .stat-card.info {\n
+   │             border-left-color: #3b82f6;\n
+   │         }\n
+   │ \n
+   │         .stat-header {\n
+   │             display: flex;\n
+   │             justify-content: space-between;\n
+   │             align-items: center;\n
+   │             margin-bottom: 0.5rem;\n
+   │         }\n
+   │ \n
+   │         .stat-title {\n
+   │             font-size: 0.9rem;\n
+   │             color: #6b7280;\n
+   │             font-weight: 500;\n
+   │         }\n
+   │ \n
+   │         .stat-icon {\n
+   │             width: 40px;\n
+   │             height: 40px;\n
+   │             border-radius: 50%;\n
+   │             display: flex;\n
+   │             align-items: center;\n
+   │             justify-content: center;\n
+   │             font-size: 1.2rem;\n
+   │             color: white;\n
+   │         }\n
+   │ \n
+   │         .stat-icon.success {\n
+   │             background: #10b981;\n
+   │         }\n
+   │ \n
+   │         .stat-icon.warning {\n
+   │             background: #f59e0b;\n
+   │         }\n
+   │ \n
+   │         .stat-icon.danger {\n
+   │             background: #ef4444;\n
+   │         }\n
+   │ \n
+   │         .stat-icon.info {\n
+   │             background: #3b82f6;\n
+   │         }\n
+   │ \n
+   │         .stat-value {\n
+   │             font-size: 2rem;\n
+   │             font-weight: 700;\n
+   │             color: var(--primary-color);\n
+   │             margin-bottom: 0.25rem;\n
+   │         }\n
+   │ \n
+   │         .stat-change {\n
+   │             font-size: 0.8rem;\n
+   │             display: flex;\n
+   │             align-items: center;\n
+   │             gap: 0.25rem;\n
+   │         }\n
+   │ \n
+   │         .stat-change.positive {\n
+   │             color: #10b981;\n
+   │         }\n
+   │ \n
+   │         .stat-change.negative {\n
+   │             color: #ef4444;\n
+   │         }\n
+   │ \n
+   │         .stat-change.neutral {\n
+   │             color: #6b7280;\n
+   │         }\n
+   │ \n
+   │         .admin-card {\n
+   │             background: white;\n
+   │             border-radius: 0.5rem;\n
+   │             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n
+   │             overflow: hidden;\n
+   │         }\n
+   │ \n
+   │         .admin-card-header {\n
+   │             padding: 1.5rem;\n
+   │             border-bottom: 1px solid #e5e7eb;\n
+   │             display: flex;\n
+   │             justify-content: space-between;\n
+   │             align-items: center;\n
+   │         }\n
+   │ \n
+   │         .admin-card-title {\n
+   │             font-size: 1.25rem;\n
+   │             font-weight: 600;\n
+   │             color: var(--primary-color);\n
+   │             margin: 0;\n
+   │         }\n
+   │ \n
+   │         .admin-card-body {\n
+   │             padding: 1.5rem;\n
+   │         }\n
+   │ \n
+   │         @media (max-width: 768px) {\n
+   │             .admin-sidebar {\n
+   │                 transform: translateX(-100%);\n
+   │             }\n
+   │ \n
+   │             .admin-sidebar.show {\n
+   │                 transform: translateX(0);\n
+   │             }\n
+   │ \n
+   │             .admin-main {\n
+   │                 margin-left: 0;\n
+   │             }\n
+   │ \n
+   │             .mobile-toggle {\n
+   │                 display: block;\n
+   │             }\n
+   │ \n
+   │             .page-header {\n
+   │                 flex-direction: column;\n
+   │                 align-items: flex-start;\n
+   │                 gap: 1rem;\n
+   │             }\n
+   │ \n
+   │             .stats-grid {\n
+   │                 grid-template-columns: 1fr;\n
+   │             }\n
+   │         }\n
+   │     </style>\n
+   │ </head>\n
+   │ \n
+   │ <body class="admin-body">\n
+   │     <div class="admin-layout">\n
+   │         <!-- Admin Sidebar -->\n
+   │         <aside class="admin-sidebar" id="adminSidebar">\n
+   │             <div class="sidebar-header">\n
+   │                 <a href="http://localhost:8000/admin" class="sidebar-brand">\n
+   │                     <i class="fas fa-cog" aria-hidden="true"></i>\n
+   │                     Admin Panel\n
+   │                 </a>\n
+   │             </div>\n
+   │ \n
+   │             <nav class="sidebar-nav">\n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Main</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin" class="nav-link ">\n
+   │                             <i class="fas fa-tachometer-alt" aria-hidden="true"></i>\n
+   │                             Dashboard\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Events</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/events" class="nav-link ">\n
+   │                             <i class="fas fa-calendar-alt" aria-hidden="true"></i>\n
+   │                             All Events\n
+   │                                                     </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/events/create" class="nav-link ">\n
+   │                             <i class="fas fa-plus" aria-hidden="true"></i>\n
+   │                             Add Event\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/tickets" class="nav-link ">\n
+   │                             <i class="fas fa-ticket-alt" aria-hidden="true"></i>\n
+   │                             Tickets\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Speakers</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/speakers" class="nav-link ">\n
+   │                             <i class="fas fa-users" aria-hidden="true"></i>\n
+   │                             All Speakers\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/speakers/create" class="nav-link ">\n
+   │                             <i class="fas fa-user-plus" aria-hidden="true"></i>\n
+   │                             Add Speaker\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/sessions" class="nav-link ">\n
+   │                             <i class="fas fa-presentation" aria-hidden="true"></i>\n
+   │                             Sessions\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Users</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/users" class="nav-link ">\n
+   │                             <i class="fas fa-users-cog" aria-hidden="true"></i>\n
+   │                             All Users\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/registrations" class="nav-link ">\n
+   │                             <i class="fas fa-clipboard-list" aria-hidden="true"></i>\n
+   │                             Registrations\n
+   │                                                     </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/payments/pending" class="nav-link ">\n
+   │                             <i class="fas fa-credit-card" aria-hidden="true"></i>\n
+   │                             Payment Review\n
+   │                                                     </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/roles" class="nav-link ">\n
+   │                             <i class="fas fa-user-shield" aria-hidden="true"></i>\n
+   │                             Roles & Permissions\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Content</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/pages" class="nav-link ">\n
+   │                             <i class="fas fa-file-alt" aria-hidden="true"></i>\n
+   │                             Pages\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/media" class="nav-link ">\n
+   │                             <i class="fas fa-images" aria-hidden="true"></i>\n
+   │                             Media Library\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">System</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/settings" class="nav-link ">\n
+   │                             <i class="fas fa-cogs" aria-hidden="true"></i>\n
+   │                             Settings\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/unipayment" class="nav-link active">\n
+   │                             <i class="fas fa-credit-card" aria-hidden="true"></i>\n
+   │                             Card Payments\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/wallet-settings" class="nav-link ">\n
+   │                             <i class="fas fa-wallet" aria-hidden="true"></i>\n
+   │                             Crypto Wallets\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/reports" class="nav-link ">\n
+   │                             <i class="fas fa-chart-bar" aria-hidden="true"></i>\n
+   │                             Reports\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Account</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000" class="nav-link" target="_blank">\n
+   │                             <i class="fas fa-external-link-alt" aria-hidden="true"></i>\n
+   │                             View Site\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/logout" class="nav-link"\n
+   │                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">\n
+   │                             <i class="fas fa-sign-out-alt" aria-hidden="true"></i>\n
+   │                             Logout\n
+   │                         </a>\n
+   │                         <form id="logout-form" action="http://localhost:8000/logout" method="POST" class="d-none">\n
+   │                             <input type="hidden" name="_token" value="254fSE7j893mVZfTGYjSkm7JIveow22rqxfRnl1l" autocomplete="off">                        </form>\n
+   │                     </div>\n
+   │                 </div>\n
+   │             </nav>\n
+   │         </aside>\n
+   │ \n
+   │         <!-- Admin Main Content -->\n
+   │         <main class="admin-main" id="adminMain">\n
+   │             <!-- Admin Header -->\n
+   │             <header class="admin-header">\n
+   │                 <div class="d-flex align-items-center">\n
+   │                     <button class="mobile-toggle me-3" id="sidebarToggle" aria-label="Toggle sidebar">\n
+   │                         <i class="fas fa-bars" aria-hidden="true"></i>\n
+   │                     </button>\n
+   │ \n
+   │                                         <nav class="admin-breadcrumb">\n
+   │                         <ol class="breadcrumb">\n
+   │                             <li class="breadcrumb-item">\n
+   │                                 <a href="http://localhost:8000/admin">Dashboard</a>\n
+   │                             </li>\n
+   │                                                     </ol>\n
+   │                     </nav>\n
+   │                                     </div>\n
+   │ \n
+   │                 <div class="d-flex align-items-center gap-3">\n
+   │                     <div class="dropdown">\n
+   │                         <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">\n
+   │                             <i class="fas fa-user me-2" aria-hidden="true"></i>\n
+   │                             Dr. Leland Ondricka PhD\n
+   │                         </button>\n
+   │                         <ul class="dropdown-menu dropdown-menu-end">\n
+   │                             <li>\n
+   │                                 <h6 class="dropdown-header">Dr. Leland Ondricka PhD</h6>\n
+   │                             </li>\n
+   │                             <li><a class="dropdown-item" href="http://localhost:8000/profile">\n
+   │                                     <i class="fas fa-user-edit me-2" aria-hidden="true"></i>Profile\n
+   │                                 </a></li>\n
+   │                             <li><a class="dropdown-item" href="http://localhost:8000/admin/settings">\n
+   │                                     <i class="fas fa-cogs me-2" aria-hidden="true"></i>Settings\n
+   │                                 </a></li>\n
+   │                             <li>\n
+   │                                 <hr class="dropdown-divider">\n
+   │                             </li>\n
+   │                             <li><a class="dropdown-item" href="http://localhost:8000/logout"\n
+   │                                     onclick="event.preventDefault(); document.getElementById('logout-form-header').submit();">\n
+   │                                     <i class="fas fa-sign-out-alt me-2" aria-hidden="true"></i>Logout\n
+   │                                 </a></li>\n
+   │                         </ul>\n
+   │                     </div>\n
+   │                 </div>\n
+   │             </header>\n
+   │ \n
+   │             <!-- Admin Content -->\n
+   │             <div class="admin-content">\n
+   │                 <!-- Flash Messages -->\n
+   │                 \n
+   │                 \n
+   │                 \n
+   │                 <div class="container-fluid">\n
+   │     <div class="row">\n
+   │         <div class="col-12">\n
+   │             <div class="card">\n
+   │                 <div class="card-header d-flex justify-content-between align-items-center">\n
+   │                     <h3 class="card-title">\n
+   │                         <i class="fas fa-list mr-2"></i>\n
+   │                         UniPayment Transactions\n
+   │                     </h3>\n
+   │                     <div class="card-tools">\n
+   │                         <a href="http://localhost:8000/admin/unipayment" class="btn btn-sm btn-secondary">\n
+   │                             <i class="fas fa-cog mr-1"></i>\n
+   │                             Settings\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="card-body">\n
+   │                     <div class="alert alert-info">\n
+   │                         <i class="fas fa-info-circle mr-2"></i>\n
+   │                         <strong>Coming Soon</strong><br>\n
+   │                         Transaction history and management features will be available in a future update.\n
+   │                         For now, you can view payment transactions in the\n
+   │                         <a href="http://localhost:8000/admin/registrations" class="alert-link">Registrations</a> section.\n
+   │                     </div>\n
+   │ \n
+   │                     <div class="text-center py-5">\n
+   │                         <i class="fas fa-credit-card fa-3x text-muted mb-3"></i>\n
+   │                         <h5 class="text-muted">Transaction Management</h5>\n
+   │                         <p class="text-muted">\n
+   │                             This section will display UniPayment transaction history,<br>\n
+   │                             refund management, and detailed payment analytics.\n
+   │                         </p>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="card-footer">\n
+   │                     <a href="http://localhost:8000/admin" class="btn btn-secondary">\n
+   │                         <i class="fas fa-arrow-left mr-2"></i>\n
+   │                         Back to Dashboard\n
+   │                     </a>\n
+   │                 </div>\n
+   │             </div>\n
+   │         </div>\n
+   │     </div>\n
+   │ </div>\n
+   │             </div>\n
+   │         </main>\n
+   │     </div>\n
+   │ \n
+   │     \n
+   │     <script>\n
+   │         document.addEventListener('DOMContentLoaded', function() {\n
+   │             const sidebarToggle = document.getElementById('sidebarToggle');\n
+   │             const sidebar = document.getElementById('adminSidebar');\n
+   │             const main = document.getElementById('adminMain');\n
+   │ \n
+   │             if (sidebarToggle) {\n
+   │                 sidebarToggle.addEventListener('click', function() {\n
+   │                     sidebar.classList.toggle('show');\n
+   │                     sidebar.classList.toggle('collapsed');\n
+   │                     main.classList.toggle('expanded');\n
+   │                 });\n
+   │             }\n
+   │ \n
+   │             // Close sidebar when clicking outside on mobile\n
+   │             document.addEventListener('click', function(e) {\n
+   │                 if (window.innerWidth <= 768 &&\n
+   │                     !sidebar.contains(e.target) &&\n
+   │                     !sidebarToggle.contains(e.target) &&\n
+   │                     sidebar.classList.contains('show')) {\n
+   │                     sidebar.classList.remove('show');\n
+   │                 }\n
+   │             });\n
+   │ \n
+   │             // Auto-dismiss alerts\n
+   │             const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');\n
+   │             alerts.forEach(function(alert) {\n
+   │                 setTimeout(function() {\n
+   │                     const bsAlert = new bootstrap.Alert(alert);\n
+   │                     bsAlert.close();\n
+   │                 }, 5000);\n
+   │             });\n
+   │         });\n
+   │     </script>\n
+   │ \n
+   │     <form id="logout-form-header" action="http://localhost:8000/logout" method="POST" class="d-none">\n
+   │         <input type="hidden" name="_token" value="254fSE7j893mVZfTGYjSkm7JIveow22rqxfRnl1l" autocomplete="off">    </form>\n
+   │ </body>\n
+   │ \n
+   │ </html>' [ASCII](length: 24023) contains "card_txn_123" [ASCII](length: 12).
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:560
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:123
+   │
+ ✘ Admin can view registration payment details
+   │
+   │ Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table registrations has no column named first_name (Connection: sqlite, SQL: insert into "registrations" ("event_id", "ticket_id", "user_id", "status", "payment_status", "registration_status", "attendee_name", "attendee_email", "attendee_phone", "emergency_contact", "emergency_contact_name", "emergency_contact_phone", "total_amount", "terms_accepted_at", "created_at", "updated_at", "first_name", "last_name", "email", "payment_method", "payment_provider", "transaction_id", "payment_amount", "payment_currency", "payment_fee", "payment_completed_at") values (1, 1, ?, confirmed, paid, confirmed, Chadrick Murray, solon.zboncak@example.com, 1-361-789-2709, Mrs. Elvera Grady V, Hilbert Baumbach, +1.458.296.3455, 488.96, 2025-08-13 12:03:01, 2025-08-13 12:03:01, 2025-08-13 12:03:01, John, Admin, john.admin@test.com, card, unipayment, admin_test_txn, 150, USD, 4.35, 2025-08-13 12:03:01))
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:144
+   │
+ ✘ Admin registrations index shows payment information
+   │
+   │ Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table registrations has no column named first_name (Connection: sqlite, SQL: insert into "registrations" ("event_id", "ticket_id", "user_id", "status", "payment_status", "registration_status", "attendee_name", "attendee_email", "attendee_phone", "emergency_contact", "emergency_contact_name", "emergency_contact_phone", "total_amount", "terms_accepted_at", "created_at", "updated_at", "first_name", "last_name", "email", "payment_method") values (1, 1, ?, confirmed, paid, pending, Lucile Prosacco, magnolia42@example.net, 830.568.8912, Prof. Justus Hintz DDS, Shanel Smith, +1-339-449-1955, 269.91, 2025-08-13 12:03:03, 2025-08-13 12:03:03, 2025-08-13 12:03:03, Card, User, card@test.com, card))
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:177
+   │
+ ✘ Admin can test unipayment connection
+   │
+   │ Expected response status code [200] but received 400.
+   │ Failed asserting that 400 is identical to 200.
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:148
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:235
+   │
+ ✘ Admin settings validation works
+   │
+   │ Session is missing expected key [errors].
+   │ Failed asserting that false is true.
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:1263
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:1340
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:257
+   │
+ ✘ Non admin cannot access payment admin features
+   │
+   │ Expected response status code [403] but received 405.
+   │ Failed asserting that 405 is identical to 403.
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:148
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:298
+   │
+ ✘ Admin can export payment data
+   │
+   │ Symfony\Component\Routing\Exception\RouteNotFoundException: Route [admin.registrations.export] not defined.
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:477
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php:811
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:315
+   │
+ ✘ Admin dashboard shows payment statistics
+   │
+   │ Failed asserting that '<!doctype html>\n
+   │ <html lang="en">\n
+   │ \n
+   │ <head>\n
+   │     <meta charset="utf-8">\n
+   │     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">\n
+   │     <meta http-equiv="X-UA-Compatible" content="IE=edge">\n
+   │     <link rel="profile" href="https://gmpg.org/xfn/11">\n
+   │ \n
+   │     <!-- CSRF Token -->\n
+   │     <meta name="csrf-token" content="7lSVtxp0VYHJXWLvSk5vjE8MlV1kqFw5p8FE2uwB">\n
+   │ \n
+   │     <!-- SEO Meta Tags -->\n
+   │     <title>Admin Dashboard - Leadership Summit</title>\n
+   │     <meta name="description" content="Admin dashboard for Leadership Summit">\n
+   │     <meta name="robots" content="noindex, nofollow">\n
+   │ \n
+   │     <!-- Favicon -->\n
+   │     <link rel="icon" type="image/svg+xml" href="http://localhost:8000/images/favicon.svg">\n
+   │     <link rel="icon" type="image/png" href="http://localhost:8000/images/favicon.png">\n
+   │ \n
+   │     <!-- Preconnect to external domains -->\n
+   │     <link rel="preconnect" href="https://fonts.googleapis.com">\n
+   │     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n
+   │     <link rel="preconnect" href="https://cdnjs.cloudflare.com">\n
+   │ \n
+   │     <!-- Fonts -->\n
+   │     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">\n
+   │ \n
+   │     <!-- Font Awesome -->\n
+   │     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">\n
+   │ \n
+   │     <!-- Theme Color -->\n
+   │     <meta name="theme-color" content="#0a2463">\n
+   │ \n
+   │     <!-- Scripts -->\n
+   │     <link rel="preload" as="style" href="http://localhost:8000/build/assets/app-f14c5841.css" /><link rel="modulepreload" href="http://localhost:8000/build/assets/app-81a400a8.js" /><link rel="stylesheet" href="http://localhost:8000/build/assets/app-f14c5841.css" data-navigate-track="reload" /><script type="module" src="http://localhost:8000/build/assets/app-81a400a8.js" data-navigate-track="reload"></script>\n
+   │     <style>\n
+   │     .avatar-sm {\n
+   │         width: 32px;\n
+   │         height: 32px;\n
+   │     }\n
+   │ \n
+   │     .progress {\n
+   │         background-color: #e9ecef;\n
+   │     }\n
+   │ </style>\n
+   │ \n
+   │     <style>\n
+   │         /* Admin-specific styles */\n
+   │         .admin-layout {\n
+   │             display: flex;\n
+   │             min-height: 100vh;\n
+   │         }\n
+   │ \n
+   │         .admin-sidebar {\n
+   │             width: 280px;\n
+   │             background: var(--primary-color);\n
+   │             color: white;\n
+   │             position: fixed;\n
+   │             height: 100vh;\n
+   │             overflow-y: auto;\n
+   │             z-index: 1000;\n
+   │             transition: transform 0.3s ease;\n
+   │         }\n
+   │ \n
+   │         .admin-sidebar.collapsed {\n
+   │             transform: translateX(-100%);\n
+   │         }\n
+   │ \n
+   │         .admin-main {\n
+   │             flex: 1;\n
+   │             margin-left: 280px;\n
+   │             background: #f8fafc;\n
+   │             min-height: 100vh;\n
+   │             transition: margin-left 0.3s ease;\n
+   │         }\n
+   │ \n
+   │         .admin-main.expanded {\n
+   │             margin-left: 0;\n
+   │         }\n
+   │ \n
+   │         .admin-header {\n
+   │             background: white;\n
+   │             padding: 1rem 2rem;\n
+   │             border-bottom: 1px solid #e5e7eb;\n
+   │             display: flex;\n
+   │             justify-content: between;\n
+   │             align-items: center;\n
+   │             position: sticky;\n
+   │             top: 0;\n
+   │             z-index: 100;\n
+   │         }\n
+   │ \n
+   │         .admin-content {\n
+   │             padding: 2rem;\n
+   │         }\n
+   │ \n
+   │         .sidebar-header {\n
+   │             padding: 1.5rem;\n
+   │             border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n
+   │         }\n
+   │ \n
+   │         .sidebar-brand {\n
+   │             font-size: 1.25rem;\n
+   │             font-weight: 700;\n
+   │             color: white;\n
+   │             text-decoration: none;\n
+   │             display: flex;\n
+   │             align-items: center;\n
+   │             gap: 0.75rem;\n
+   │         }\n
+   │ \n
+   │         .sidebar-brand:hover {\n
+   │             color: var(--secondary-color);\n
+   │             text-decoration: none;\n
+   │         }\n
+   │ \n
+   │         .sidebar-nav {\n
+   │             padding: 1rem 0;\n
+   │         }\n
+   │ \n
+   │         .nav-section {\n
+   │             margin-bottom: 2rem;\n
+   │         }\n
+   │ \n
+   │         .nav-section-title {\n
+   │             padding: 0.5rem 1.5rem;\n
+   │             font-size: 0.8rem;\n
+   │             font-weight: 600;\n
+   │             text-transform: uppercase;\n
+   │             letter-spacing: 0.5px;\n
+   │             color: rgba(255, 255, 255, 0.6);\n
+   │             margin-bottom: 0.5rem;\n
+   │         }\n
+   │ \n
+   │         .nav-item {\n
+   │             margin-bottom: 0.25rem;\n
+   │         }\n
+   │ \n
+   │         .nav-link {\n
+   │             display: flex;\n
+   │             align-items: center;\n
+   │             padding: 0.75rem 1.5rem;\n
+   │             color: rgba(255, 255, 255, 0.8);\n
+   │             text-decoration: none;\n
+   │             transition: all 0.3s ease;\n
+   │             position: relative;\n
+   │         }\n
+   │ \n
+   │         .nav-link:hover,\n
+   │         .nav-link.active {\n
+   │             color: white;\n
+   │             background: rgba(255, 255, 255, 0.1);\n
+   │             text-decoration: none;\n
+   │         }\n
+   │ \n
+   │         .nav-link.active::before {\n
+   │             content: '';\n
+   │             position: absolute;\n
+   │             left: 0;\n
+   │             top: 0;\n
+   │             bottom: 0;\n
+   │             width: 4px;\n
+   │             background: var(--secondary-color);\n
+   │         }\n
+   │ \n
+   │         .nav-link i {\n
+   │             width: 20px;\n
+   │             margin-right: 0.75rem;\n
+   │             font-size: 1rem;\n
+   │         }\n
+   │ \n
+   │         .nav-badge {\n
+   │             background: var(--secondary-color);\n
+   │             color: var(--primary-color);\n
+   │             font-size: 0.75rem;\n
+   │             padding: 0.25rem 0.5rem;\n
+   │             border-radius: 50px;\n
+   │             margin-left: auto;\n
+   │             font-weight: 600;\n
+   │         }\n
+   │ \n
+   │         .mobile-toggle {\n
+   │             display: none;\n
+   │             background: none;\n
+   │             border: none;\n
+   │             color: var(--primary-color);\n
+   │             font-size: 1.5rem;\n
+   │             cursor: pointer;\n
+   │         }\n
+   │ \n
+   │         .admin-breadcrumb {\n
+   │             background: transparent;\n
+   │             padding: 0;\n
+   │             margin-bottom: 1rem;\n
+   │         }\n
+   │ \n
+   │         .admin-breadcrumb .breadcrumb {\n
+   │             background: transparent;\n
+   │             padding: 0;\n
+   │             margin: 0;\n
+   │         }\n
+   │ \n
+   │         .admin-breadcrumb .breadcrumb-item {\n
+   │             font-size: 0.9rem;\n
+   │         }\n
+   │ \n
+   │         .admin-breadcrumb .breadcrumb-item+.breadcrumb-item::before {\n
+   │             content: ">";\n
+   │             color: #6b7280;\n
+   │         }\n
+   │ \n
+   │         .page-header {\n
+   │             display: flex;\n
+   │             justify-content: space-between;\n
+   │             align-items: center;\n
+   │             margin-bottom: 2rem;\n
+   │         }\n
+   │ \n
+   │         .page-title {\n
+   │             font-size: 2rem;\n
+   │             font-weight: 700;\n
+   │             color: var(--primary-color);\n
+   │             margin: 0;\n
+   │         }\n
+   │ \n
+   │         .page-actions {\n
+   │             display: flex;\n
+   │             gap: 1rem;\n
+   │         }\n
+   │ \n
+   │         .stats-grid {\n
+   │             display: grid;\n
+   │             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n
+   │             gap: 1.5rem;\n
+   │             margin-bottom: 2rem;\n
+   │         }\n
+   │ \n
+   │         .stat-card {\n
+   │             background: white;\n
+   │             padding: 1.5rem;\n
+   │             border-radius: 0.5rem;\n
+   │             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n
+   │             border-left: 4px solid var(--primary-color);\n
+   │         }\n
+   │ \n
+   │         .stat-card.success {\n
+   │             border-left-color: #10b981;\n
+   │         }\n
+   │ \n
+   │         .stat-card.warning {\n
+   │             border-left-color: #f59e0b;\n
+   │         }\n
+   │ \n
+   │         .stat-card.danger {\n
+   │             border-left-color: #ef4444;\n
+   │         }\n
+   │ \n
+   │         .stat-card.info {\n
+   │             border-left-color: #3b82f6;\n
+   │         }\n
+   │ \n
+   │         .stat-header {\n
+   │             display: flex;\n
+   │             justify-content: space-between;\n
+   │             align-items: center;\n
+   │             margin-bottom: 0.5rem;\n
+   │         }\n
+   │ \n
+   │         .stat-title {\n
+   │             font-size: 0.9rem;\n
+   │             color: #6b7280;\n
+   │             font-weight: 500;\n
+   │         }\n
+   │ \n
+   │         .stat-icon {\n
+   │             width: 40px;\n
+   │             height: 40px;\n
+   │             border-radius: 50%;\n
+   │             display: flex;\n
+   │             align-items: center;\n
+   │             justify-content: center;\n
+   │             font-size: 1.2rem;\n
+   │             color: white;\n
+   │         }\n
+   │ \n
+   │         .stat-icon.success {\n
+   │             background: #10b981;\n
+   │         }\n
+   │ \n
+   │         .stat-icon.warning {\n
+   │             background: #f59e0b;\n
+   │         }\n
+   │ \n
+   │         .stat-icon.danger {\n
+   │             background: #ef4444;\n
+   │         }\n
+   │ \n
+   │         .stat-icon.info {\n
+   │             background: #3b82f6;\n
+   │         }\n
+   │ \n
+   │         .stat-value {\n
+   │             font-size: 2rem;\n
+   │             font-weight: 700;\n
+   │             color: var(--primary-color);\n
+   │             margin-bottom: 0.25rem;\n
+   │         }\n
+   │ \n
+   │         .stat-change {\n
+   │             font-size: 0.8rem;\n
+   │             display: flex;\n
+   │             align-items: center;\n
+   │             gap: 0.25rem;\n
+   │         }\n
+   │ \n
+   │         .stat-change.positive {\n
+   │             color: #10b981;\n
+   │         }\n
+   │ \n
+   │         .stat-change.negative {\n
+   │             color: #ef4444;\n
+   │         }\n
+   │ \n
+   │         .stat-change.neutral {\n
+   │             color: #6b7280;\n
+   │         }\n
+   │ \n
+   │         .admin-card {\n
+   │             background: white;\n
+   │             border-radius: 0.5rem;\n
+   │             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n
+   │             overflow: hidden;\n
+   │         }\n
+   │ \n
+   │         .admin-card-header {\n
+   │             padding: 1.5rem;\n
+   │             border-bottom: 1px solid #e5e7eb;\n
+   │             display: flex;\n
+   │             justify-content: space-between;\n
+   │             align-items: center;\n
+   │         }\n
+   │ \n
+   │         .admin-card-title {\n
+   │             font-size: 1.25rem;\n
+   │             font-weight: 600;\n
+   │             color: var(--primary-color);\n
+   │             margin: 0;\n
+   │         }\n
+   │ \n
+   │         .admin-card-body {\n
+   │             padding: 1.5rem;\n
+   │         }\n
+   │ \n
+   │         @media (max-width: 768px) {\n
+   │             .admin-sidebar {\n
+   │                 transform: translateX(-100%);\n
+   │             }\n
+   │ \n
+   │             .admin-sidebar.show {\n
+   │                 transform: translateX(0);\n
+   │             }\n
+   │ \n
+   │             .admin-main {\n
+   │                 margin-left: 0;\n
+   │             }\n
+   │ \n
+   │             .mobile-toggle {\n
+   │                 display: block;\n
+   │             }\n
+   │ \n
+   │             .page-header {\n
+   │                 flex-direction: column;\n
+   │                 align-items: flex-start;\n
+   │                 gap: 1rem;\n
+   │             }\n
+   │ \n
+   │             .stats-grid {\n
+   │                 grid-template-columns: 1fr;\n
+   │             }\n
+   │         }\n
+   │     </style>\n
+   │ </head>\n
+   │ \n
+   │ <body class="admin-body">\n
+   │     <div class="admin-layout">\n
+   │         <!-- Admin Sidebar -->\n
+   │         <aside class="admin-sidebar" id="adminSidebar">\n
+   │             <div class="sidebar-header">\n
+   │                 <a href="http://localhost:8000/admin" class="sidebar-brand">\n
+   │                     <i class="fas fa-cog" aria-hidden="true"></i>\n
+   │                     Admin Panel\n
+   │                 </a>\n
+   │             </div>\n
+   │ \n
+   │             <nav class="sidebar-nav">\n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Main</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin" class="nav-link active">\n
+   │                             <i class="fas fa-tachometer-alt" aria-hidden="true"></i>\n
+   │                             Dashboard\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Events</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/events" class="nav-link ">\n
+   │                             <i class="fas fa-calendar-alt" aria-hidden="true"></i>\n
+   │                             All Events\n
+   │                                                     </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/events/create" class="nav-link ">\n
+   │                             <i class="fas fa-plus" aria-hidden="true"></i>\n
+   │                             Add Event\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/tickets" class="nav-link ">\n
+   │                             <i class="fas fa-ticket-alt" aria-hidden="true"></i>\n
+   │                             Tickets\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Speakers</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/speakers" class="nav-link ">\n
+   │                             <i class="fas fa-users" aria-hidden="true"></i>\n
+   │                             All Speakers\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/speakers/create" class="nav-link ">\n
+   │                             <i class="fas fa-user-plus" aria-hidden="true"></i>\n
+   │                             Add Speaker\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/sessions" class="nav-link ">\n
+   │                             <i class="fas fa-presentation" aria-hidden="true"></i>\n
+   │                             Sessions\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Users</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/users" class="nav-link ">\n
+   │                             <i class="fas fa-users-cog" aria-hidden="true"></i>\n
+   │                             All Users\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/registrations" class="nav-link ">\n
+   │                             <i class="fas fa-clipboard-list" aria-hidden="true"></i>\n
+   │                             Registrations\n
+   │                                                     </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/payments/pending" class="nav-link ">\n
+   │                             <i class="fas fa-credit-card" aria-hidden="true"></i>\n
+   │                             Payment Review\n
+   │                                                     </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/roles" class="nav-link ">\n
+   │                             <i class="fas fa-user-shield" aria-hidden="true"></i>\n
+   │                             Roles & Permissions\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Content</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/pages" class="nav-link ">\n
+   │                             <i class="fas fa-file-alt" aria-hidden="true"></i>\n
+   │                             Pages\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/media" class="nav-link ">\n
+   │                             <i class="fas fa-images" aria-hidden="true"></i>\n
+   │                             Media Library\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">System</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/settings" class="nav-link ">\n
+   │                             <i class="fas fa-cogs" aria-hidden="true"></i>\n
+   │                             Settings\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/unipayment" class="nav-link ">\n
+   │                             <i class="fas fa-credit-card" aria-hidden="true"></i>\n
+   │                             Card Payments\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/wallet-settings" class="nav-link ">\n
+   │                             <i class="fas fa-wallet" aria-hidden="true"></i>\n
+   │                             Crypto Wallets\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/admin/reports" class="nav-link ">\n
+   │                             <i class="fas fa-chart-bar" aria-hidden="true"></i>\n
+   │                             Reports\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="nav-section">\n
+   │                     <div class="nav-section-title">Account</div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000" class="nav-link" target="_blank">\n
+   │                             <i class="fas fa-external-link-alt" aria-hidden="true"></i>\n
+   │                             View Site\n
+   │                         </a>\n
+   │                     </div>\n
+   │                     <div class="nav-item">\n
+   │                         <a href="http://localhost:8000/logout" class="nav-link"\n
+   │                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">\n
+   │                             <i class="fas fa-sign-out-alt" aria-hidden="true"></i>\n
+   │                             Logout\n
+   │                         </a>\n
+   │                         <form id="logout-form" action="http://localhost:8000/logout" method="POST" class="d-none">\n
+   │                             <input type="hidden" name="_token" value="7lSVtxp0VYHJXWLvSk5vjE8MlV1kqFw5p8FE2uwB" autocomplete="off">                        </form>\n
+   │                     </div>\n
+   │                 </div>\n
+   │             </nav>\n
+   │         </aside>\n
+   │ \n
+   │         <!-- Admin Main Content -->\n
+   │         <main class="admin-main" id="adminMain">\n
+   │             <!-- Admin Header -->\n
+   │             <header class="admin-header">\n
+   │                 <div class="d-flex align-items-center">\n
+   │                     <button class="mobile-toggle me-3" id="sidebarToggle" aria-label="Toggle sidebar">\n
+   │                         <i class="fas fa-bars" aria-hidden="true"></i>\n
+   │                     </button>\n
+   │ \n
+   │                                     </div>\n
+   │ \n
+   │                 <div class="d-flex align-items-center gap-3">\n
+   │                     <div class="dropdown">\n
+   │                         <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">\n
+   │                             <i class="fas fa-user me-2" aria-hidden="true"></i>\n
+   │                             Lamar Erdman\n
+   │                         </button>\n
+   │                         <ul class="dropdown-menu dropdown-menu-end">\n
+   │                             <li>\n
+   │                                 <h6 class="dropdown-header">Lamar Erdman</h6>\n
+   │                             </li>\n
+   │                             <li><a class="dropdown-item" href="http://localhost:8000/profile">\n
+   │                                     <i class="fas fa-user-edit me-2" aria-hidden="true"></i>Profile\n
+   │                                 </a></li>\n
+   │                             <li><a class="dropdown-item" href="http://localhost:8000/admin/settings">\n
+   │                                     <i class="fas fa-cogs me-2" aria-hidden="true"></i>Settings\n
+   │                                 </a></li>\n
+   │                             <li>\n
+   │                                 <hr class="dropdown-divider">\n
+   │                             </li>\n
+   │                             <li><a class="dropdown-item" href="http://localhost:8000/logout"\n
+   │                                     onclick="event.preventDefault(); document.getElementById('logout-form-header').submit();">\n
+   │                                     <i class="fas fa-sign-out-alt me-2" aria-hidden="true"></i>Logout\n
+   │                                 </a></li>\n
+   │                         </ul>\n
+   │                     </div>\n
+   │                 </div>\n
+   │             </header>\n
+   │ \n
+   │             <!-- Admin Content -->\n
+   │             <div class="admin-content">\n
+   │                 <!-- Flash Messages -->\n
+   │                 \n
+   │                 \n
+   │                 \n
+   │                 <div class="page-header">\n
+   │     <h1 class="page-title">Dashboard</h1>\n
+   │     <div class="page-actions">\n
+   │         <a href="http://localhost:8000/admin/events/create" class="btn btn-primary">\n
+   │             <i class="fas fa-plus me-2" aria-hidden="true"></i>Add Event\n
+   │         </a>\n
+   │         <a href="http://localhost:8000/admin/speakers/create" class="btn btn-outline-primary">\n
+   │             <i class="fas fa-user-plus me-2" aria-hidden="true"></i>Add Speaker\n
+   │         </a>\n
+   │     </div>\n
+   │ </div>\n
+   │ \n
+   │ <!-- Welcome Message -->\n
+   │ <div class="admin-card mb-4">\n
+   │     <div class="admin-card-body">\n
+   │         <h4 class="mb-2">Welcome back, Lamar Erdman!</h4>\n
+   │         <p class="text-muted mb-0">Here's what's happening with your leadership summit today.</p>\n
+   │     </div>\n
+   │ </div>\n
+   │ \n
+   │ <!-- Statistics Cards -->\n
+   │ <div class="stats-grid">\n
+   │     <div class="stat-card">\n
+   │         <div class="stat-header">\n
+   │             <span class="stat-title">Total Events</span>\n
+   │             <div class="stat-icon info">\n
+   │                 <i class="fas fa-calendar-alt" aria-hidden="true"></i>\n
+   │             </div>\n
+   │         </div>\n
+   │         <div class="stat-value">1</div>\n
+   │         <div class="stat-change positive">\n
+   │             <i class="fas fa-arrow-up" aria-hidden="true"></i>\n
+   │             <span>+1 this month</span>\n
+   │         </div>\n
+   │     </div>\n
+   │ \n
+   │     <div class="stat-card success">\n
+   │         <div class="stat-header">\n
+   │             <span class="stat-title">Total Registrations</span>\n
+   │             <div class="stat-icon success">\n
+   │                 <i class="fas fa-users" aria-hidden="true"></i>\n
+   │             </div>\n
+   │         </div>\n
+   │         <div class="stat-value">5</div>\n
+   │         <div class="stat-change positive">\n
+   │             <i class="fas fa-arrow-up" aria-hidden="true"></i>\n
+   │             <span>+5 this week</span>\n
+   │         </div>\n
+   │     </div>\n
+   │ \n
+   │     <div class="stat-card warning">\n
+   │         <div class="stat-header">\n
+   │             <span class="stat-title">Active Speakers</span>\n
+   │             <div class="stat-icon warning">\n
+   │                 <i class="fas fa-microphone" aria-hidden="true"></i>\n
+   │             </div>\n
+   │         </div>\n
+   │         <div class="stat-value">0</div>\n
+   │         <div class="stat-change neutral">\n
+   │             <i class="fas fa-microphone" aria-hidden="true"></i>\n
+   │             <span>Active speakers</span>\n
+   │         </div>\n
+   │     </div>\n
+   │ \n
+   │     <div class="stat-card danger">\n
+   │         <div class="stat-header">\n
+   │             <span class="stat-title">Revenue</span>\n
+   │             <div class="stat-icon danger">\n
+   │                 <i class="fas fa-dollar-sign" aria-hidden="true"></i>\n
+   │             </div>\n
+   │         </div>\n
+   │         <div class="stat-value">$0</div>\n
+   │         <div class="stat-change neutral">\n
+   │             <i class="fas fa-minus" aria-hidden="true"></i>\n
+   │             <span>0% vs last month</span>\n
+   │         </div>\n
+   │     </div>\n
+   │ </div>\n
+   │ \n
+   │ <!-- Quick Actions and Recent Activity -->\n
+   │ <div class="row">\n
+   │     <div class="col-lg-8">\n
+   │         <!-- Recent Registrations -->\n
+   │         <div class="admin-card mb-4">\n
+   │             <div class="admin-card-header">\n
+   │                 <h3 class="admin-card-title">Recent Registrations</h3>\n
+   │                 <a href="http://localhost:8000/admin/registrations" class="btn btn-sm btn-outline-primary">View All</a>\n
+   │             </div>\n
+   │             <div class="admin-card-body">\n
+   │                                 <div class="table-responsive">\n
+   │                     <table class="table table-hover">\n
+   │                         <thead>\n
+   │                             <tr>\n
+   │                                 <th>Name</th>\n
+   │                                 <th>Event</th>\n
+   │                                 <th>Date</th>\n
+   │                                 <th>Status</th>\n
+   │                             </tr>\n
+   │                         </thead>\n
+   │                         <tbody>\n
+   │                                                         <tr>\n
+   │                                 <td>\n
+   │                                     <div class="d-flex align-items-center">\n
+   │                                         <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+   │                                             <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+   │                                         </div>\n
+   │                                         <div>\n
+   │                                             <div class="fw-semibold">Mr. Haskell Skiles IV</div>\n
+   │                                             <small class="text-muted">vlindgren@example.com</small>\n
+   │                                         </div>\n
+   │                                     </div>\n
+   │                                 </td>\n
+   │                                 <td>Admin Test Event</td>\n
+   │                                 <td>Aug 13, 2025</td>\n
+   │                                 <td>\n
+   │                                     <span class="badge bg-success">\n
+   │                                         Confirmed\n
+   │                                     </span>\n
+   │                                 </td>\n
+   │                             </tr>\n
+   │                                                         <tr>\n
+   │                                 <td>\n
+   │                                     <div class="d-flex align-items-center">\n
+   │                                         <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+   │                                             <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+   │                                         </div>\n
+   │                                         <div>\n
+   │                                             <div class="fw-semibold">Mr. Lavern Strosin III</div>\n
+   │                                             <small class="text-muted">hoppe.blaze@example.com</small>\n
+   │                                         </div>\n
+   │                                     </div>\n
+   │                                 </td>\n
+   │                                 <td>Admin Test Event</td>\n
+   │                                 <td>Aug 13, 2025</td>\n
+   │                                 <td>\n
+   │                                     <span class="badge bg-secondary">\n
+   │                                         Cancelled\n
+   │                                     </span>\n
+   │                                 </td>\n
+   │                             </tr>\n
+   │                                                         <tr>\n
+   │                                 <td>\n
+   │                                     <div class="d-flex align-items-center">\n
+   │                                         <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+   │                                             <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+   │                                         </div>\n
+   │                                         <div>\n
+   │                                             <div class="fw-semibold">Sigmund Leffler</div>\n
+   │                                             <small class="text-muted">gibson.flossie@example.org</small>\n
+   │                                         </div>\n
+   │                                     </div>\n
+   │                                 </td>\n
+   │                                 <td>Admin Test Event</td>\n
+   │                                 <td>Aug 13, 2025</td>\n
+   │                                 <td>\n
+   │                                     <span class="badge bg-secondary">\n
+   │                                         Cancelled\n
+   │                                     </span>\n
+   │                                 </td>\n
+   │                             </tr>\n
+   │                                                         <tr>\n
+   │                                 <td>\n
+   │                                     <div class="d-flex align-items-center">\n
+   │                                         <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+   │                                             <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+   │                                         </div>\n
+   │                                         <div>\n
+   │                                             <div class="fw-semibold">Beatrice Zieme</div>\n
+   │                                             <small class="text-muted">tstracke@example.net</small>\n
+   │                                         </div>\n
+   │                                     </div>\n
+   │                                 </td>\n
+   │                                 <td>Admin Test Event</td>\n
+   │                                 <td>Aug 13, 2025</td>\n
+   │                                 <td>\n
+   │                                     <span class="badge bg-secondary">\n
+   │                                         Cancelled\n
+   │                                     </span>\n
+   │                                 </td>\n
+   │                             </tr>\n
+   │                                                         <tr>\n
+   │                                 <td>\n
+   │                                     <div class="d-flex align-items-center">\n
+   │                                         <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-2">\n
+   │                                             <i class="fas fa-user text-white" aria-hidden="true"></i>\n
+   │                                         </div>\n
+   │                                         <div>\n
+   │                                             <div class="fw-semibold">Delphine Pfannerstill</div>\n
+   │                                             <small class="text-muted">adams.torrance@example.org</small>\n
+   │                                         </div>\n
+   │                                     </div>\n
+   │                                 </td>\n
+   │                                 <td>Admin Test Event</td>\n
+   │                                 <td>Aug 13, 2025</td>\n
+   │                                 <td>\n
+   │                                     <span class="badge bg-success">\n
+   │                                         Confirmed\n
+   │                                     </span>\n
+   │                                 </td>\n
+   │                             </tr>\n
+   │                                                     </tbody>\n
+   │                     </table>\n
+   │                 </div>\n
+   │                             </div>\n
+   │         </div>\n
+   │ \n
+   │         <!-- Upcoming Events -->\n
+   │         <div class="admin-card">\n
+   │             <div class="admin-card-header">\n
+   │                 <h3 class="admin-card-title">Upcoming Events</h3>\n
+   │                 <a href="http://localhost:8000/admin/events" class="btn btn-sm btn-outline-primary">Manage Events</a>\n
+   │             </div>\n
+   │             <div class="admin-card-body">\n
+   │                                                 <div class="d-flex align-items-center p-3 border rounded mb-3">\n
+   │                     <div class="flex-shrink-0">\n
+   │                         <div class="bg-primary text-white rounded p-2 text-center" style="min-width: 60px;">\n
+   │                             <div class="fw-bold">23</div>\n
+   │                             <small>Oct</small>\n
+   │                         </div>\n
+   │                     </div>\n
+   │                     <div class="flex-grow-1 ms-3">\n
+   │                         <h6 class="mb-1">Admin Test Event</h6>\n
+   │                         <p class="text-muted mb-1">October 23, 2025 10:42 PM</p>\n
+   │                         <small class="text-muted">\n
+   │                             <i class="fas fa-users me-1" aria-hidden="true"></i>\n
+   │                             5 registered\n
+   │                         </small>\n
+   │                     </div>\n
+   │                     <div class="flex-shrink-0">\n
+   │                         <a href="http://localhost:8000/admin/events/1" class="btn btn-sm btn-outline-primary">\n
+   │                             Manage\n
+   │                         </a>\n
+   │                     </div>\n
+   │                 </div>\n
+   │                                             </div>\n
+   │         </div>\n
+   │     </div>\n
+   │ \n
+   │     <div class="col-lg-4">\n
+   │         <!-- Quick Actions -->\n
+   │         <div class="admin-card mb-4">\n
+   │             <div class="admin-card-header">\n
+   │                 <h3 class="admin-card-title">Quick Actions</h3>\n
+   │             </div>\n
+   │             <div class="admin-card-body">\n
+   │                 <div class="d-grid gap-2">\n
+   │                     <a href="http://localhost:8000/admin/events/create" class="btn btn-primary">\n
+   │                         <i class="fas fa-plus me-2" aria-hidden="true"></i>Create New Event\n
+   │                     </a>\n
+   │                     <a href="http://localhost:8000/admin/events" class="btn btn-outline-primary">\n
+   │                         <i class="fas fa-calendar me-2" aria-hidden="true"></i>Manage Events\n
+   │                     </a>\n
+   │                     <a href="http://localhost:8000/admin/speakers" class="btn btn-outline-primary">\n
+   │                         <i class="fas fa-users me-2" aria-hidden="true"></i>Manage Speakers\n
+   │                     </a>\n
+   │                     <a href="http://localhost:8000/admin/wallet-settings" class="btn btn-outline-success">\n
+   │                         <i class="fas fa-wallet me-2" aria-hidden="true"></i>Crypto Wallets\n
+   │                     </a>\n
+   │                     <a href="http://localhost:8000/admin/payments/pending" class="btn btn-outline-warning">\n
+   │                         <i class="fas fa-credit-card me-2" aria-hidden="true"></i>Review Payments\n
+   │                     </a>\n
+   │                     <hr>\n
+   │                     <a href="http://localhost:8000/admin/registrations" class="btn btn-outline-info">\n
+   │                         <i class="fas fa-clipboard-list me-2" aria-hidden="true"></i>Registrations\n
+   │                     </a>\n
+   │                     <a href="http://localhost:8000/admin/tickets" class="btn btn-outline-info">\n
+   │                         <i class="fas fa-ticket-alt me-2" aria-hidden="true"></i>Tickets\n
+   │                     </a>\n
+   │                     <a href="http://localhost:8000/admin/users" class="btn btn-outline-secondary">\n
+   │                         <i class="fas fa-user-cog me-2" aria-hidden="true"></i>Users\n
+   │                     </a>\n
+   │                     <a href="http://localhost:8000/admin/roles" class="btn btn-outline-secondary">\n
+   │                         <i class="fas fa-user-shield me-2" aria-hidden="true"></i>Roles\n
+   │                     </a>\n
+   │                     <a href="http://localhost:8000/admin/reports" class="btn btn-outline-dark">\n
+   │                         <i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Reports\n
+   │                     </a>\n
+   │                 </div>\n
+   │             </div>\n
+   │         </div>\n
+   │ \n
+   │         <!-- System Status -->\n
+   │         <div class="admin-card">\n
+   │             <div class="admin-card-header">\n
+   │                 <h3 class="admin-card-title">System Status</h3>\n
+   │             </div>\n
+   │             <div class="admin-card-body">\n
+   │                 <div class="mb-3">\n
+   │                     <div class="d-flex justify-content-between align-items-center mb-1">\n
+   │                         <span class="text-muted">Server Status</span>\n
+   │                         <span class="badge bg-success">Online</span>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="mb-3">\n
+   │                     <div class="d-flex justify-content-between align-items-center mb-1">\n
+   │                         <span class="text-muted">Database</span>\n
+   │                         <span class="badge bg-success">Connected</span>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="mb-3">\n
+   │                     <div class="d-flex justify-content-between align-items-center mb-1">\n
+   │                         <span class="text-muted">Email Service</span>\n
+   │                         <span class="badge bg-success">Active</span>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="mb-3">\n
+   │                     <div class="d-flex justify-content-between align-items-center mb-1">\n
+   │                         <span class="text-muted">Storage</span>\n
+   │                         <span class="text-success">78% used</span>\n
+   │                     </div>\n
+   │                     <div class="progress" style="height: 6px;">\n
+   │                         <div class="progress-bar bg-success" style="width: 78%"></div>\n
+   │                     </div>\n
+   │                 </div>\n
+   │ \n
+   │                 <div class="text-center mt-3">\n
+   │                     <a href="http://localhost:8000/admin/settings" class="btn btn-sm btn-outline-primary">\n
+   │                         System Settings\n
+   │                     </a>\n
+   │                 </div>\n
+   │             </div>\n
+   │         </div>\n
+   │     </div>\n
+   │ </div>\n
+   │             </div>\n
+   │         </main>\n
+   │     </div>\n
+   │ \n
+   │     \n
+   │     <script>\n
+   │         document.addEventListener('DOMContentLoaded', function() {\n
+   │             const sidebarToggle = document.getElementById('sidebarToggle');\n
+   │             const sidebar = document.getElementById('adminSidebar');\n
+   │             const main = document.getElementById('adminMain');\n
+   │ \n
+   │             if (sidebarToggle) {\n
+   │                 sidebarToggle.addEventListener('click', function() {\n
+   │                     sidebar.classList.toggle('show');\n
+   │                     sidebar.classList.toggle('collapsed');\n
+   │                     main.classList.toggle('expanded');\n
+   │                 });\n
+   │             }\n
+   │ \n
+   │             // Close sidebar when clicking outside on mobile\n
+   │             document.addEventListener('click', function(e) {\n
+   │                 if (window.innerWidth <= 768 &&\n
+   │                     !sidebar.contains(e.target) &&\n
+   │                     !sidebarToggle.contains(e.target) &&\n
+   │                     sidebar.classList.contains('show')) {\n
+   │                     sidebar.classList.remove('show');\n
+   │                 }\n
+   │             });\n
+   │ \n
+   │             // Auto-dismiss alerts\n
+   │             const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');\n
+   │             alerts.forEach(function(alert) {\n
+   │                 setTimeout(function() {\n
+   │                     const bsAlert = new bootstrap.Alert(alert);\n
+   │                     bsAlert.close();\n
+   │                 }, 5000);\n
+   │             });\n
+   │         });\n
+   │     </script>\n
+   │ \n
+   │     <form id="logout-form-header" action="http://localhost:8000/logout" method="POST" class="d-none">\n
+   │         <input type="hidden" name="_token" value="7lSVtxp0VYHJXWLvSk5vjE8MlV1kqFw5p8FE2uwB" autocomplete="off">    </form>\n
+   │ </body>\n
+   │ \n
+   │ </html>' [ASCII](length: 37683) contains "Payment Statistics" [ASCII](length: 18).
+   │
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:560
+   │ /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:348
+   │
+
+ERRORS!
+Tests: 9, Assertions: 14, Errors: 3, Failures: 6.

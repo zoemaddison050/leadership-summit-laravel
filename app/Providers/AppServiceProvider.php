@@ -11,7 +11,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Register WebhookUrlGenerator as singleton
+        $this->app->singleton(\App\Services\WebhookUrlGenerator::class);
     }
 
     /**

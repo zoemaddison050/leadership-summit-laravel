@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Feature\AdminPaymentValidationTest" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" tests="9" assertions="0" errors="9" failures="0" skipped="0" time="0.000000">
+    <testcase name="admin_can_configure_unipayment_settings" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="47" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::admin_can_configure_unipayment_settings
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Prof. Estel Dooley V, admin@test.com, 2025-08-13 11:58:35, $2y$12$T1tOgvLQoUBvs4NehYRYmukQIMU4vE3QTciFIsfRiCOqHfsdoT6A2, k6bQiI0eQm, ?, 2025-08-13 11:58:35, 2025-08-13 11:58:35, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+    <testcase name="admin_can_view_payment_transactions" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="83" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::admin_can_view_payment_transactions
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Marques Rempel, admin@test.com, 2025-08-13 11:58:36, $2y$12$m4m8po2pwculFQ/8Dv5sfOZM4ELg76b17sHm2yqFXHPko0kFxVv7C, 5oVis1HPhU, ?, 2025-08-13 11:58:36, 2025-08-13 11:58:36, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+    <testcase name="admin_can_view_registration_payment_details" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="137" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::admin_can_view_registration_payment_details
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Thurman Little, admin@test.com, 2025-08-13 11:58:37, $2y$12$oQwuIxYpDmP.rsnhYsrQweLTO..wFAbjdYo2Gzkn4YHTcvx4/rivO, p7vWShTAKH, ?, 2025-08-13 11:58:37, 2025-08-13 11:58:37, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+    <testcase name="admin_registrations_index_shows_payment_information" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="170" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::admin_registrations_index_shows_payment_information
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Ofelia Maggio, admin@test.com, 2025-08-13 11:58:37, $2y$12$LnWWo7SpxX5dmVNt5aqVT.QTz/y1YWU0/wFNQ6obSnLwuPxz/m4ZG, U8P9VMpgGt, ?, 2025-08-13 11:58:38, 2025-08-13 11:58:38, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+    <testcase name="admin_can_test_unipayment_connection" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="219" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::admin_can_test_unipayment_connection
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Miss Adaline Hodkiewicz, admin@test.com, 2025-08-13 11:58:38, $2y$12$yqORsyYf0j47WkPPnipXPepWsjZ7r6wiS9AifuaLNzvQTimELkOcu, YtyDkgWLto, ?, 2025-08-13 11:58:39, 2025-08-13 11:58:39, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+    <testcase name="admin_settings_validation_works" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="241" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::admin_settings_validation_works
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Adelle Wolf, admin@test.com, 2025-08-13 11:58:40, $2y$12$C8SEiNQs6FASTIuAleuQZO5XsevsdfJfVMsKFAiwReo1egQpIM9hW, 9N1wolE3rr, ?, 2025-08-13 11:58:40, 2025-08-13 11:58:40, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+    <testcase name="non_admin_cannot_access_payment_admin_features" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="276" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::non_admin_cannot_access_payment_admin_features
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Mr. Adrian Sawayn II, admin@test.com, 2025-08-13 11:58:41, $2y$12$jnZXCTvAHVGesMAyUu0r3.S/9DB96h/WqUJlYoahhH6kbMc.oOoaa, qsmp1in86n, ?, 2025-08-13 11:58:41, 2025-08-13 11:58:41, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+    <testcase name="admin_can_export_payment_data" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="299" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::admin_can_export_payment_data
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Mrs. Laisha Krajcik, admin@test.com, 2025-08-13 11:58:42, $2y$12$FbFCwzXLwmUFzVffxygnOOH835yoVXVs4mlLt2ViJJLrm6c6rFRam, mCyZCSGAxZ, ?, 2025-08-13 11:58:42, 2025-08-13 11:58:42, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+    <testcase name="admin_dashboard_shows_payment_statistics" file="/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php" line="322" class="Tests\Feature\AdminPaymentValidationTest" classname="Tests.Feature.AdminPaymentValidationTest" assertions="0" time="0.000000">
+      <error type="Illuminate\Database\QueryException">Tests\Feature\AdminPaymentValidationTest::admin_dashboard_shows_payment_statistics
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 table users has no column named role (Connection: sqlite, SQL: insert into "users" ("name", "email", "email_verified_at", "password", "remember_token", "role_id", "created_at", "updated_at", "role") values (Bernita Russel, admin@test.com, 2025-08-13 11:58:43, $2y$12$b77p8Fw2yDQaNLPEdvuk2eaMXy6U4k.RNxmmE3Vr6vQkoaTaDgq5K, wVOPBPsZ1a, ?, 2025-08-13 11:58:43, 2025-08-13 11:58:43, admin))
+
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:783
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:576
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:540
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php:32
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3549
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:1982
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1334
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1299
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1138
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:338
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:240
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:333
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:287
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:281
+/Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/tests/Feature/AdminPaymentValidationTest.php:28</error>
+    </testcase>
+  </testsuite>
+</testsuites>
