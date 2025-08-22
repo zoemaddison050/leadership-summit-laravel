@@ -14,10 +14,10 @@ if (!in_array($_SERVER['REMOTE_ADDR'], $allowed_ips) && !empty($allowed_ips[0]))
 }
 
 // Include Laravel bootstrap
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 // Boot Laravel
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__.'/bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()

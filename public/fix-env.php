@@ -28,7 +28,7 @@ try {
     echo "🔗 Correct APP_URL should be: " . $correctUrl . "<br>";
     
     // Read current .env file
-    $envFile = __DIR__ . '/../.env';
+    $envFile = __DIR__ . '/.env';
     if (!file_exists($envFile)) {
         echo "❌ .env file not found at: " . $envFile . "<br>";
         die();
@@ -99,20 +99,20 @@ try {
     $output = [];
     
     // Config cache
-    exec('cd ' . __DIR__ . '/../ && php artisan config:clear 2>&1', $output);
+    exec('cd ' . __DIR__ . ' && php artisan config:clear 2>&1', $output);
     echo "✅ Config cache cleared<br>";
     
-    exec('cd ' . __DIR__ . '/../ && php artisan cache:clear 2>&1', $output);
+    exec('cd ' . __DIR__ . ' && php artisan cache:clear 2>&1', $output);
     echo "✅ Application cache cleared<br>";
     
-    exec('cd ' . __DIR__ . '/../ && php artisan route:clear 2>&1', $output);
+    exec('cd ' . __DIR__ . ' && php artisan route:clear 2>&1', $output);
     echo "✅ Route cache cleared<br>";
     
-    exec('cd ' . __DIR__ . '/../ && php artisan view:clear 2>&1', $output);
+    exec('cd ' . __DIR__ . ' && php artisan view:clear 2>&1', $output);
     echo "✅ View cache cleared<br>";
     
     // Rebuild config cache
-    exec('cd ' . __DIR__ . '/../ && php artisan config:cache 2>&1', $output);
+    exec('cd ' . __DIR__ . ' && php artisan config:cache 2>&1', $output);
     echo "✅ Config cache rebuilt<br>";
     
     echo "<br><h3>🎉 Success!</h3>";
