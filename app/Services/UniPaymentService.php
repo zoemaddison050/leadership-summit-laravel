@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use UniPayment\SDK\BillingAPI;
+use Illuminate\Support\Facades\Schema;
 use UniPayment\SDK\Configuration;
 use UniPayment\SDK\Model\CreateInvoiceRequest;
 use UniPayment\SDK\Model\CreateInvoiceResponse;
@@ -30,7 +31,14 @@ class UniPaymentService
      */
     protected function loadConfiguration(): void
     {
-        $dbSettings = \App\Models\UniPaymentSetting::first();
+        $dbSettings = null;
+        try {
+            if (Schema::hasTable('unipayment_settings')) {
+                $dbSettings = \App\Models\UniPaymentSetting::first();
+            }
+        } catch (\Throwable $e) {
+            $dbSettings = null;
+        }
 
         if ($dbSettings && $dbSettings->is_enabled) {
             // Load from database settings
@@ -45,7 +53,7 @@ class UniPaymentService
                 'minimum_amount' => $dbSettings->minimum_amount ?? 1.00,
                 'maximum_amount' => $dbSettings->maximum_amount ?? 10000.00,
             ];
-        } else {
+    } else {
             // Fallback to config file
             $this->config = config('unipayment');
         }
