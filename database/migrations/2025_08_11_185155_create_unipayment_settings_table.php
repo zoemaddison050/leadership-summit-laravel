@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('unipayment_settings')) {
+            return;
+        }
         Schema::create('unipayment_settings', function (Blueprint $table) {
             $table->id();
 

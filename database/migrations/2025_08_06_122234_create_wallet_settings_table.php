@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,7 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wallet_settings', function (Blueprint $table) {
+        if (!Schema::hasTable('wallet_settings')) {
+            Schema::create('wallet_settings', function (Blueprint $table) {
             $table->id();
             $table->string('cryptocurrency')->unique();
             $table->string('wallet_address');
@@ -20,10 +22,11 @@ return new class extends Migration
             $table->string('currency_code');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
-        });
+            });
+        }
 
-        // Insert default wallet addresses
-        DB::table('wallet_settings')->insert([
+        // Insert default wallet addresses if not present
+        $defaults = [
             [
                 'cryptocurrency' => 'bitcoin',
                 'wallet_address' => '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
@@ -54,7 +57,13 @@ return new class extends Migration
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ];
+
+        foreach ($defaults as $row) {
+            if (!DB::table('wallet_settings')->where('cryptocurrency', $row['cryptocurrency'])->exists()) {
+                DB::table('wallet_settings')->insert($row);
+            }
+        }
     }
 
     /**

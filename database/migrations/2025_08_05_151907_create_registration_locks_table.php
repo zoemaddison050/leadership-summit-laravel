@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('registration_locks')) {
+            return;
+        }
         Schema::create('registration_locks', function (Blueprint $table) {
             $table->id();
             $table->string('email');
