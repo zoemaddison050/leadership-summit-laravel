@@ -1,0 +1,620 @@
+<?php $__env->startSection('title', 'About - International Global Leadership Academy Summit 2025'); ?>
+<?php $__env->startSection('meta_description', 'Learn about the International Global Leadership Academy Summit 2025. Our mission, vision, and commitment to developing world-class leaders.'); ?>
+
+<?php $__env->startPush('styles'); ?>
+<style>
+    .about-hero {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #1e3a8a 100%);
+        color: white;
+        padding: 6rem 0 4rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("<?php echo e(asset('images/hero-background.jpg')); ?>") center/cover;
+        opacity: 0.1;
+        z-index: 1;
+    }
+
+    .about-hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .about-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .about-hero p {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .mission-section {
+        padding: 6rem 0;
+        background: white;
+    }
+
+    .mission-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .mission-content h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .mission-content p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .mission-image {
+        text-align: center;
+    }
+
+    .mission-icon {
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        color: white;
+        font-size: 5rem;
+    }
+
+    .values-section {
+        padding: 6rem 0;
+        background: #f8fafc;
+    }
+
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .value-card {
+        background: white;
+        padding: 2.5rem 2rem;
+        border-radius: 1rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+    }
+
+    .value-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .value-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 2rem;
+    }
+
+    .value-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .value-description {
+        color: var(--dark-gray);
+        line-height: 1.6;
+    }
+
+    .story-section {
+        padding: 6rem 0;
+        background: white;
+    }
+
+    .story-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .story-content h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+    }
+
+    .story-content p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+    }
+
+    .timeline {
+        max-width: 600px;
+        margin: 3rem auto 0;
+        position: relative;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--primary-color);
+        transform: translateX(-50%);
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .timeline-item:nth-child(odd) {
+        flex-direction: row;
+    }
+
+    .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    .timeline-content {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: calc(50% - 2rem);
+        position: relative;
+    }
+
+    .timeline-content::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+        transform: translateY(-50%);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before {
+        right: -20px;
+        border-left-color: white;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+        left: -20px;
+        border-right-color: white;
+    }
+
+    .timeline-year {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .timeline-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .timeline-description {
+        color: var(--dark-gray);
+        font-size: 0.95rem;
+    }
+
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        background: var(--secondary-color);
+        border: 4px solid var(--primary-color);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+    }
+
+    .team-section {
+        padding: 6rem 0;
+        background: #f8fafc;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .team-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+    }
+
+    .team-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .team-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 3rem;
+    }
+
+    .team-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .team-role {
+        color: var(--dark-gray);
+        margin-bottom: 1rem;
+    }
+
+    .team-bio {
+        color: var(--dark-gray);
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .cta-section {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #1e3a8a 100%);
+        color: white;
+        text-align: center;
+    }
+
+    .cta-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .cta-description {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: 768px) {
+        .about-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .mission-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .timeline::before {
+            left: 20px;
+        }
+
+        .timeline-item {
+            flex-direction: row !important;
+            padding-left: 3rem;
+        }
+
+        .timeline-content {
+            width: 100%;
+        }
+
+        .timeline-content::before {
+            left: -20px !important;
+            right: auto !important;
+            border-right-color: white !important;
+            border-left-color: transparent !important;
+        }
+
+        .timeline-dot {
+            left: 20px;
+        }
+    }
+</style>
+<?php $__env->stopPush(); ?>
+
+<?php $__env->startSection('content'); ?>
+<!-- About Hero -->
+<section class="about-hero">
+    <div class="container">
+        <div class="about-hero-content">
+            <h1>About the Summit</h1>
+            <p>Empowering leaders to shape the future through innovation, collaboration, and transformative thinking</p>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="mission-section">
+    <div class="container">
+        <div class="mission-grid">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>The International Global Leadership Academy Summit exists to cultivate exceptional leaders who drive positive change in their organizations and communities worldwide.</p>
+                <p>We believe that great leadership is not just about achieving business success, but about creating lasting impact that benefits society as a whole. Our summit brings together diverse perspectives, cutting-edge insights, and practical tools to help leaders navigate the complexities of our rapidly changing world.</p>
+                <p>Through immersive experiences, meaningful connections, and actionable learning, we empower attendees to become catalysts for transformation in their respective fields.</p>
+            </div>
+            <div class="mission-image">
+                <div class="mission-icon">
+                    <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                </div>
+                <h3 class="value-title">Collaboration</h3>
+                <p class="value-description">We believe that the best solutions emerge when diverse minds come together to share ideas, challenge assumptions, and build upon each other's strengths.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-rocket" aria-hidden="true"></i>
+                </div>
+                <h3 class="value-title">Innovation</h3>
+                <p class="value-description">We champion forward-thinking approaches and encourage leaders to embrace change, experiment with new ideas, and drive meaningful innovation.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                </div>
+                <h3 class="value-title">Integrity</h3>
+                <p class="value-description">We uphold the highest ethical standards and believe that authentic leadership is built on trust, transparency, and moral courage.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                </div>
+                <h3 class="value-title">Global Impact</h3>
+                <p class="value-description">We are committed to developing leaders who think globally and act responsibly to create positive change that transcends borders and cultures.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                </div>
+                <h3 class="value-title">Continuous Learning</h3>
+                <p class="value-description">We foster a culture of lifelong learning where leaders continuously evolve, adapt, and grow to meet emerging challenges.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-balance-scale" aria-hidden="true"></i>
+                </div>
+                <h3 class="value-title">Inclusivity</h3>
+                <p class="value-description">We celebrate diversity and create inclusive environments where all voices are heard, valued, and empowered to contribute.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Story Section -->
+<section class="story-section">
+    <div class="container">
+        <div class="story-content">
+            <h2>Our Story</h2>
+            <p>The International Global Leadership Academy Summit was born from a simple yet powerful vision: to create a platform where the world's most influential leaders could come together to share knowledge, inspire change, and shape the future of leadership.</p>
+            <p>What started as a small gathering of visionary leaders has evolved into one of the most prestigious leadership events globally, attracting thousands of participants from every continent and industry.</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2018</div>
+                    <div class="timeline-title">The Beginning</div>
+                    <div class="timeline-description">Founded with 50 leaders from 10 countries, focusing on digital transformation and future leadership challenges.</div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-title">Global Expansion</div>
+                    <div class="timeline-description">Expanded to 200 participants from 25 countries, introducing specialized tracks for different industries.</div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-title">Virtual Innovation</div>
+                    <div class="timeline-description">Pioneered virtual leadership experiences, reaching 500+ leaders worldwide during the global pandemic.</div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2021</div>
+                    <div class="timeline-title">Hybrid Excellence</div>
+                    <div class="timeline-description">Launched hybrid format combining in-person and virtual experiences, setting new standards for inclusive events.</div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-title">Future Forward</div>
+                    <div class="timeline-description">Celebrating our most ambitious summit yet, with 500+ leaders from 50+ countries focusing on sustainable leadership.</div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Our Leadership Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </div>
+                <h3 class="team-name">Dr. Elena Rodriguez</h3>
+                <p class="team-role">Founder & Executive Director</p>
+                <p class="team-bio">Visionary leader with 25+ years of experience in organizational development and global leadership initiatives.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </div>
+                <h3 class="team-name">James Thompson</h3>
+                <p class="team-role">Program Director</p>
+                <p class="team-bio">Expert in curriculum design and leadership development with a passion for creating transformative learning experiences.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </div>
+                <h3 class="team-name">Aisha Patel</h3>
+                <p class="team-role">Global Partnerships Director</p>
+                <p class="team-bio">International relations specialist focused on building strategic partnerships and expanding global reach.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </div>
+                <h3 class="team-name">Marcus Kim</h3>
+                <p class="team-role">Innovation & Technology Lead</p>
+                <p class="team-bio">Technology visionary driving digital innovation and creating cutting-edge learning platforms.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="container">
+        <h2 class="cta-title">Join Our Community</h2>
+        <p class="cta-description">Be part of a global network of leaders committed to making a positive impact in the world</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="<?php echo e(url('/events')); ?>" class="btn btn-secondary btn-lg">
+                <i class="fas fa-ticket-alt me-2" aria-hidden="true"></i>Register for Summit
+            </a>
+            <a href="<?php echo e(url('/contact')); ?>" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-envelope me-2" aria-hidden="true"></i>Get in Touch
+            </a>
+        </div>
+    </div>
+</section>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate timeline items on scroll
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        timelineItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(item);
+        });
+
+        // Animate value cards on scroll
+        const valueCards = document.querySelectorAll('.value-card');
+        valueCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Animate team cards on scroll
+        const teamCards = document.querySelectorAll('.team-card');
+        teamCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    });
+</script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/Apple/Desktop/dev_folder/Dev_project/test.kiro2/leadership-summit-laravel/resources/views/about.blade.php ENDPATH**/ ?>

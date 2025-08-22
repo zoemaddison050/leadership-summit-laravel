@@ -129,7 +129,7 @@ class SessionController extends Controller
         $request->validate([
             'action' => 'required|in:delete',
             'sessions' => 'required|array',
-            'sessions.*' => 'exists:sessions,id',
+            'sessions.*' => 'exists:event_sessions,id',
         ]);
 
         $sessions = Session::whereIn('id', $request->sessions)->get();

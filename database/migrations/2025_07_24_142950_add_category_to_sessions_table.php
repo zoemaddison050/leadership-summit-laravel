@@ -14,8 +14,8 @@ return new class extends Migration
         // Add the column only if it doesn't already exist. Avoid relying on a specific
         // column order (previously used ->after('location')), since 'location' may not exist
         // on some environments.
-        if (!Schema::hasColumn('sessions', 'category')) {
-            Schema::table('sessions', function (Blueprint $table) {
+        if (!Schema::hasColumn('event_sessions', 'category')) {
+            Schema::table('event_sessions', function (Blueprint $table) {
                 $table->string('category')->nullable();
             });
         }
@@ -26,8 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasColumn('sessions', 'category')) {
-            Schema::table('sessions', function (Blueprint $table) {
+        if (Schema::hasColumn('event_sessions', 'category')) {
+            Schema::table('event_sessions', function (Blueprint $table) {
                 $table->dropColumn('category');
             });
         }

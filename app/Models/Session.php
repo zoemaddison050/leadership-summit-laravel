@@ -10,6 +10,13 @@ class Session extends Model
     use HasFactory;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'event_sessions';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -21,6 +28,7 @@ class Session extends Model
         'start_time',
         'end_time',
         'location',
+        'category',
     ];
 
     /**

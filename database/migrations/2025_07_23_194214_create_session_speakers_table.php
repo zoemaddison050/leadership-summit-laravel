@@ -15,7 +15,7 @@ return new class extends Migration
             return;
         }
         Schema::create('session_speakers', function (Blueprint $table) {
-            $table->foreignId('session_id')->constrained()->onDelete('cascade');
+            $table->foreignId('session_id')->constrained('event_sessions')->onDelete('cascade');
             $table->foreignId('speaker_id')->constrained()->onDelete('cascade');
             $table->primary(['session_id', 'speaker_id']);
         });
