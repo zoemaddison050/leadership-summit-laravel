@@ -339,10 +339,10 @@ Route::middleware(['registration.errors', 'payment.session_timeout'])->group(fun
         ->middleware(['payment.security', 'payment.rate_limit:10,5'])
         ->name('payment.crypto.details');
     Route::post('events/{event}/payment/confirm', [App\Http\Controllers\PaymentController::class, 'confirmPayment'])
-        ->middleware(['payment.security', 'payment.rate_limit:3,15'])
+        ->middleware(['payment.security', 'payment.rate_limit:10,5'])
         ->name('payment.confirm');
     Route::post('events/{event}/payment/process', [App\Http\Controllers\PaymentController::class, 'processPaymentConfirmation'])
-        ->middleware(['payment.security', 'payment.rate_limit:3,15'])
+        ->middleware(['payment.security', 'payment.rate_limit:10,5'])
         ->name('payment.process');
 
     // UniPayment Callback and Webhook Routes (No Authentication Required) - With Rate Limiting and Security

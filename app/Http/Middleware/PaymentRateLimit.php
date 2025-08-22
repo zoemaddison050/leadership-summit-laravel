@@ -20,11 +20,29 @@ class PaymentRateLimit
 
         if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
             $seconds = RateLimiter::availableIn($key);
+            $minutes = ceil($seconds / 60);
 
-            return response()->json([
-                'message' => 'Too many payment attempts. Please try again in ' . ceil($seconds / 60) . ' minutes.',
-                'retry_after' => $seconds
-            ], 429);
+            // Check if this is a payment confirmation route that should show UI
+            $routeName = $request->route()->getName();
+            
+            // For payment confirmation and processing routes, redirect to event page with error
+            if (in_array($routeName, ['payment.confirm', 'payment.process'])) {
+                $event = $request->route('event');
+                return redirect()->route('events.show', $event)
+                    ->with('error', "Too many payment attempts. Please wait {$minutes} minutes before trying again for security reasons.");
+            }
+
+            // Check if request expects JSON response
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'message' => 'Too many payment attempts. Please try again in ' . $minutes . ' minutes.',
+                    'retry_after' => $seconds
+                ], 429);
+            }
+
+            // For regular web requests, redirect back with error
+            return redirect()->back()
+                ->with('error', "Too many payment attempts. Please wait {$minutes} minutes before trying again for security reasons.");
         }
 
         RateLimiter::hit($key, $decayMinutes * 60);
