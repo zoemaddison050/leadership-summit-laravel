@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 use UniPayment\SDK\BillingAPI;
 use UniPayment\SDK\Configuration;
 
@@ -15,8 +16,16 @@ class UniPaymentServiceProvider extends ServiceProvider
     {
         // Register Configuration
         $this->app->singleton(Configuration::class, function ($app) {
-            // Try to load from database first, then fallback to config
-            $dbSettings = \App\Models\UniPaymentSetting::first();
+            // Try to load from database first, then fallback to config.
+            // Guard against missing table during fresh deploys.
+            $dbSettings = null;
+            try {
+                if (Schema::hasTable('unipayment_settings')) {
+                    $dbSettings = \App\Models\UniPaymentSetting::first();
+                }
+            } catch (\Throwable $e) {
+                $dbSettings = null;
+            }
 
             if ($dbSettings && $dbSettings->is_enabled) {
                 $clientId = $dbSettings->app_id;
