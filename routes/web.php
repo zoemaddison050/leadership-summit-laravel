@@ -510,3 +510,54 @@ Route::get('/agenda', function () {
 
 // Public page routes (must be last to avoid conflicts)
 Route::get('pages/{slug}', [App\Http\Controllers\PageController::class, 'showBySlug'])->name('pages.show');
+
+// TEMPORARY: Emergency admin creation route for production (DELETE AFTER USE)
+Route::get('/emergency-admin-setup', function () {
+    try {
+        // Check if admin role exists
+        $adminRole = \App\Models\Role::where('name', 'admin')->first();
+        
+        if (!$adminRole) {
+            // Create admin role if it doesn't exist
+            $adminRole = \App\Models\Role::create([
+                'name' => 'admin',
+                'permissions' => [
+                    'manage_events',
+                    'manage_users', 
+                    'manage_speakers',
+                    'manage_sessions',
+                    'manage_pages',
+                    'view_reports'
+                ]
+            ]);
+            $response[] = "✅ Admin role created";
+        } else {
+            $response[] = "✅ Admin role exists";
+        }
+        
+        // Create or update admin user
+        $adminUser = \App\Models\User::updateOrCreate(
+            ['email' => 'admin@leadershipsummit.com'],
+            [
+                'name' => 'Admin User',
+                'email' => 'admin@leadershipsummit.com',
+                'password' => bcrypt('password'),
+                'role_id' => $adminRole->id,
+                'email_verified_at' => now(),
+            ]
+        );
+        
+        $response[] = "✅ Admin user created/updated successfully!";
+        $response[] = "📧 Email: admin@leadershipsummit.com";
+        $response[] = "🔑 Password: password";
+        $response[] = "🔗 Login URL: <a href='/login'>/login</a>";
+        $response[] = "🏠 Admin Panel: <a href='/admin'>/admin</a>";
+        $response[] = "";
+        $response[] = "⚠️ <strong>IMPORTANT:</strong> Remove this route from routes/web.php after use!";
+        
+        return '<h2>🔧 Emergency Admin Setup</h2>' . implode('<br>', $response);
+        
+    } catch (Exception $e) {
+        return "❌ Error: " . $e->getMessage() . "<br>📋 Stack trace: <pre>" . $e->getTraceAsString() . "</pre>";
+    }
+});
