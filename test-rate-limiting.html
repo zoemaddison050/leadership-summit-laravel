@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Payment Rate Limiting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .error {
+            border-left-color: #dc3545;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            border-left-color: #28a745;
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Rate Limiting Test</h1>
+        <p>This page tests the payment rate limiting fixes to ensure proper UI responses instead of JSON errors.</p>
+        
+        <div class="test-section">
+            <h3>1. Setup Registration Data</h3>
+            <p>First, we need to set up registration data in the session.</p>
+            <button onclick="setupRegistration()">Setup Registration Data</button>
+            <div id="setup-output" class="output" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Test Payment Confirmation (Normal)</h3>
+            <p>Test normal payment confirmation - should show countdown UI.</p>
+            <button onclick="testPaymentConfirmation()">Test Payment Confirmation</button>
+            <div id="payment-output" class="output" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Test Rate Limiting</h3>
+            <p>Test rate limiting by making multiple rapid requests.</p>
+            <button onclick="testRateLimit()">Test Rate Limiting (Multiple Requests)</button>
+            <div id="rate-limit-output" class="output" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Test AJAX vs Regular Requests</h3>
+            <p>Test different types of requests to see response format.</p>
+            <button onclick="testAjaxRequest()">Test AJAX Request</button>
+            <button onclick="testRegularRequest()">Test Regular Request</button>
+            <div id="ajax-output" class="output" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        async function setupRegistration() {
+            const output = document.getElementById('setup-output');
+            output.style.display = 'block';
+            output.className = 'output';
+            output.textContent = 'Setting up registration data...';
+
+            try {
+                const response = await fetch('/test/setup-registration/1');
+                if (response.ok) {
+                    const text = await response.text();
+                    output.className = 'output success';
+                    output.textContent = 'Registration data setup successful!\n' + text;
+                } else {
+                    output.className = 'output error';
+                    output.textContent = 'Error setting up registration: ' + response.status;
+                }
+            } catch (error) {
+                output.className = 'output error';
+                output.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testPaymentConfirmation() {
+            const output = document.getElementById('payment-output');
+            output.style.display = 'block';
+            output.className = 'output';
+            output.textContent = 'Testing payment confirmation...';
+
+            try {
+                const formData = new FormData();
+                formData.append('_token', getCSRFToken());
+                
+                const response = await fetch('/events/1/payment/confirm', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.redirected) {
+                    output.className = 'output success';
+                    output.textContent = 'Payment confirmation redirect successful!\nRedirected to: ' + response.url;
+                } else if (response.ok) {
+                    const text = await response.text();
+                    output.className = 'output success';
+                    output.textContent = 'Payment confirmation successful!\nResponse: ' + text.substring(0, 200) + '...';
+                } else {
+                    output.className = 'output error';
+                    output.textContent = 'Error: ' + response.status + ' - ' + await response.text();
+                }
+            } catch (error) {
+                output.className = 'output error';
+                output.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testRateLimit() {
+            const output = document.getElementById('rate-limit-output');
+            output.style.display = 'block';
+            output.className = 'output';
+            output.textContent = 'Testing rate limiting with multiple requests...\n';
+
+            for (let i = 1; i <= 12; i++) {
+                try {
+                    const formData = new FormData();
+                    formData.append('_token', getCSRFToken());
+                    
+                    const startTime = Date.now();
+                    const response = await fetch('/events/1/payment/confirm', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const endTime = Date.now();
+
+                    const responseTime = endTime - startTime;
+                    
+                    if (response.status === 429) {
+                        output.textContent += `Request ${i}: RATE LIMITED (${response.status}) - Response time: ${responseTime}ms\n`;
+                        
+                        // Check if it's JSON or redirect
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            const json = await response.json();
+                            output.textContent += `  JSON Response: ${JSON.stringify(json)}\n`;
+                        } else {
+                            output.textContent += `  Non-JSON Response (likely redirect)\n`;
+                        }
+                        break;
+                    } else if (response.redirected) {
+                        output.textContent += `Request ${i}: Redirected to ${response.url} - Response time: ${responseTime}ms\n`;
+                    } else {
+                        output.textContent += `Request ${i}: ${response.status} - Response time: ${responseTime}ms\n`;
+                    }
+                    
+                    // Small delay between requests
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                } catch (error) {
+                    output.textContent += `Request ${i}: Error - ${error.message}\n`;
+                }
+            }
+        }
+
+        async function testAjaxRequest() {
+            const output = document.getElementById('ajax-output');
+            output.style.display = 'block';
+            output.className = 'output';
+            output.textContent = 'Testing AJAX request (expects JSON)...\n';
+
+            try {
+                const formData = new FormData();
+                formData.append('_token', getCSRFToken());
+                
+                const response = await fetch('/events/1/payment/confirm', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: formData
+                });
+
+                const contentType = response.headers.get('content-type');
+                output.textContent += `Status: ${response.status}\nContent-Type: ${contentType}\n`;
+
+                if (contentType && contentType.includes('application/json')) {
+                    const json = await response.json();
+                    output.textContent += `JSON Response: ${JSON.stringify(json, null, 2)}\n`;
+                } else {
+                    const text = await response.text();
+                    output.textContent += `Text Response: ${text.substring(0, 200)}...\n`;
+                }
+            } catch (error) {
+                output.className = 'output error';
+                output.textContent += 'Error: ' + error.message;
+            }
+        }
+
+        async function testRegularRequest() {
+            const output = document.getElementById('ajax-output');
+            output.style.display = 'block';
+            output.className = 'output';
+            output.textContent += '\nTesting Regular request (expects HTML)...\n';
+
+            try {
+                const formData = new FormData();
+                formData.append('_token', getCSRFToken());
+                
+                const response = await fetch('/events/1/payment/confirm', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+                    },
+                    body: formData
+                });
+
+                const contentType = response.headers.get('content-type');
+                output.textContent += `Status: ${response.status}\nContent-Type: ${contentType}\n`;
+
+                if (response.redirected) {
+                    output.textContent += `Redirected to: ${response.url}\n`;
+                } else {
+                    const text = await response.text();
+                    output.textContent += `Response: ${text.substring(0, 200)}...\n`;
+                }
+            } catch (error) {
+                output.className = 'output error';
+                output.textContent += 'Error: ' + error.message;
+            }
+        }
+
+        function getCSRFToken() {
+            // Try to get CSRF token from meta tag
+            const metaToken = document.querySelector('meta[name="csrf-token"]');
+            if (metaToken) {
+                return metaToken.getAttribute('content');
+            }
+            
+            // Fallback - you might need to set this manually
+            return 'test-token';
+        }
+    </script>
+</body>
+</html>
