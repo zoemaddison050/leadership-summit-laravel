@@ -32,27 +32,21 @@ class RegistrationController extends Controller
     public function showDirectForm(Event $event, Request $request)
     {
         try {
-            // Get available tickets for the event
-            $tickets = $event->tickets()
+            // Get tickets for the event and filter using the model's isAvailable method
+            $allTickets = $event->tickets()
                 ->where('is_active', true)
-                ->where(function ($query) {
-                    $query->where('available', '>', 0)
-                        ->orWhereNull('available'); // Handle NULL available field
-                })
-                ->where(function ($query) {
-                    $query->whereNull('sale_start')
-                        ->orWhere('sale_start', '<=', now());
-                })
-                ->where(function ($query) {
-                    $query->whereNull('sale_end')
-                        ->orWhere('sale_end', '>=', now());
-                })
                 ->get();
+
+            // Filter to only available tickets using the model method
+            $tickets = $allTickets->filter(function ($ticket) {
+                return $ticket->isAvailable();
+            });
 
             if ($tickets->isEmpty()) {
                 Log::warning('No tickets available for event', [
                     'event_id' => $event->id,
-                    'event_title' => $event->title
+                    'event_title' => $event->title,
+                    'total_tickets' => $allTickets->count()
                 ]);
 
                 return redirect()->route('events.show', $event->slug)
@@ -509,7 +503,15 @@ class RegistrationController extends Controller
      */
     public function create(Event $event)
     {
-        $tickets = $event->tickets()->where('available', '>', 0)->get();
+        // Get tickets for the event and filter using the model's isAvailable method
+        $allTickets = $event->tickets()
+            ->where('is_active', true)
+            ->get();
+
+        // Filter to only available tickets using the model method
+        $tickets = $allTickets->filter(function ($ticket) {
+            return $ticket->isAvailable();
+        });
 
         if ($tickets->isEmpty()) {
             return redirect()->route('events.show', $event->slug)
@@ -523,9 +525,9 @@ class RegistrationController extends Controller
      * Show the direct registration form (no authentication required).
      * @deprecated Use showDirectForm instead
      */
-    public function showRegistrationForm(Event $event)
+    public function showRegistrationForm(Event $event, Request $request)
     {
-        return $this->showDirectForm($event);
+        return $this->showDirectForm($event, $request);
     }
 
     /**
