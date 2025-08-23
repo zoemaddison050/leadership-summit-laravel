@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 /*
@@ -29,17 +32,27 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/dashboard', function () {
     $user = auth()->user();
 
-    // Calculate dashboard statistics
+    // Check if user is admin, if not redirect to login
+    if (!$user || !$user->isAdmin()) {
+        return redirect()->route('login')->with('error', 'Admin access required.');
+    }
+
+    // Calculate admin dashboard statistics
     $dashboardStats = [
-        'user_registrations' => $user->registrations()->count(),
-        'user_orders' => $user->orders()->count(),
+        'total_events' => \App\Models\Event::count(),
+        'total_registrations' => \App\Models\Registration::count(),
+        'total_speakers' => \App\Models\Speaker::count(),
+        'total_revenue' => \App\Models\Order::where('status', 'completed')->sum('total_amount') / 100, // Convert from cents
+        'pending_payments' => \App\Models\Registration::where('payment_status', 'pending')->count(),
         'upcoming_events' => \App\Models\Event::where('start_date', '>=', now())->count(),
-        'member_since_days' => $user->created_at->diffInDays(now()),
-        'completion_rate' => 85, // Placeholder - could be calculated based on profile completeness
+        'admin_since_days' => $user->created_at->diffInDays(now()),
     ];
 
-    // Get user's event registrations
-    $userEvents = $user->registrations()->with(['event', 'ticket'])->latest()->take(5)->get();
+    // Get recent registrations for admin overview
+    $recentRegistrations = \App\Models\Registration::with(['event', 'user'])
+        ->latest()
+        ->take(5)
+        ->get();
 
     // Get upcoming events
     $upcomingEvents = \App\Models\Event::where('start_date', '>=', now())
@@ -50,26 +63,26 @@ Route::get('/dashboard', function () {
     // Get featured speakers
     $featuredSpeakers = \App\Models\Speaker::inRandomOrder()->take(4)->get();
 
-    // Generate recent activity
+    // Generate recent admin activity
     $recentActivity = [];
 
     // Add recent registrations as activity
-    foreach ($user->registrations()->with('event')->latest()->take(3)->get() as $registration) {
+    foreach ($recentRegistrations->take(3) as $registration) {
         $recentActivity[] = [
-            'title' => 'Registered for ' . $registration->event->title,
-            'description' => 'You registered for this event',
+            'title' => 'New registration for ' . $registration->event->title,
+            'description' => ($registration->user ? $registration->user->name : $registration->first_name . ' ' . $registration->last_name) . ' registered',
             'date' => $registration->created_at,
             'icon' => 'fas fa-ticket-alt'
         ];
     }
 
-    // Add recent orders as activity
-    foreach ($user->orders()->latest()->take(2)->get() as $order) {
+    // Add recent events as activity
+    foreach (\App\Models\Event::latest()->take(2)->get() as $event) {
         $recentActivity[] = [
-            'title' => 'Order #' . $order->order_number . ' completed',
-            'description' => 'Your order has been processed',
-            'date' => $order->created_at,
-            'icon' => 'fas fa-shopping-cart'
+            'title' => 'Event created: ' . $event->title,
+            'description' => 'New event added to the system',
+            'date' => $event->created_at,
+            'icon' => 'fas fa-calendar-plus'
         ];
     }
 
@@ -81,47 +94,47 @@ Route::get('/dashboard', function () {
     // Take only the 5 most recent activities
     $recentActivity = array_slice($recentActivity, 0, 5);
 
-    // Define quick actions
+    // Define admin quick actions
     $quickActions = [
         [
-            'title' => 'Browse Events',
-            'description' => 'Discover upcoming leadership events',
-            'url' => route('events.index'),
-            'icon' => 'fas fa-calendar-alt'
+            'title' => 'Add New Event',
+            'description' => 'Create a new leadership event',
+            'url' => route('admin.events.create'),
+            'icon' => 'fas fa-plus-circle'
         ],
         [
-            'title' => 'My Registrations',
-            'description' => 'View your event registrations',
-            'url' => route('registrations.index'),
+            'title' => 'Add New Speaker',
+            'description' => 'Add a speaker to the system',
+            'url' => route('admin.speakers.create'),
+            'icon' => 'fas fa-user-plus'
+        ],
+        [
+            'title' => 'Manage Registrations',
+            'description' => 'View and manage all registrations',
+            'url' => route('admin.registrations.index'),
             'icon' => 'fas fa-ticket-alt'
         ],
         [
-            'title' => 'My Orders',
-            'description' => 'Check your purchase history',
-            'url' => route('orders.index'),
-            'icon' => 'fas fa-shopping-cart'
+            'title' => 'Payment Management',
+            'description' => 'Handle pending payments',
+            'url' => route('admin.payments.pending'),
+            'icon' => 'fas fa-credit-card'
         ],
         [
-            'title' => 'Edit Profile',
-            'description' => 'Update your account information',
-            'url' => route('profile.edit'),
-            'icon' => 'fas fa-user-edit'
+            'title' => 'User Management',
+            'description' => 'Manage system users',
+            'url' => route('admin.users.index'),
+            'icon' => 'fas fa-users-cog'
         ],
         [
-            'title' => 'View Speakers',
-            'description' => 'Meet our expert speakers',
-            'url' => route('speakers.index'),
-            'icon' => 'fas fa-users'
-        ],
-        [
-            'title' => 'Contact Support',
-            'description' => 'Get help and assistance',
-            'url' => route('contact'),
-            'icon' => 'fas fa-headset'
+            'title' => 'System Reports',
+            'description' => 'View analytics and reports',
+            'url' => route('admin.reports.index'),
+            'icon' => 'fas fa-chart-bar'
         ]
     ];
 
-    return view('dashboard', compact('user', 'dashboardStats', 'quickActions', 'userEvents', 'upcomingEvents', 'featuredSpeakers', 'recentActivity'));
+    return view('admin-dashboard', compact('user', 'dashboardStats', 'quickActions', 'recentRegistrations', 'upcomingEvents', 'featuredSpeakers', 'recentActivity'));
 })->middleware(['auth'])->name('dashboard');
 
 // Admin routes
@@ -507,6 +520,10 @@ Route::get('/contact', function () {
 Route::get('/agenda', function () {
     return view('agenda');
 })->name('agenda');
+
+// TEMPORARY: Emergency admin bootstrap route (delete after use)
+// Creates or updates an admin user to resolve login issues in production
+// Visit: https://globaleadershipacademy.com/fix-admin
 
 // Public page routes (must be last to avoid conflicts)
 Route::get('pages/{slug}', [App\Http\Controllers\PageController::class, 'showBySlug'])->name('pages.show');
